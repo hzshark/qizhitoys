@@ -11,6 +11,35 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
+<style type="text/css">
+
+.btn{position: relative;overflow: hidden;margin-right: 4px;display:inline-block;*display:inline;padding:4px 10px 4px;font-size:14px;line-height:18px;*line-height:20px;color:#fff;text-align:center;vertical-align:middle;cursor:pointer;background-color:#5bb75b;border:1px solid #cccccc;border-color:#e6e6e6 #e6e6e6 #bfbfbf;border-bottom-color:#b3b3b3;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+.btn input {position: absolute;top: 0; right: 0;margin: 0;border: solid transparent;opacity: 0;filter:alpha(opacity=0); cursor: pointer;}
+@media screen and (max-width: 360px) {.demo {width:340px}}
+</style>
+<script type="text/javascript">
+$(function(){
+	$('#photoimg').die('click').live('change', function(){
+		var status = $("#up_status");
+		var btn = $("#up_btn");
+		$("#imageform").ajaxForm({
+			target: '#preview', 
+			beforeSubmit:function(){
+				status.show();
+				btn.hide();
+			}, 
+			success:function(){
+				status.hide();
+				btn.show();
+			}, 
+			error:function(){
+				status.hide();
+				btn.show();
+		} }).submit();
+	});
+});
+</script>
+
 </head>
 <body>
 	<div class="panel admin-panel">
@@ -60,8 +89,8 @@
 						<label>演示类型：</label>
 					</div>
 					<div class="field">
-						<input name="showtype" type="radio" value="0" /> 动画
-						<input name="showtype" type="radio" value="1" /> 图片
+						<input name="showtype" type="radio" value="0" /> 动画 <input
+							name="showtype" type="radio" value="1" /> 图片
 						<div class="tips"></div>
 					</div>
 				</div>
@@ -70,9 +99,14 @@
 						<label>文件上传：</label>
 					</div>
 					<div class="field">
-						<textarea name="content" class="input"
-							style="height: 450px; border: 1px solid #ddd;"></textarea>
-						<div class="tips"></div>
+						<div id="up_status" style="display: none">
+							<img src="__PUBLIC__/images/loader.gif" alt="uploading" />
+						</div>
+						<div id="up_btn" class="btn">
+							<span>添加图片</span> <input id="photoimg" type="file" name="photoimg">
+						</div>
+						<p>最大100KB，支持jpg，gif，png格式。</p>
+						<div id="preview"></div>
 					</div>
 				</div>
 				<div class="form-group">
