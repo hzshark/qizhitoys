@@ -7,7 +7,7 @@ use Think\Controller;
 class IndexController extends Controller
 {
 
-    public function index()
+    public function Index()
     {
         header("Content-Type:text/html; charset=utf-8");
         $this->display('index', 'utf-8');

@@ -41,7 +41,7 @@ class LoginController extends Controller
     
         return $IPaddress;
     }
-    public function index()
+    public function Index()
     {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
@@ -58,7 +58,7 @@ class LoginController extends Controller
                 $this->error('登入失败');
             }
         }else {
-            $this->display('Login/index', 'utf-8');
+            $this->display('Login/Index', 'utf-8');
         }
     }
     
