@@ -17,6 +17,7 @@ return array(
     'SESSION_OPTIONS'=> array(
         'expire'=>'3600'
     ),
+    'APP_USE_NAMESPACE'     =>  true,    // 应用类库是否使用命名空间 3.2.1新增
     'APP_DEBUG' => true, //调试模式开关
     'TOKEN_ON' => true, //是否开启令牌验证
     'TOKEN_NAME'=>'__hash__',    // 令牌验证的表单隐藏字段名称
@@ -51,7 +52,7 @@ return array(
     //    'TMPL_EXCEPTION_FILE'=>'./App/Tpl/Public/error.html', // 定义公共错误模板
 
     /* 网站设置 */
-    'SITE_TITLE' => 'CarGps', //网站title
+    'SITE_TITLE' => 'QZToys', //网站title
 
     /* 网站日志设置 */
     'WEB_LOG_RECORD' => false, // 默认不记录日志
