@@ -53,7 +53,8 @@ return array(
 
     /* 网站设置 */
     'SITE_TITLE' => 'QZToys', //网站title
-
+'UPLOAD_PATH' => './Uploads/',
+    'UPLOAD_MAX_SIZE' => '3145728',
     /* 网站日志设置 */
     'WEB_LOG_RECORD' => false, // 默认不记录日志
     'LOG_FILE_SIZE' => 2097152, // 日志文件大小限制

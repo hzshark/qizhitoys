@@ -3,6 +3,9 @@ namespace Home\Controller;
 
 use Home\Common\CommonController;
 use Think\Controller;
+use Home\Service\Series;
+use Home\Service\Help;
+use Home\Service\User;
 
 class IndexController extends Controller
 {
@@ -16,58 +19,45 @@ class IndexController extends Controller
     public function Help()
     {
         header("Content-Type:text/html; charset=utf-8");
+        $help = new Help();
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $conent = isset($_POST['content']) ? $_POST['content'] : '';
+            $help->saveHelp($id, $conent);
+        }
+        $infos = $help->showHelp();
+        $this->assign("id", $infos['id']);
+        $this->assign("info", $infos['info']);
         $this->display('help', 'utf-8');
     }
 
     public function Seriesmanage()
     {
         header("Content-Type:text/html; charset=utf-8");
+        $series = new Series();
+        $result = $series->getSeries();
+        // var_dump($result);
+        $this->assign("serieslist", $result);
         $this->display('Index/seriesmanage', 'utf-8');
     }
-    
-    public function uploadify()
+
+    public function AddSeries()
     {
-        if (!empty($_FILES)) {
-            import("@.ORG.UploadFile");
-            $upload = new \Org\UploadFile();
-            $upload->maxSize = 2048000;
-            $upload->allowExts = array('jpg','jpeg','gif','png');
-            $upload->savePath = "./Public/images/";
-            $upload->thumb = true; //设置缩略图
-            $upload->imageClassPath = "@.ORG.Image";
-            $upload->thumbPrefix = "130_,75_,24_"; //生成多张缩略图
-            $upload->thumbMaxWidth = "130,75,24";
-            $upload->thumbMaxHeight = "130,75,24";
-            $upload->saveRule = uniqid; //上传规则
-            $upload->thumbRemoveOrigin = true; //删除原图
-            if(!$upload->upload()){
-                $this->error($upload->getErrorMsg());//获取失败信息
-            } else {
-                $info = $upload->getUploadFileInfo();//获取成功信息
-            }
-            echo $info[0]['savename'];    //返回文件名给JS作回调用
-        }
-    }
-    
-    public function AddSeries(){
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $name = isset($_POST['name']) ? $_POST['name'] : '';
             $note = isset($_POST['note']) ? $_POST['note'] : '';
             $status = isset($_POST['status']) ? $_POST['status'] : 0;
-            $imagedata = isset($_POST['img']) ? $_POST['img'] : '';
-            
-            $result = true;
-            if ($result) {
+            $series = new Series();
+            $result = $series->seriesUploadify($name, $status, $note);
+            if (empty($result)) {
                 // 设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
-                $this->success('登入成功,页面调转中......', U("Home/Index"),1);
+                $this->success('登入成功,页面调转中......', U("Index/seriesmanage"), 5);
             } else {
                 // 错误页面的默认跳转页面是返回前一页，通常不需要设置
-                $this->error('登入失败');
+                $this->error($result);
             }
         }
-        
-        $this->redirect('Index/Seriesmanage', 'utf-8');
     }
 
     public function Cartoonlist()
@@ -79,6 +69,21 @@ class IndexController extends Controller
     public function Restpass()
     {
         header("Content-Type:text/html; charset=utf-8");
+        $err = '';
+        if (IS_POST) {
+            $userid = isset($_POST['userid']) ? $_POST['userid'] : '';
+            $mpass = isset($_POST['mpass']) ? $_POST['mpass'] : '';
+            $newpass = isset($_POST['newpass']) ? $_POST['newpass'] : '';
+            $renewpass = isset($_POST['renewpass']) ? $_POST['renewpass'] : 0;
+            if ($newpass !== $renewpass){
+                $err = "两次输入密码不一致!";
+            }
+            $user = new User();
+            $user->resetPassword($userid, $newpass);
+        }
+        $this->assign("username",session('username'));
+        $this->assign("userid",session('userid'));
+        $this->assign("error_message",$err);
         $this->display('restpass', 'utf-8');
     }
 

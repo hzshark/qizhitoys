@@ -15,13 +15,14 @@
 <div class="panel admin-panel">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 帮助信息</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">
+    <form method="post" class="form-x" action="Help">
+    <input type="hidden" value="{$id}" name="id" />
       <div class="form-group">
         <div class="label">
           <label>内容：</label>
         </div>
         <div class="field">
-          <textarea name="content"></textarea>
+          <textarea name="content">{$info}</textarea>
           <div class="tips"></div>
         </div>
       </div>

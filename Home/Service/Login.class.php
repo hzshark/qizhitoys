@@ -21,12 +21,10 @@ class Login
         $result = $login->where($where)
             ->field('userid,username,nickname,password,lastdate,lastip')
             ->find();
-        
-        
         // 验证用户名 对比 密码
         if ($result && $result['password'] == $result['password']) {
             // 存储session
-            session('uid', $result['userid']); // 当前用户id
+            session('userid', $result['userid']); // 当前用户id
             session('nickname', $result['nickname']); // 当前用户昵称
             session('username', $result['username']); // 当前用户名
             session('lastdate', $result['lastdate']); // 上一次登录时间

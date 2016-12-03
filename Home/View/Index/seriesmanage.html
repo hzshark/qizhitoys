@@ -11,71 +11,32 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/jquery.wallform.js"></script> 
 <script type="text/javascript">
-		function del(id, mid) {
-			if (confirm("您确定要删除吗?")) {
+	//建立一個可存取到該file的url
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	$(function() {
+		$("#img").click(function() {
+			$("#imagefile").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+			$("#imagefile").on("change", function() {
+				var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+				if (objUrl) {
+					$("#img").attr("src", objUrl); //将图片路径存入src中，显示出图片
+				}
+			});
+		});
+	});
 
-			}
-		}
-		$(function(){ 
-		    $('#photoimg').die('click').live('change', function(){ 
-		        var status = $("#up_status"); 
-		        var btn = $("#up_btn"); 
-		        $("#imageform").ajaxForm({ 
-		            target: '#preview',  
-		            beforeSubmit:function(){ 
-		                status.show(); 
-		                btn.hide(); 
-		            },  
-		            success:function(){ 
-		                status.hide(); 
-		                btn.show(); 
-		            },  
-		            error:function(){ 
-		                status.hide(); 
-		                btn.show(); 
-		        } }).submit(); 
-		    }); 
-		}); 
-		
-		$(function(){ 
-		    var options = {  
-		        beforeSubmit:  showRequest,  //提交前处理 
-		        success:       showResponse,  //处理完成 
-		        resetForm: true,  
-		        dataType:  'json'  
-		    };  
-		  
-		    $('#my_form').submit(function() {  
-		        $(this).ajaxSubmit(options);  
-		    });  
-		}); 
-		 
-		function showRequest(formData, jqForm, options) {  
-		    var uname = $("#uname").val(); 
-		    if(uname==""){ 
-		        $("#msg").html("姓名不能为空！"); 
-		        return false; 
-		    } 
-		     
-		    var age = $("#age").val(); 
-		    if(age==""){ 
-		        $("#msg").html("年龄不能为空！"); 
-		        return false; 
-		    } 
-		    $("#msg").html("正在提交..."); 
-		     
-		     
-		    return true;  
-		}  
-		  
-		function showResponse(responseText, statusText)  {  
-		    $("#msg").html('提交成功'); 
-		    var sex = responseText.sex==1?"男":"女"; 
-		    $("#output").html("姓名："+responseText.uname+" 性别："+sex+" 年龄："+responseText.age); 
-		}
-	</script>
+</script>
 
 </head>
 <body>
@@ -99,58 +60,30 @@
 				<th width="15%">操作</th>
 			</tr>
 
-			<tr>
-				<td>1</td>
-				<td><img src="__PUBLIC__/images/11.jpg" alt="" width="120"
-					height="50" /></td>
-				<td>首页焦点图</td>
-				<td>描述文字....</td>
-				<td>1</td>
+		<foreach name="serieslist" item="vo" >
+		    <tr>
+		        <td>{$vo.id}</td>
+				<td><img src="__ROOT__/{$vo.filepath}{$vo.m_image}" alt="" width="100" height="50" /></td>
+				<td>{$vo.name}</td>
+				<td>{$vo.note}</td>
+				<td>{$vo.status}</td>
 				<td><div class="button-group">
 						<a class="button border-main" href="#add"><span
 							class="icon-edit"></span> 修改</a> <a class="button border-red"
 							href="javascript:void(0)" onclick="return del(1,1)"><span
 							class="icon-trash-o"></span> 删除</a>
 					</div></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td><img src="__PUBLIC__/images/11.jpg" alt="" width="120"
-					height="50" /></td>
-				<td>首页焦点图</td>
-				<td>描述文字....</td>
-				<td>1</td>
-				<td><div class="button-group">
-						<a class="button border-main" href="#add"><span
-							class="icon-edit"></span> 修改</a> <a class="button border-red"
-							href="javascript:void(0)" onclick="return del(1,1)"><span
-							class="icon-trash-o"></span> 删除</a>
-					</div></td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td><img src="__PUBLIC__/images/11.jpg" alt="" width="120"
-					height="50" /></td>
-				<td>首页焦点图</td>
-				<td>描述文字....</td>
-				<td>1</td>
-				<td><div class="button-group">
-						<a class="button border-main" href="#add"><span
-							class="icon-edit"></span> 修改</a> <a class="button border-red"
-							href="javascript:void(0)" onclick="return del(1,1)"><span
-							class="icon-trash-o"></span> 删除</a>
-					</div></td>
-			</tr>
-
+		    </tr>
+		    </foreach>
 		</table>
 	</div>
-	
+
 	<div class="panel admin-panel margin-top" id="add">
 		<div class="panel-head">
 			<strong><span class="icon-pencil-square-o"></span> 增加内容</strong>
 		</div>
 		<div class="body-content">
-			<form method="post" class="form-x" action="Index/AddSeries">
+			<form method="POST" class="form-x" name="addseries" action="AddSeries"  enctype="multipart/form-data">
 				<div class="form-group">
 					<div class="label">
 						<label>名称：</label>
@@ -161,23 +94,22 @@
 						<div class="tips"></div>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<div class="label">
 						<label>图片：</label>
 					</div>
 					<div class="field">
-						<input type="text" id="url1" name="img" class="input tips"
-							style="width: 25%; float: left;" value="" data-toggle="hover"
-							data-place="right" data-image="" /> <input type="button"
-							class="button bg-blue margin-left" id="image1" value="+ 浏览上传"
-							style="float: left;">
+						<div class="input tips" style="width: 25%; float: left;">
+							<img id="img" src="__PUBLIC__/images/11.jpg" width="150"
+								height="150" border="0" />
+								<input id="imagefile" name="imagefile" accept="image/*" type="file" style="display: none"/>
+						</div>
 						<div class="tipss">图片尺寸：1920*500</div>
+
 					</div>
 				</div>
-				    <div class="avatar_box"> <img id="image" src="/Public/images/130_{$u.photo}" width="130" height="130" border="0" />
-        <div class="upload_avatar"><input id="file_upload" name="file_upload" type="file" multiple="true" value="" /></div>
-    </div>
+
 				<div class="form-group">
 					<div class="label">
 						<label>描述：</label>
