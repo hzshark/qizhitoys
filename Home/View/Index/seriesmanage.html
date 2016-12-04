@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
+<script src="__PUBLIC__/js/layer.js"></script>
 <script type="text/javascript">
 	//建立一個可存取到該file的url
 	function getObjectURL(file) {
@@ -34,6 +35,17 @@
 				}
 			});
 		});
+
+		$("#addbut").click(function() {
+			//页面层
+			layer.open({
+			type: 1,
+			title :false,
+			skin: 'layui-layer-rim', //加上边框
+			area: ['600px', '620px'], //宽高
+			content: $("#add")
+			});
+		});
 	});
 
 </script>
@@ -45,8 +57,8 @@
 			<strong class="icon-reorder"> 内容列表</strong>
 		</div>
 		<div class="padding border-bottom">
-			<button type="button" class="button border-yellow"
-				onclick="window.location.href='#add'">
+			<button type="button" class="button border-yellow" id="addbut" />
+				<!-- onclick="window.location.href='#add'"> -->
 				<span class="icon-plus-square-o"></span> 添加内容
 			</button>
 		</div>
@@ -78,7 +90,7 @@
 		</table>
 	</div>
 
-	<div class="panel admin-panel margin-top" id="add">
+	<div class="panel admin-panel margin-top" id="add"  style="display: none">
 		<div class="panel-head">
 			<strong><span class="icon-pencil-square-o"></span> 增加内容</strong>
 		</div>
