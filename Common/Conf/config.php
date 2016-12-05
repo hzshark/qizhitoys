@@ -9,6 +9,7 @@ return array(
     'DB_PREFIX'         =>  '',      	// 数据库表前缀
     'DB_DEBUG'  		=>  true, 			// 数据库调试模式 开启后可以记录SQL日志
     'SHOW_PAGE_TRACE'   =>	true,   		// 显示页面Trace信息
+    'APP_GROUP_LIST' => 'Home,Api', //项目分组设定
     'DEFAULT_MODULE'     => 'Home', //默认模块
 //     'DEFAULT_MODULE'       =>    'Admin',
     // 设置禁止访问的模块列表
