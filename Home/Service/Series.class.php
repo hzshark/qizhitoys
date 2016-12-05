@@ -36,6 +36,12 @@ class Series
         return $series->order('indate')->limit(20)->select();
     }
 
+    public function getAllValidSeries(){
+        $series = D("Series");
+
+        return $series ->where('status=1')->order('indate')->select();
+    }
+
     public function seriesUploadify($name, $status, $note='', $thumbWidth = '64' , $thumbHeight = '64')
     {
         if ($this->check_name_exist($name)){

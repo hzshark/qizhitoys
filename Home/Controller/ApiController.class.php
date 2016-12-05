@@ -2,14 +2,18 @@
 namespace Home\Controller;
 
 use Think\Controller;
-use Home\Service\Login;
+use Home\Service\Version;
+use Home\Service\Series;
 
 class ApiController extends Controller
 {
 
     private $IS_ISO = '1';
+
     private $IS_ANDROID = '0';
+
     private $SUCCESS = 0;
+
     private $ERROR = 0;
 
     private function getIPaddress()
@@ -47,26 +51,59 @@ class ApiController extends Controller
 
         return $IPaddress;
     }
+
     public function GetVersion()
     {
         $ret = array(
-            'status'=>$this->ERROR,
+            'status' => $this->ERROR,
             'msg' => '查询失败!',
-            "content"
+            "content" => array()
         );
-        $content =array(
-            "version"=>'1.0.0',
-            "isforce"=>false,
-            "versioncode"=>1,
-            "filepath"=>"",
-            "verinfo"=>'1,更新了aaa'
-        );
+
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $device = isset($_POST['device']) ? $_POST['device'] : $this->IS_ANDROID;
-
+            $ver = new Version();
+            $info = $ver->queryInfoByType($device);
+            $content = array(
+                "version" => $info['version'],
+                "isforce" => $info['isforce'] === 1 ? true : false,
+                "versioncode" => $info['versioncode'],
+                "filepath" => $info['filepath'],
+                "verinfo" => $info['verinfo']
+            );
+            $ret["status"] = $this->SUCCESS;
+            $ret["msg"] = "查询成功！";
+            $ret["content"] = $content;
         }
         $this->ajaxReturn($ret);
     }
 
+    public function GetMainTab()
+    {
+        $ret = array(
+            'status' => $this->ERROR,
+            'msg' => '查询失败!',
+            "content" => array()
+        );
+
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $series = new Series();
+            $infos = $series->getAllValidSeries();
+            foreach ($infos as $info) {
+                $content  [] = array(
+                    "id"=>$info["id"],
+                    "name"=>$info["name"],
+                    "sicon"=>__ROOT__.$info["filepath"].$info["m_image"],
+                    "url"=>__ROOT__.$info["filepath"].$info["image_name"],
+                    "type"=>$info["show_type_id"],
+                );
+            }
+            $ret["status"] = $this->SUCCESS;
+            $ret["msg"] = "查询成功！";
+            $ret["content"] = $content;
+        }
+        $this->ajaxReturn($ret);
+    }
 }
