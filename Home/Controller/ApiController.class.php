@@ -14,7 +14,7 @@ class ApiController extends Controller
 
     private $SUCCESS = 0;
 
-    private $ERROR = 0;
+    private $ERROR = 1;
 
     private function getIPaddress()
 
