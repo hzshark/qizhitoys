@@ -94,13 +94,13 @@ class ApiController extends Controller
             $series = new Series();
             $infos = $series->getAllValidSeries();
             foreach ($infos as $info) {
-                $content  [] = array(
-                    "id"=>$info["id"],
-                    "name"=>$info["name"],
-                    "sicon"=>__ROOT__.$info["filepath"].$info["m_image"],
-                    "url"=>__ROOT__.$info["filepath"].$info["image_name"],
-                    "type"=>$info["type_id"],
-                    "show_type"=>$info["show_type_id"],
+                $content[] = array(
+                    "id" => $info["id"],
+                    "name" => $info["name"],
+                    "sicon" => __ROOT__ . $info["filepath"] . $info["m_image"],
+                    "url" => __ROOT__ . $info["filepath"] . $info["image_name"],
+                    "type" => $info["type_id"],
+                    "show_type" => $info["show_type_id"]
                 );
             }
             $ret["status"] = $this->SUCCESS;
@@ -109,7 +109,7 @@ class ApiController extends Controller
         }
         $this->ajaxReturn($ret);
     }
-    
+
     public function getToysList()
     {
         $ret = array(
@@ -117,29 +117,35 @@ class ApiController extends Controller
             'msg' => '查询失败!',
             "content" => array()
         );
-    
+
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $toys = new Toys();
-            $infos = $series->getAllValidSeries();
+            $infos = $toys->getCompagesToysById($id);
             foreach ($infos as $info) {
-                $content  [] = array(
-                    "id"=>$info["id"],
-                    "name"=>$info["name"],
-                    "sicon"=>__ROOT__.$info["filepath"].$info["m_image"],
-                    "url"=>__ROOT__.$info["filepath"].$info["image_name"],
-                    "type"=>$info["type_id"],
-                    "show_type"=>$info["show_type_id"],
+                $toyid = $info["id"];
+                $details = $toys->getCompagesToysDetail($toyid);
+                $showurl = array();
+                foreach ($details as $detail) {
+                    $showurl[] = __ROOT__ . $info["save_path"] . $detail["file_name"];
+                }
+                $content[] = array(
+                    "id" => $toyid,
+                    "name" => $info["name"],
+                    "preview" => __ROOT__ . $info["save_path"] . $info["image_name"],
+                    "url" => $showurl,
+                    "type" => $info["show_type"]
                 );
             }
+
             $ret["status"] = $this->SUCCESS;
             $ret["msg"] = "查询成功！";
             $ret["content"] = $content;
         }
         $this->ajaxReturn($ret);
     }
-    
+
     public function GetSplash()
     {
         $ret = array(
@@ -147,20 +153,49 @@ class ApiController extends Controller
             'msg' => '查询失败!',
             "content" => array()
         );
-    
+
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $home = new Home();
             $info = $home->getHomePage();
-            
-                $content = array(
-                    "id"=>$info["id"],
-                    "name"=>$info["name"],
-                    "url"=>__ROOT__.$info["filepath"].$info["filename"],
-                    );
-                    
-            
+
+            $content = array(
+                "id" => $info["id"],
+                "name" => $info["name"],
+                "url" => __ROOT__ . $info["filepath"] . $info["filename"]
+            );
+
+            $ret["status"] = $this->SUCCESS;
+            $ret["msg"] = "查询成功！";
+            $ret["content"] = $content;
+        }
+        $this->ajaxReturn($ret);
+    }
+
+    public function GetShoppingTab()
+    {
+        $ret = array(
+            'status' => $this->ERROR,
+            'msg' => '查询失败!',
+            "content" => array()
+        );
+
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : 0;
+            $toys = new Toys();
+            $infos = $toys->getColumn($id);
+            foreach ($infos as $info) {
+                $content[] = array(
+                    "parent_id" => $id,
+                    "id" => $info["id"],
+                    "name" => $info["name"],
+                    "sicon" => __ROOT__ . $info["filepath"] . $info["sicon"],
+                    "url" => __ROOT__ . $info["filepath"] . $info["image_name"]
+                );
+            }
+
             $ret["status"] = $this->SUCCESS;
             $ret["msg"] = "查询成功！";
             $ret["content"] = $content;

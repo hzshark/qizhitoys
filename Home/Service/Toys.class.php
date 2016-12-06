@@ -3,17 +3,31 @@ namespace Home\Service;
 
 class Toys
 {
-    public function getToysById($id)
+
+    public function getCompagesToysById($id)
     {
         $compages = D("Compages");
-        $where['type'] = $type;
-        return  $ver->where($where)->find();
+        $where['series_id'] = $id;
+
+        return $compages
+            ->where($where)
+//             ->buildSql();
+        ->select();
     }
 
-    public function resetPassword($userid, $newpwd){
-        $user = D("User");
-        $where['userid'] = $userid;
-        $data['password'] = $newpwd;
-        $user->where($where)->save($data);
+    public function getCompagesToysDetail($toyid){
+        $compages = D("CompagesDetail");
+        $where['p_id'] = $toyid;
+
+        return $compages
+        ->where($where)
+        ->select();
+    }
+
+    public function getColumn($series_id)
+    {
+        $column = D("Column");
+        $where['series_id'] = $series_id;
+        return $column->where($where)->select();
     }
 }
