@@ -5,6 +5,7 @@ use Think\Controller;
 use Home\Service\Version;
 use Home\Service\Series;
 use Home\Service\Toys;
+use Home\Service\Home;
 
 class ApiController extends Controller
 {
@@ -132,6 +133,34 @@ class ApiController extends Controller
                     "show_type"=>$info["show_type_id"],
                 );
             }
+            $ret["status"] = $this->SUCCESS;
+            $ret["msg"] = "查询成功！";
+            $ret["content"] = $content;
+        }
+        $this->ajaxReturn($ret);
+    }
+    
+    public function GetSplash()
+    {
+        $ret = array(
+            'status' => $this->ERROR,
+            'msg' => '查询失败!',
+            "content" => array()
+        );
+    
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : 0;
+            $home = new Home();
+            $info = $home->getHomePage();
+            
+                $content = array(
+                    "id"=>$info["id"],
+                    "name"=>$info["name"],
+                    "url"=>__ROOT__.$info["filepath"].$info["filename"],
+                    );
+                    
+            
             $ret["status"] = $this->SUCCESS;
             $ret["msg"] = "查询成功！";
             $ret["content"] = $content;

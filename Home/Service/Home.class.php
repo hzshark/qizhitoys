@@ -20,20 +20,11 @@ class Home
         $series->add($data);
     }
 
-    private function check_name_exist($name){
-        $series = D("Series");
-        $where['name'] = $name;
-        $seriesCount = $series->where($where)->count("id");
-        if ($seriesCount > 0){
-            return true;
-        }
-        return false;
-    }
 
-    public function getSeries(){
-        $series = D("Series");
+    public function getHomePage(){
+        $home = D("Home");
 //         ->where('status=1')
-        return $series->order('indate')->limit(20)->select();
+        return $home->find();
     }
 
     public function getAllValidSeries(){
