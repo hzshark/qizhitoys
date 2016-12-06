@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
+<script type="text/JavaScript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <div class="panel admin-panel">
@@ -22,7 +23,7 @@
           <label>内容：</label>
         </div>
         <div class="field">
-          <textarea name="content">{$info}</textarea>
+        <textarea id="content" name="content" cols="20" rows="2" class="ckeditor">{$info}</textarea>
           <div class="tips"></div>
         </div>
       </div>

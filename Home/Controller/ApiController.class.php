@@ -4,6 +4,7 @@ namespace Home\Controller;
 use Think\Controller;
 use Home\Service\Version;
 use Home\Service\Series;
+use Home\Service\Toys;
 
 class ApiController extends Controller
 {
@@ -97,7 +98,38 @@ class ApiController extends Controller
                     "name"=>$info["name"],
                     "sicon"=>__ROOT__.$info["filepath"].$info["m_image"],
                     "url"=>__ROOT__.$info["filepath"].$info["image_name"],
-                    "type"=>$info["show_type_id"],
+                    "type"=>$info["type_id"],
+                    "show_type"=>$info["show_type_id"],
+                );
+            }
+            $ret["status"] = $this->SUCCESS;
+            $ret["msg"] = "查询成功！";
+            $ret["content"] = $content;
+        }
+        $this->ajaxReturn($ret);
+    }
+    
+    public function getToysList()
+    {
+        $ret = array(
+            'status' => $this->ERROR,
+            'msg' => '查询失败!',
+            "content" => array()
+        );
+    
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : 0;
+            $toys = new Toys();
+            $infos = $series->getAllValidSeries();
+            foreach ($infos as $info) {
+                $content  [] = array(
+                    "id"=>$info["id"],
+                    "name"=>$info["name"],
+                    "sicon"=>__ROOT__.$info["filepath"].$info["m_image"],
+                    "url"=>__ROOT__.$info["filepath"].$info["image_name"],
+                    "type"=>$info["type_id"],
+                    "show_type"=>$info["show_type_id"],
                 );
             }
             $ret["status"] = $this->SUCCESS;
