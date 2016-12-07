@@ -43,6 +43,7 @@ class Toys
         $column = D("Column");
         $where['series_id'] = $series_id;
         $join = "LEFT JOIN shoppings on shoppings.p_id = shopping_column.id";
-        return $column->join($join)->where($where)->select();
+        $field = "shoppings.id, shoppings.tburl, shoppings.filepath, shoppings.image_name";
+        return $column->join($join)->where($where)->field($field)->select();
     }
 }

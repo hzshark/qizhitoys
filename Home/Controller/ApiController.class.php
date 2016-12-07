@@ -219,11 +219,10 @@ class ApiController extends Controller
             $infos = $toys->getShoppingsBySeriesId($id);
             foreach ($infos as $info) {
                 $content[] = array(
-                    "parent_id" => $id,
                     "id" => $info["id"],
                     "name" => $info["name"],
-                    "sicon" => __ROOT__ . $info["filepath"] . $info["sicon"],
-                    "url" => __ROOT__ . $info["filepath"] . $info["image_name"]
+                    "tburl" => $info["tburl"],
+                    "preview" => __ROOT__ . $info["filepath"] . $info["image_name"]
                 );
             }
     
