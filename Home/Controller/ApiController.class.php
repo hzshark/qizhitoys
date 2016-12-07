@@ -110,7 +110,7 @@ class ApiController extends Controller
         $this->ajaxReturn($ret);
     }
 
-    public function getToysList()
+    public function GetToysList()
     {
         $ret = array(
             'status' => $this->ERROR,
@@ -196,6 +196,37 @@ class ApiController extends Controller
                 );
             }
 
+            $ret["status"] = $this->SUCCESS;
+            $ret["msg"] = "查询成功！";
+            $ret["content"] = $content;
+        }
+        $this->ajaxReturn($ret);
+    }
+    
+    public function GetShoppingList()
+    {
+        $ret = array(
+            'status' => $this->ERROR,
+            'msg' => '查询失败!',
+            "content" => array()
+        );
+    
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : 0;
+            $subid = isset($_POST['subid']) ? $_POST['subid'] : 0;
+            $toys = new Toys();
+            $infos = $toys->getShoppingsBySeriesId($id);
+            foreach ($infos as $info) {
+                $content[] = array(
+                    "parent_id" => $id,
+                    "id" => $info["id"],
+                    "name" => $info["name"],
+                    "sicon" => __ROOT__ . $info["filepath"] . $info["sicon"],
+                    "url" => __ROOT__ . $info["filepath"] . $info["image_name"]
+                );
+            }
+    
             $ret["status"] = $this->SUCCESS;
             $ret["msg"] = "查询成功！";
             $ret["content"] = $content;
