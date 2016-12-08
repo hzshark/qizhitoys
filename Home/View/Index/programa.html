@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/css/pintuer.css">
+<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/pintuer.js"></script>
+<script src="__PUBLIC__/js/layer.js"></script>
+<script type="text/javascript">
+	//建立一個可存取到該file的url
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	$(function() {
+		$("#img").click(function() {
+			$("#imagefile").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+			$("#imagefile").on("change", function() {
+				var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+				if (objUrl) {
+					$("#img").attr("src", objUrl); //将图片路径存入src中，显示出图片
+				}
+			});
+		});
+
+		$("#addbut").click(function() {
+			//页面层
+			layer.open({
+			type: 1,
+			title :false,
+			skin: 'layui-layer-rim', //加上边框
+			area: ['650px', '580px'], //宽高
+			content: $("#add")
+			});
+		});
+	});
+
+</script>
+
+</head>
+<body>
+	<div class="panel admin-panel">
+		<div class="panel-head">
+			<strong class="icon-reorder"> 内容列表</strong>
+		</div>
+		<div class="padding border-bottom">
+			<button type="button" class="button border-yellow" id="addbut" />
+				<!-- onclick="window.location.href='#add'"> -->
+				<span class="icon-plus-square-o"></span> 添加内容
+			</button>
+		</div>
+		<table class="table table-hover text-center">
+			<tr>
+				<th width="10%">ID</th>
+				<th width="20%">图片</th>
+				<th width="15%">名称</th>
+				<th width="20%">描述</th>
+				<th width="10%">状态</th>
+				<th width="15%">操作</th>
+			</tr>
+
+		<foreach name="serieslist" item="vo" >
+		    <tr>
+		        <td>{$vo.id}</td>
+				<td><img src="__ROOT__/{$vo.filepath}{$vo.m_image}" alt="" width="100" height="50" /></td>
+				<td>{$vo.name}</td>
+				<td>{$vo.note}</td>
+				<td>{$vo.status}</td>
+				<td><div class="button-group">
+						<a class="button border-main" href="#add"><span
+							class="icon-edit"></span> 修改</a> <a class="button border-red"
+							href="javascript:void(0)" onclick="return del(1,1)"><span
+							class="icon-trash-o"></span> 删除</a>
+					</div></td>
+		    </tr>
+		    </foreach>
+		</table>
+	</div>
+
+	<div class="panel admin-panel margin-top" id="add"  style="display: none">
+		<div class="panel-head">
+			<strong><span class="icon-pencil-square-o"></span> 增加内容</strong>
+		</div>
+		<div class="body-content">
+			<form method="POST" class="form-x" name="addseries" action="AddSeries"  enctype="multipart/form-data">
+				<div class="form-group">
+					<div class="label">
+						<label>名称：</label>
+					</div>
+					<div class="field">
+						<input type="text" class="input w50" value="" name="name"
+							data-validate="required:请输入系列名称" />
+						<div class="tips"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="label">
+						<label>图片：</label>
+					</div>
+					<div class="field">
+						<div class="input tips" style="width: 25%; float: left;">
+							<img id="img" src="__PUBLIC__/images/11.jpg" width="150"
+								height="150" border="0" />
+								<input id="imagefile" name="imagefile" accept="image/*" type="file" style="display: none"/>
+						</div>
+						<div class="tipss">图片尺寸：1920*500</div>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="label">
+						<label>描述：</label>
+					</div>
+					<div class="field">
+						<textarea type="text" class="input" name="note"
+							style="height: 80px;" value=""></textarea>
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>状态：</label>
+					</div>
+					<div class="field">
+						<input name="status" type="radio" value="0" checked="true">
+						下架</input> <input name="status" type="radio" value="1"> 展示</input>
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label></label>
+					</div>
+					<div class="field">
+						<button class="button bg-main icon-check-square-o" type="submit">
+							提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -17,6 +17,7 @@ class Series
         $data['filepath'] = $filepath;
         $data['note'] = $note;
         $data['filemd5'] = $filemd5;
+        $data['type_id'] = 1;
         $series->add($data);
     }
 
@@ -32,14 +33,15 @@ class Series
 
     public function getSeries(){
         $series = D("Series");
-//         ->where('status=1')
-        return $series->order('indate')->limit(20)->select();
+        $where["type_id"] = 1;
+        return $series->where($where)->order('indate')->limit(20)->select();
     }
 
     public function getAllValidSeries(){
         $series = D("Series");
-
-        return $series ->where('status=1')->order('indate')->select();
+        $where["status"] = 1;
+        $where["type_id"] = 1;
+        return $series ->where($where)->order('indate')->select();
     }
 
     public function seriesUploadify($name, $status, $note='', $thumbWidth = '64' , $thumbHeight = '64')

@@ -60,12 +60,7 @@ class IndexController extends Controller
         }
     }
 
-    public function Cartoonlist()
-    {
-        header("Content-Type:text/html; charset=utf-8");
-        $this->display('cartoonlist', 'utf-8');
-    }
-
+    
     public function Restpass()
     {
         header("Content-Type:text/html; charset=utf-8");
@@ -86,10 +81,21 @@ class IndexController extends Controller
         $this->assign("error_message",$err);
         $this->display('restpass', 'utf-8');
     }
-
+    
+    public function Cartoonlist()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $this->display('cartoonlist', 'utf-8');
+    }
+    
     public function Addcartoon()
     {
         header("Content-Type:text/html; charset=utf-8");
         $this->display('addcartoon', 'utf-8');
+    }
+    
+    public function Programa(){
+        header("Content-Type:text/html; charset=utf-8");
+        $this->display('programa', 'utf-8');
     }
 }
