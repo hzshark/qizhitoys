@@ -9,11 +9,63 @@ class Version
         $where['type'] = $type;
         return  $ver->where($where)->find();
     }
+    public function queryVersionInfo()
+    {
+        $ver = D("Version");
+        return  $ver->select();
+    }
 
-    public function resetPassword($userid, $newpwd){
-        $user = D("User");
-        $where['userid'] = $userid;
-        $data['password'] = $newpwd;
-        $user->where($where)->save($data);
+    private function updateVersionInfoByType($filepath, $name, $note, $type, $force,$version, $versioncode)
+    {
+        $ret = $this->UploadFile($name);
+        $ver = D("Version");
+        $where['type'] = $type;
+        $data['version'] = $version;
+        $data['versioncode'] = $versioncode;
+        $data['isforce'] = $force;
+        $data['filepath'] = $filepath;
+        $data['verinfo'] = $note;
+        if ($ver->where($where)->count("type") > 0){
+            $ver->where($where)->save($data);
+        }else{
+            $data['type'] = $type;
+            $ver->add($data);
+        }
+    }
+
+    public function UploadFile($name, $note, $type, $force,$version, $versioncode)
+    {
+
+        if (! empty($_FILES)) {
+            $uploadconfig = array(
+                'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
+                'rootPath' => C('UPLOAD_PATH'), // 设置附件上传根目录
+                'savePath' => '', // 设置附件上传（子）目录
+                'saveName' => $name,
+                'exts' => array(
+                    'dem',
+                    'apk',
+                    'txt'
+                ),
+                'autoSub' => true,
+                'subName' => array(
+                    'date',
+                    'Ymd'
+                )
+            );
+            $upload = new \Think\Upload($uploadconfig); // 实例化上传类
+            $info = $upload->upload();
+            if (! $info) { // 上传错误提示错误信息
+                return $upload->getError();
+            }else{
+                foreach ($info as $file) {
+                    $save_path = C('UPLOAD_PATH') . $file['savepath'] .  $file['savename'];
+                    $this->updateVersionInfoByType($save_path,  $name, $note, $type, $force,$version, $versioncode);
+                }
+                return "上传文件成功";
+            }
+            }else{
+                return "上传文件空";
+            }
     }
 }

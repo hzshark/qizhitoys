@@ -1,7 +1,8 @@
 <?php
 return array(
 	'DB_TYPE'           =>  'mysql',     	// 数据库类型
-    'DB_HOST'           =>  '10.27.165.76', 	// 服务器地址
+//     'DB_HOST'           =>  '10.27.165.76', 	// 服务器地址
+    'DB_HOST'           =>  '106.14.77.254', 	// 服务器地址
     'DB_NAME'           =>  'toys',        // 数据库名
     'DB_USER'           =>  'toys',     	// 用户名
     'DB_PWD'            =>  'qizhiwj888',     	// 密码
@@ -34,7 +35,7 @@ return array(
     'DEFAULT_AJAX_RETURN' => 'JSON', // 默认AJAX 数据返回格式,可选JSON XML ...
     //'APP_GROUP_LIST' => 'Index,Home,Admin', //项目分组
     //'DEFAULT_GROUP' => 'Home', //默认分组
-    'DEFAULT_PageSize' => 15,
+    'DEFAULT_PAGESIZE' => 15,
     /* Cookie设置 */
     'COOKIE_EXPIRE' => 3600, // Coodie有效期
     'COOKIE_DOMAIN' => '', // Cookie有效域名

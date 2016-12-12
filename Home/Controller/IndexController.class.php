@@ -6,6 +6,8 @@ use Think\Controller;
 use Home\Service\Series;
 use Home\Service\Help;
 use Home\Service\User;
+use Home\Service\Version;
+use Home\Service\Toys;
 
 class IndexController extends Controller
 {
@@ -60,7 +62,7 @@ class IndexController extends Controller
         }
     }
 
-    
+
     public function Restpass()
     {
         header("Content-Type:text/html; charset=utf-8");
@@ -81,21 +83,72 @@ class IndexController extends Controller
         $this->assign("error_message",$err);
         $this->display('restpass', 'utf-8');
     }
-    
+
     public function Cartoonlist()
     {
         header("Content-Type:text/html; charset=utf-8");
+        $count = 0;
+        $cartoonList = [];
+        $pagenum = isset($_GET['p'])?$_GET['p']:0;
+        $cartoon = new Toys();
+        $series = new Series();
+        if (IS_POST) {
+            $series_id = isset($_POST['series_id']) ? $_POST['series_id'] : 0;
+            $status = isset($_POST['status']) ? $_POST['status'] : -1;
+            $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : "";
+            $count = $cartoon->getCartoonsAllCount($series_id, $status, $keywords);
+            $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $pagenum);
+        }
+
+        $serielist = $series->getAllValidSeries();
+        $Page = new \Think\Page($count,C("DEFAULT_PAGESIZE"));// 实例化分页类 传入总记录数和每页显示的记录数
+        $Page -> setConfig('header','共%TOTAL_ROW%条');
+        $Page -> setConfig('first','首页');
+        $Page -> setConfig('last','共%TOTAL_PAGE%页');
+        $Page -> setConfig('prev','上一页');
+        $Page -> setConfig('next','下一页');
+        $Page -> setConfig('link','indexpagenumb');//pagenumb 会替换成页码
+        $Page -> setConfig('theme','%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
+        $page = $Page->show();
+        $this->assign("page",$page);
+        $this->assign("serielist", $serielist);
+        $this->assign("cartoonList", $cartoonList);
         $this->display('cartoonlist', 'utf-8');
     }
-    
+
     public function Addcartoon()
     {
         header("Content-Type:text/html; charset=utf-8");
+        $cartoon = new Toys();
+        $series = new Series();
+        $serielist = $series->getAllValidSeries();
+        $this->assign("serielist", $serielist);
         $this->display('addcartoon', 'utf-8');
     }
-    
+
     public function Programa(){
         header("Content-Type:text/html; charset=utf-8");
         $this->display('programa', 'utf-8');
+    }
+    public function AddPrograma(){
+        header("Content-Type:text/html; charset=utf-8");
+        $this->display('addPrograma', 'utf-8');
+    }
+    public function Version(){
+        header("Content-Type:text/html; charset=utf-8");
+        $err = '';
+        $ver = new Version();
+        if (IS_POST) {
+            $name= isset($_POST['name']) ? $_POST['name'] : '';
+            $note = isset($_POST['note']) ? $_POST['note'] : '';
+            $type = isset($_POST['type']) ? $_POST['type'] : 0;
+            $force = isset($_POST['force']) ? $_POST['force'] : 0;
+            $version = isset($_POST['version']) ? $_POST['version'] : '';
+            $versioncode = isset($_POST['versioncode']) ? $_POST['versioncode'] : '';
+            $ret = $ver->UploadFile($name, $note, $type, $force ,$version, $versioncode);
+        }
+        $vers = $ver->queryVersionInfo();
+        $this->assign("vers",$vers);
+        $this->display('updateVersion', 'utf-8');
     }
 }

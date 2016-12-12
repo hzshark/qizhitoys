@@ -34,7 +34,7 @@ class Series
     public function getSeries(){
         $series = D("Series");
         $where["type_id"] = 1;
-        return $series->where($where)->order('indate')->limit(20)->select();
+        return $series->where($where)->order('indate')->limit(C("DEFAULT_PAGESIZE"))->select();
     }
 
     public function getAllValidSeries(){

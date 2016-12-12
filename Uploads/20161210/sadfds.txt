@@ -1,0 +1,1648 @@
+<tcpTraceLog tcpTraceVersion='0.8.1.717' xmlns='http://www.pocketsoap.com/tcptrace/xmlformat/01' xmlns:xsd='http://www.w3.org/1999/XMLSchema' xmlns:xsi='http://www.w3.org/1999/XMLSchema-instance'>
+<logStarted xsi:type='xsd:timeInstant'>2016-02-25T17:11:14+-8:00</logStarted>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:11:42+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:11:42+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:11:42+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>4118</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:11:02 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+f4d
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
+&lt;wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://192.168.150.21:8090/ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="order" targetNamespace="http://192.168.150.21:8090/ws/">
+  &lt;wsdl:types>
+    &lt;xsd:schema targetNamespace="http://127.0.0.1:8090/ws/">
+      &lt;xsd:element name="orderRelationUpdateNotifyRequest">
+        &lt;xsd:complexType>
+          &lt;xsd:sequence>
+          	&lt;xsd:element name="recordSequenceId" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+          	&lt;xsd:element name="userIdType" type="xsd:int" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="userId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="serviceType" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="spId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="productId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="updateType" type="xsd:int" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="updateTime" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="updateDesc" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="linkId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="content" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="effectiveDate" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="expireDate" type="xsd:string"
+          		maxOccurs="1" minOccurs="0">
+          	&lt;/xsd:element>
+          	&lt;xsd:element name="time_stamp" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="encodeStr" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          &lt;/xsd:sequence>
+        &lt;/xsd:complexType>
+      &lt;/xsd:element>
+      &lt;xsd:element name="orderRelationUpdateNotifyResponse">
+        &lt;xsd:complexType>
+          &lt;xsd:sequence>
+          	&lt;xsd:element name="recordSequenceId" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+          	&lt;xsd:element name="resultCode" type="xsd:string" maxOccurs="1" minOccurs="1">&lt;/xsd:element>
+          &lt;/xsd:sequence>
+        &lt;/xsd:complexType>
+      &lt;/xsd:element>
+    &lt;/xsd:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifyRequest">
+    &lt;wsdl:part element="tns:orderRelationUpdateNotifyRequest" name="orderRelationUpdateNotifyRequest"/>
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifyResponse">
+    &lt;wsdl:part element="tns:orderRelationUpdateNotifyResponse" name="OrderRelationUpdateNotifyResponse"/>
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="order">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifyRequest"/>
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifyResponse"/>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="orderSOAP" type="tns:order">
+    &lt;soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="http://221.7.13.207:8090/ws/orderRelationUpdateNotify"/>
+      &lt;wsdl:input>
+        &lt;soap:body use="literal"/>
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="literal"/>
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="order">
+    &lt;wsdl:port binding="tns:orderSOAP" name="orderSOAP">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php"/>
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:12:59+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:12:59+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:12:59+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>4118</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:12:19 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+f4d
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?>
+&lt;wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://192.168.150.21:8090/ws/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="order" targetNamespace="http://192.168.150.21:8090/ws/">
+  &lt;wsdl:types>
+    &lt;xsd:schema targetNamespace="http://127.0.0.1:8090/ws/">
+      &lt;xsd:element name="orderRelationUpdateNotifyRequest">
+        &lt;xsd:complexType>
+          &lt;xsd:sequence>
+          	&lt;xsd:element name="recordSequenceId" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+          	&lt;xsd:element name="userIdType" type="xsd:int" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="userId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="serviceType" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="spId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="productId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="updateType" type="xsd:int" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="updateTime" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="updateDesc" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="linkId" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="content" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="effectiveDate" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="expireDate" type="xsd:string"
+          		maxOccurs="1" minOccurs="0">
+          	&lt;/xsd:element>
+          	&lt;xsd:element name="time_stamp" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          	&lt;xsd:element name="encodeStr" type="xsd:string" maxOccurs="1" minOccurs="0">&lt;/xsd:element>
+          &lt;/xsd:sequence>
+        &lt;/xsd:complexType>
+      &lt;/xsd:element>
+      &lt;xsd:element name="orderRelationUpdateNotifyResponse">
+        &lt;xsd:complexType>
+          &lt;xsd:sequence>
+          	&lt;xsd:element name="recordSequenceId" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+          	&lt;xsd:element name="resultCode" type="xsd:string" maxOccurs="1" minOccurs="1">&lt;/xsd:element>
+          &lt;/xsd:sequence>
+        &lt;/xsd:complexType>
+      &lt;/xsd:element>
+    &lt;/xsd:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifyRequest">
+    &lt;wsdl:part element="tns:orderRelationUpdateNotifyRequest" name="orderRelationUpdateNotifyRequest"/>
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifyResponse">
+    &lt;wsdl:part element="tns:orderRelationUpdateNotifyResponse" name="OrderRelationUpdateNotifyResponse"/>
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="order">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifyRequest"/>
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifyResponse"/>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="orderSOAP" type="tns:order">
+    &lt;soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="http://221.7.13.207:8090/ws/orderRelationUpdateNotify"/>
+      &lt;wsdl:input>
+        &lt;soap:body use="literal"/>
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="literal"/>
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="order">
+    &lt;wsdl:port binding="tns:orderSOAP" name="orderSOAP">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php"/>
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:20:56+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:20:56+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:20:56+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:20:16 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:22:30+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:22:30+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:22:30+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:21:50 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:28:49+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:28:49+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:28:49+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:28:09 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:30:15+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:30:15+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:30:15+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:29:35 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:36:07+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:36:07+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:36:07+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:35:27 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:36:35+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:36:35+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:36:35+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:35:55 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:39:08+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:39:08+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:39:08+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:38:28 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:39:56+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:39:56+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:39:56+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:39:16 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:40:43+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:40:43+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:40:43+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:40:03 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:41:08+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:41:08+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:41:08+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:40:28 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:41:27+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:41:26+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:41:27+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:40:47 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:42:02+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:42:02+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:42:02+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:41:22 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:42:09+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:42:09+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:42:09+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:41:29 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<connection>
+<loggedAt xsi:type='xsd:timeInstant'>2016-02-25T17:43:51+-8:00</loggedAt>
+<connectionOpened xsi:type='xsd:timeInstant'>2016-02-25T17:43:51+-8:00</connectionOpened>
+<connectionClosed xsi:type='xsd:timeInstant'>2016-02-25T17:43:51+-8:00</connectionClosed>
+<source>127.0.0.1</source>
+<destination>221.7.13.207:8090</destination>
+<bytesClientToServer>76</bytesClientToServer>
+<bytesServerToClient>5698</bytesServerToClient>
+<clientData>GET /ws/order.php?wsdl HTTP/1.1
+Host: 127.0.0.1:8888
+Connection: close
+
+</clientData>
+<serverData>HTTP/1.1 200 OK
+Server: nginx/1.8.1
+Date: Thu, 25 Feb 2016 09:43:12 GMT
+Content-Type: text/xml; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Powered-By: PHP/5.4.16
+
+1578
+&lt;?xml version="1.0" encoding="utf-8"?>
+&lt;wsdl:definitions xmlns:s0="http://req.sync.soap.bossagent.vac.unicom.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://soap.bossagent.vac.unicom.com" xmlns:s1="http://rsp.sync.soap.bossagent.vac.unicom.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://soap.bossagent.vac.unicom.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  &lt;wsdl:types>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://req.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyRequest">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="userIdType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="userId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="serviceType" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="spId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="productId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="updateType" nillable="true" type="s:int" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateTime" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="updateDesc" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="linkId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="content" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="effectiveDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="expireDate" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="time_stamp" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="encodeStr" nillable="true" type="s:string" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+    &lt;s:schema elementFormDefault="qualified" targetNamespace="http://rsp.sync.soap.bossagent.vac.unicom.com">
+      &lt;s:complexType name="OrderRelationUpdateNotifyResponse">
+        &lt;s:sequence>
+          &lt;s:element minOccurs="0" maxOccurs="1" form="unqualified" name="recordSequenceId" nillable="true" type="s:string" />
+          &lt;s:element minOccurs="1" maxOccurs="1" form="unqualified" name="resultCode" type="s:int" />
+        &lt;/s:sequence>
+      &lt;/s:complexType>
+    &lt;/s:schema>
+  &lt;/wsdl:types>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapIn">
+    &lt;wsdl:part name="orderRelationUpdateNotifyRequest" type="s0:OrderRelationUpdateNotifyRequest" />
+  &lt;/wsdl:message>
+  &lt;wsdl:message name="orderRelationUpdateNotifySoapOut">
+    &lt;wsdl:part name="orderRelationUpdateNotifyReturn" type="s1:OrderRelationUpdateNotifyResponse" />
+  &lt;/wsdl:message>
+  &lt;wsdl:portType name="VACSoap">
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;wsdl:input message="tns:orderRelationUpdateNotifySoapIn" />
+      &lt;wsdl:output message="tns:orderRelationUpdateNotifySoapOut" />
+    &lt;/wsdl:operation>
+  &lt;/wsdl:portType>
+  &lt;wsdl:binding name="VACSoap" type="tns:VACSoap">
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:binding name="VACSoap12" type="tns:VACSoap">
+    &lt;soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    &lt;wsdl:operation name="orderRelationUpdateNotify">
+      &lt;soap12:operation soapAction="" style="rpc" />
+      &lt;wsdl:input>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:input>
+      &lt;wsdl:output>
+        &lt;soap12:body use="encoded" namespace="http://soap.bossagent.vac.unicom.com" encodingStyle="http://www.w3.org/2003/05/soap-encoding" />
+      &lt;/wsdl:output>
+    &lt;/wsdl:operation>
+  &lt;/wsdl:binding>
+  &lt;wsdl:service name="VAC">
+    &lt;wsdl:port name="VACSoap" binding="tns:VACSoap">
+      &lt;soap:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+    &lt;wsdl:port name="VACSoap12" binding="tns:VACSoap12">
+      &lt;soap12:address location="http://221.7.13.207:8090/ws/order.php" />
+    &lt;/wsdl:port>
+  &lt;/wsdl:service>
+&lt;/wsdl:definitions>
+0
+
+</serverData>
+</connection>
+<logStopped xsi:type='xsd:timeInstant'>2016-02-25T18:50:36+-8:00</logStopped>
+</tcpTraceLog>

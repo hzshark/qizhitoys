@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/css/pintuer.css">
+<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/pintuer.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#addbut").click(function() {
+			//页面层
+			layer.open({
+			type: 1,
+			title :false,
+			skin: 'layui-layer-rim', //加上边框
+			area: ['650px', '580px'], //宽高
+			content: $("#add")
+			});
+		});
+	});
+
+</script>
+
+</head>
+<body>
+	<div class="panel admin-panel">
+		<div class="panel-head">
+			<strong class="icon-reorder"> 版本列表</strong>
+		</div>
+		<div class="padding border-bottom">
+			<button type="button" class="button border-yellow" id="addbut" />
+				<!-- onclick="window.location.href='#add'"> -->
+				<span class="icon-plus-square-o"></span> 更新版本
+			</button>
+		</div>
+		<table class="table table-hover text-center">
+			<tr>
+				<th width="10%">安装包路径</th>
+				<th width="10%">当前版本</th>
+				<th width="20%">	安卓版本标识</th>
+				<th width="10%">是否强更</th>
+				<th width="10%">类型</th>
+				<th width="10%">上传日期</th>
+				<th width="40%">描述</th>
+			</tr>
+
+		<foreach name="vers" item="vo" >
+		    <tr>
+				<td>{$vo.filepath}</td>
+		        <td>{$vo.version}</td>
+				<td>{$vo.versioncode}</td>
+				<td>{$vo.isforce}</td>
+				<td>{$vo.type}</td>
+				<td>{$vo.indate}</td>
+				<td>{$vo.verinfo}</td>
+				<td></td>
+		    </tr>
+		    </foreach>
+		</table>
+	</div>
+
+	<div class="panel admin-panel margin-top" id="add" >
+		<div class="panel-head">
+			<strong><span class="icon-pencil-square-o"></span> 更新安装包</strong>
+		</div>
+		<div class="body-content">
+			<form method="POST" class="form-x" name="updateversion" action="Version"  enctype="multipart/form-data">
+				<div class="form-group">
+					<div class="label">
+						<label>安装包名称：</label>
+					</div>
+					<div class="field">
+						<input type="text" class="input w50" value="" name="name"
+							data-validate="required:请输入安装包名称" />
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>	版本信息：</label>
+					</div>
+					<div class="field">
+						<input type="text" class="input w50" value="" name="version"
+							data-validate="required:请输入	版本信息" />
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>安卓版本versioncode标识，ios忽略：</label>
+					</div>
+					<div class="field">
+						<input type="text" class="input w50" value="" name="versioncode" />
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>是否强制更新：</label>
+					</div>
+					<div class="field">
+						<input name="force" type="radio" value="0" checked="true">
+						不强迫</input> <input name="force" type="radio" value="1"> 强迫</input>
+						<div class="tips"></div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="label">
+						<label>更新包：</label>
+					</div>
+					<div class="field">
+						<div class="input tips" style="width: 25%; float: left;">
+								<input id="packagefile" name="packagefile"  type="file" />
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>描述：</label>
+					</div>
+					<div class="field">
+						<textarea type="text" class="input" name="note"
+							style="height: 80px;" value=""></textarea>
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>安装包类型：</label>
+					</div>
+					<div class="field">
+						<input name="type" type="radio" value="Android" checked="true">
+						Android</input> <input name="type" type="radio" value="IOS"> IOS</input>
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label></label>
+					</div>
+					<div class="field">
+						<button class="button bg-main icon-check-square-o" type="submit">
+							提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
