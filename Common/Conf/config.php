@@ -9,7 +9,7 @@ return array(
     'DB_PORT'           =>  '3306',     	// 端口
     'DB_PREFIX'         =>  '',      	// 数据库表前缀
     'DB_DEBUG'  		=>  true, 			// 数据库调试模式 开启后可以记录SQL日志
-    'SHOW_PAGE_TRACE'   =>	true,   		// 显示页面Trace信息
+    'SHOW_PAGE_TRACE'   =>	false,   		// 显示页面Trace信息
     'APP_GROUP_LIST' => 'Home,Api', //项目分组设定
     'DEFAULT_MODULE'     => 'Home', //默认模块
 //     'DEFAULT_MODULE'       =>    'Admin',
@@ -20,7 +20,7 @@ return array(
         'expire'=>'3600'
     ),
     'APP_USE_NAMESPACE'     =>  true,    // 应用类库是否使用命名空间 3.2.1新增
-    'APP_DEBUG' => true, //调试模式开关
+    'APP_DEBUG' => false, //调试模式开关
     'TOKEN_ON' => true, //是否开启令牌验证
     'TOKEN_NAME'=>'__hash__',    // 令牌验证的表单隐藏字段名称
     'TOKEN_TYPE'=>'md5',  //令牌哈希验证规则默认为MD5
