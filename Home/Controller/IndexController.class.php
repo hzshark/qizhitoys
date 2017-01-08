@@ -147,11 +147,24 @@ class IndexController extends Controller
     public function Addcartoon()
     {
         header("Content-Type:text/html; charset=utf-8");
-        $cartoon = new Toys();
-        $series = new Series();
-        $serielist = $series->getAllValidSeries();
-        $this->assign("serielist", $serielist);
-        $this->display('addcartoon', 'utf-8');
+        if (IS_POST) {
+            $Seriesname= isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
+            $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
+            $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
+            if ("video"==$showtype){
+
+            }
+
+            $force = isset($_POST['force']) ? $_POST['force'] : 0;
+            $version = isset($_POST['version']) ? $_POST['version'] : '';
+            $versioncode = isset($_POST['versioncode']) ? $_POST['versioncode'] : '';
+            $ret = $ver->UploadFile($name, $note, $type, $force ,$version, $versioncode);
+        }else{
+            $series = new Series();
+            $serielist = $series->getAllValidSeries();
+            $this->assign("serielist", $serielist);
+            $this->display('addcartoon', 'utf-8');
+        }
     }
 
     public function Programa(){
