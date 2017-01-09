@@ -28,9 +28,9 @@ class Uploader
             }
             return array("status"=>0, "msg"=>json_encode($pathArr));
         }
-        
+
     }
-    
+
 
     public function UploadShowImage()
     {
@@ -43,7 +43,7 @@ class Uploader
                 'uniqid',
                 ''
             ),
-             'exts' =>  array('jpg', 'gif', 'png', 'jpeg','mp4'),// 设置附件上传类型,
+             'exts' =>  array('jpg', 'gif', 'png', 'jpeg','3gp','rmvb','flv','wmv','avi','mkv','mp4','mp3','wav'),// 设置附件上传类型,
             'autoSub' => true,
             'subName' => array('date', 'Ymd')
             );
@@ -56,7 +56,7 @@ class Uploader
                 foreach ($info as $file) {
                     array_push($pathArr, C('UPLOAD_PATH').$file['savepath'].$file['savename']);
                 }
-                return array("status"=>0, "msg"=>json_encode($pathArr));
+                return array("status"=>0, "msg"=>$pathArr);
             }
         }else{
             return array("status"=>0, "msg"=>"上传文件空");

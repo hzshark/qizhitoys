@@ -136,23 +136,32 @@ class IndexController extends Controller
             $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
             $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
             $uploader = new Uploader();
+            $toy = new Toys();
             $showImg = "";
-            if ("video"==$showtype){
+            $cartoon = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
+            if ($cartoon){
+                $this->error("本系列已经存在相同的动画名称，请更换名称！");
+            }else{
+                if ("video"==$showtype){
 
-            }elseif ("pic" == $showtype){
-                $showImg = "";
-                $ret = $uploader->UploadShowImage();
-                if (1 == $ret['status']){
-                    $this->error($ret['msg']);
-                }else{
-                    $showImg = $ret['msg'][0];
+                }elseif ("pic" == $showtype){
+                    $showImg = "";
+                    $ret = $uploader->UploadShowImage();
+                    if (1 == $ret['status']){
+                        $this->error($ret['msg']);
+                    }else{
+                        $showImg = $ret['msg'][0];
+                    }
+                    $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
+                    $cartoon = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
+                    if ($cartoon){
+                        $this->error("本系列已经存在相同的动画名称，请更换名称！");
+                    }else{
+                        $toy->AddCartoon($seriesid,$cartoonname, $showImg, $showtype, $dImg);
+                    }
+                    $this->success("添加动画成功！");
                 }
-                $deamoImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
-                
-                $uploader->AddCartoon($seriesid,$cartoonname, $showImg, $showtype, $deamoImg);
-                
             }
-             
         }else{
             $series = new Series();
             $serielist = $series->getAllValidSeries();

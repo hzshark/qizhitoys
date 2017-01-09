@@ -71,8 +71,8 @@ jQuery(function() {
 
         accept: {
             title: 'Images',
-            extensions: 'gif,jpg,jpeg,bmp,png',
-            mimeTypes: 'image/*'
+            extensions: 'gif,jpg,jpeg,bmp,png,mp4',
+            mimeTypes: 'image/*,mp4'
         },
 
         // swf文件路径
@@ -81,8 +81,8 @@ jQuery(function() {
         chunked: true,
         server:'Webuploader',
         fileNumLimit: 10,
-        fileSizeLimit: 5 * 1024 * 1024,    // 200 M
-        fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
+        fileSizeLimit: 200 * 1024 * 1024,    // 100 M
+        fileSingleSizeLimit: 100* 1024 * 1024    // 50 M
     });
 
     // 添加“添加文件”的按钮，
@@ -434,7 +434,7 @@ jQuery(function() {
     updateTotalProgress();
  // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadAccept', function(object , response ) {
-    	alert(response);
+    	//alert(response);
     	input_html = "<input type=\"hidden\" name=\"uploader_files[]\" value="+response[0]+">";
     	$("#uploader_input").append(input_html);
         //

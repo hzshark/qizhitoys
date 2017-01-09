@@ -68,36 +68,55 @@ class Toys
             ->count();
     }
 
-    private function getPathAndName($file_path){
-        
-$path = mb_strrchr($file_path, "/",TRUE);
-$name = mb_substr($file_path, strrpos($file_path, "/")+1);
-        return array("path"=>$path, "name"=>$name);
+    private function getPathAndName($file_path)
+    {
+        $path = mb_strrchr($file_path, "/", TRUE);
+        $name = mb_substr($file_path, strrpos($file_path, "/") + 1);
+        return array(
+            "path" => $path."/",
+            "name" => $name
+        );
     }
-    
-    public function AddCartoon($series_id, $cartoonname, $show_img, $show_type, $file_path=array()){
+
+    public function queryCartoonByNameAndSeriesId($name, $sid)
+    {
+        $compages = D("Compages");
+        $where["name"] = $name;
+        $where["series_id"] = $sid;
+        return $compages->where($where)->find();
+    }
+
+    public function AddCartoon($series_id, $name, $show_img, $show_type, $file_path = array())
+    {
         $compages = D("Compages");
         $ret = $this->getPathAndName($show_img);
         $show_path = $ret["path"];
         $show_name = $ret["name"];
-        var_dump($show_path);
-        var_dump($show_name);
-        foreach ($file_path as $path){
-            $res = $this->getPathAndName($path);
-            $save_path = $res["path"];
-            $save_name = $res["name"];
-            var_dump($save_name);
-            var_dump($save_path);
+        $data["series_id"] = $series_id;
+        $data["name"] = $name;
+        $data["image_name"] = $show_name;
+        $data["save_path"] = $show_path;
+        $data["show_type"] = $show_type;
+        $data["indate"] = date('Y-m-d H:i:s', time());
+        $data["moddate"] = $data["indate"];
+        $data["status"] = 0;
+        $compages->add($data);
+        $ret = $this-> queryCartoonByNameAndSeriesId($name, $series_id);
+        var_dump($ret);
+        if ($ret) {
+            $cid = $ret["id"];
+            $compages_detail = D("CompagesDetail");
+            foreach ($file_path as $path) {
+                $res = $this->getPathAndName($path);
+                $detail_data['p_id'] = $cid;
+                $detail_data['file_name'] = $res["name"];
+                $compages_detail->add($detail_data);
+            }
         }
-        
-        
-        $compages_detail = D("CompagesDetail");
-        
-        
-        
     }
-    
-    public function getCartoonDetailList($cartoon_id){
+
+    public function getCartoonDetailList($cartoon_id)
+    {
         $molde = D("CompagesDetail");
         $where['p_id'] = $cartoon_id;
         $molde->where($where)->select();
@@ -124,14 +143,14 @@ $name = mb_substr($file_path, strrpos($file_path, "/")+1);
         $join = "RIGHT JOIN compages_toys on compages_toys.series_id = series.id";
 
         $field = array(
-            'compages_toys.id'=>'cartoon_id',
+            'compages_toys.id' => 'cartoon_id',
             'compages_toys.name',
             'compages_toys.image_name',
             'compages_toys.save_path',
             'compages_toys.show_type',
             'compages_toys.moddate',
             'compages_toys.status',
-            'series.name'=>'series_name'
+            'series.name' => 'series_name'
         );
         return $column->join($join)
             ->where($where)
