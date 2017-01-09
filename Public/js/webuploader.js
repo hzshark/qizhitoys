@@ -434,6 +434,7 @@ jQuery(function() {
     updateTotalProgress();
  // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadAccept', function(object , response ) {
+    	alert(response);
     	input_html = "<input type=\"hidden\" name=\"uploader_files[]\" value="+response[0]+">";
     	$("#uploader_input").append(input_html);
         //

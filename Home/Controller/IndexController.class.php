@@ -8,6 +8,7 @@ use Home\Service\Help;
 use Home\Service\User;
 use Home\Service\Version;
 use Home\Service\Toys;
+use Home\Service\Uploader;
 
 class IndexController extends Controller
 {
@@ -19,30 +20,13 @@ class IndexController extends Controller
     }
 
     public function Webuploader() {
-
-        $uploadconfig = array(
-            'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
-            'rootPath' => C('UPLOAD_PATH'), // 设置附件上传根目录
-            'savePath' => '', // 设置附件上传（子）目录
-             'saveName' => array(
-                    'uniqid',
-                    ''
-                ),
-            'exts' =>  array('jpg', 'gif', 'png', 'jpeg'),// 设置附件上传类型,
-            'autoSub' => true,
-            'subName' => array('date', 'Ymd')
-        );
-        $upload = new \Think\Upload($uploadconfig); // 实例化上传类
+        $uploader = new Uploader();
         // 上传文件
-        $info   =   $upload->upload();
-        if(!$info) {// 上传错误提示错误信息
-            $this->error($upload->getError());
-        }else{// 上传成功 获取上传文件信息
-            $pathArr = array();
-            foreach($info as $file){
-                array_push($pathArr, C('UPLOAD_PATH').$file['savepath'].$file['savename']);
-            }
-            echo json_encode($pathArr);
+        $info = $uploader->Webuploader();
+        if (1 == $info["status"]){
+            $this->error($info["msg"]);
+        }else {
+            echo $info["msg"];
         }
     }
 
@@ -148,17 +132,27 @@ class IndexController extends Controller
     {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
-            $Seriesname= isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
+            $seriesid= isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
             $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
             $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
+            $uploader = new Uploader();
+            $showImg = "";
             if ("video"==$showtype){
 
+            }elseif ("pic" == $showtype){
+                $showImg = "";
+                $ret = $uploader->UploadShowImage();
+                if (1 == $ret['status']){
+                    $this->error($ret['msg']);
+                }else{
+                    $showImg = $ret['msg'][0];
+                }
+                $deamoImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
+                
+                $uploader->AddCartoon($seriesid,$cartoonname, $showImg, $showtype, $deamoImg);
+                
             }
-
-            $force = isset($_POST['force']) ? $_POST['force'] : 0;
-            $version = isset($_POST['version']) ? $_POST['version'] : '';
-            $versioncode = isset($_POST['versioncode']) ? $_POST['versioncode'] : '';
-            $ret = $ver->UploadFile($name, $note, $type, $force ,$version, $versioncode);
+             
         }else{
             $series = new Series();
             $serielist = $series->getAllValidSeries();

@@ -68,6 +68,35 @@ class Toys
             ->count();
     }
 
+    private function getPathAndName($file_path){
+        
+$path = mb_strrchr($file_path, "/",TRUE);
+$name = mb_substr($file_path, strrpos($file_path, "/")+1);
+        return array("path"=>$path, "name"=>$name);
+    }
+    
+    public function AddCartoon($series_id, $cartoonname, $show_img, $show_type, $file_path=array()){
+        $compages = D("Compages");
+        $ret = $this->getPathAndName($show_img);
+        $show_path = $ret["path"];
+        $show_name = $ret["name"];
+        var_dump($show_path);
+        var_dump($show_name);
+        foreach ($file_path as $path){
+            $res = $this->getPathAndName($path);
+            $save_path = $res["path"];
+            $save_name = $res["name"];
+            var_dump($save_name);
+            var_dump($save_path);
+        }
+        
+        
+        $compages_detail = D("CompagesDetail");
+        
+        
+        
+    }
+    
     public function getCartoonDetailList($cartoon_id){
         $molde = D("CompagesDetail");
         $where['p_id'] = $cartoon_id;
