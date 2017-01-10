@@ -8,7 +8,6 @@ class Toys
     {
         $compages = D("Compages");
         $where['series_id'] = $id;
-
         return $compages->where($where)->select();
     }
 
@@ -68,7 +67,7 @@ class Toys
             ->count();
     }
 
-    private function getPathAndName($file_path)
+    public function getPathAndName($file_path)
     {
         $path = mb_strrchr($file_path, "/", TRUE);
         $name = mb_substr($file_path, strrpos($file_path, "/") + 1);
@@ -102,7 +101,7 @@ class Toys
         $data["status"] = 0;
         $compages->add($data);
         $ret = $this-> queryCartoonByNameAndSeriesId($name, $series_id);
-        var_dump($ret);
+        //var_dump($ret);
         if ($ret) {
             $cid = $ret["id"];
             $compages_detail = D("CompagesDetail");

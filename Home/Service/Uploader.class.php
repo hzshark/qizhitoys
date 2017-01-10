@@ -3,6 +3,45 @@ namespace Home\Service;
 
 class Uploader
 {
+
+    public function uploaderImage(){
+        if (! empty($_FILES)) {
+            $uploadconfig = array(
+                'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
+                'rootPath' => C('UPLOAD_PATH'), // 设置附件上传根目录
+                'savePath' => '', // 设置附件上传（子）目录
+                'saveName' => array(
+                    'uniqid',
+                    ''
+                ),
+                'exts' => array(
+                    'jpg',
+                    'gif',
+                    'png',
+                    'jpeg'
+                ),
+                'autoSub' => true,
+                'subName' => array(
+                    'date',
+                    'Ymd'
+                )
+            );
+            $upload = new \Think\Upload($uploadconfig); // 实例化上传类
+            $info = $upload->upload();
+            if (! $info) { // 上传错误提示错误信息
+                return array("status"=>0, "msg"=> $upload->getError());
+            } else { // 上传成功
+                $thumb_file = "";
+                foreach ($info as $file) {
+                    $thumb_file = C('UPLOAD_PATH') . $file['savepath'] . $file['savename'];
+                }
+                return array("status"=>0, "msg"=>$thumb_file);
+            }
+        }else{
+            return  array("status"=>1, "msg"=>"没有上传文件");
+        }
+    }
+
     public function Webuploader() {
         $uploadconfig = array(
             'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小

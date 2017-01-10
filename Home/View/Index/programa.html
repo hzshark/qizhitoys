@@ -65,7 +65,13 @@
 		<div class="panel-head">
 			<strong class="icon-reorder"> 栏目列表</strong>
 		</div>
+
 		<div class="padding leftnav">
+		<div class="padding border-bottom">
+			<div class="button border-yellow" id="addPrograma" />
+				<a  href="{:U('AddPrograma')}" target="programa"><span class="icon-plus-square-o">    添加一级栏目</span></a>
+			</div>
+		</div>
 		<volist name="columns" id="vo" >
 			<h2>
 				<span class="icon-folder"></span>
@@ -73,7 +79,7 @@
 			</h2>
 			<ul>
 			<volist name="vo['column']" id="vo1" >
-				<li><a href="{:U('Index/ShowColumn')}" target="programa"><span
+				<li><a href="{:U('Index/ShowColumn')}?id={$vo1.id}" target="programa"><span
 						class="icon-caret-right"></span>{$vo1.name}</a></li>
 			</volist>
 			</ul>

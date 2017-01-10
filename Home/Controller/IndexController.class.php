@@ -20,13 +20,14 @@ class IndexController extends Controller
         $this->display('index', 'utf-8');
     }
 
-    public function Webuploader() {
+    public function Webuploader()
+    {
         $uploader = new Uploader();
         // 上传文件
         $info = $uploader->Webuploader();
-        if (1 == $info["status"]){
+        if (1 == $info["status"]) {
             $this->error($info["msg"]);
-        }else {
+        } else {
             echo $info["msg"];
         }
     }
@@ -75,7 +76,6 @@ class IndexController extends Controller
         }
     }
 
-
     public function Restpass()
     {
         header("Content-Type:text/html; charset=utf-8");
@@ -85,15 +85,15 @@ class IndexController extends Controller
             $mpass = isset($_POST['mpass']) ? $_POST['mpass'] : '';
             $newpass = isset($_POST['newpass']) ? $_POST['newpass'] : '';
             $renewpass = isset($_POST['renewpass']) ? $_POST['renewpass'] : 0;
-            if ($newpass !== $renewpass){
+            if ($newpass !== $renewpass) {
                 $err = "两次输入密码不一致!";
             }
             $user = new User();
             $user->resetPassword($userid, $newpass);
         }
-        $this->assign("username",session('username'));
-        $this->assign("userid",session('userid'));
-        $this->assign("error_message",$err);
+        $this->assign("username", session('username'));
+        $this->assign("userid", session('userid'));
+        $this->assign("error_message", $err);
         $this->display('restpass', 'utf-8');
     }
 
@@ -102,28 +102,28 @@ class IndexController extends Controller
         header("Content-Type:text/html; charset=utf-8");
         $count = 0;
         $cartoonList = [];
-        $pagenum = isset($_GET['p'])?$_GET['p']:0;
+        $pagenum = isset($_GET['p']) ? $_GET['p'] : 0;
         $cartoon = new Toys();
         $series = new Series();
         if (IS_POST) {
             $series_id = isset($_POST['series_id']) ? $_POST['series_id'] : 0;
-            $status = isset($_POST['status']) ? $_POST['status'] : -1;
+            $status = isset($_POST['status']) ? $_POST['status'] : - 1;
             $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : "";
             $count = $cartoon->getCartoonsAllCount($series_id, $status, $keywords);
             $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $pagenum);
         }
 
         $serielist = $series->getAllValidSeries();
-        $Page = new \Think\Page($count,C("DEFAULT_PAGESIZE"));// 实例化分页类 传入总记录数和每页显示的记录数
-        $Page -> setConfig('header','共%TOTAL_ROW%条');
-        $Page -> setConfig('first','首页');
-        $Page -> setConfig('last','共%TOTAL_PAGE%页');
-        $Page -> setConfig('prev','上一页');
-        $Page -> setConfig('next','下一页');
-        $Page -> setConfig('link','indexpagenumb');//pagenumb 会替换成页码
-        $Page -> setConfig('theme','%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
+        $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page->setConfig('header', '共%TOTAL_ROW%条');
+        $Page->setConfig('first', '首页');
+        $Page->setConfig('last', '共%TOTAL_PAGE%页');
+        $Page->setConfig('prev', '上一页');
+        $Page->setConfig('next', '下一页');
+        $Page->setConfig('link', 'indexpagenumb'); // pagenumb 会替换成页码
+        $Page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
         $page = $Page->show();
-        $this->assign("page",$page);
+        $this->assign("page", $page);
         $this->assign("serielist", $serielist);
         $this->assign("cartoonList", $cartoonList);
         $this->display('cartoonlist', 'utf-8');
@@ -133,50 +133,50 @@ class IndexController extends Controller
     {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
-            $seriesid= isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
+            $seriesid = isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
             $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
             $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
             $uploader = new Uploader();
             $toy = new Toys();
             $showImg = "";
             $cartoon = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
-            if ($cartoon){
+            if ($cartoon) {
                 $this->error("本系列已经存在相同的动画名称，请更换名称！");
-            }else{
-                if ("video"==$showtype){
-
-                }elseif ("pic" == $showtype){
+            } else {
+                if ("video" == $showtype) {} elseif ("pic" == $showtype) {
                     $showImg = "";
                     $ret = $uploader->UploadShowImage();
-                    if (1 == $ret['status']){
+                    if (1 == $ret['status']) {
                         $this->error($ret['msg']);
-                    }else{
+                    } else {
                         $showImg = $ret['msg'][0];
                     }
                     $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
                     $cartoon = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
-                    if ($cartoon){
+                    if ($cartoon) {
                         $this->error("本系列已经存在相同的动画名称，请更换名称！");
-                    }else{
-                        $toy->AddCartoon($seriesid,$cartoonname, $showImg, $showtype, $dImg);
+                    } else {
+                        $toy->AddCartoon($seriesid, $cartoonname, $showImg, $showtype, $dImg);
                     }
                     $this->success("添加动画成功！");
                 }
             }
-        }else{
+        } else {
             $series = new Series();
             $serielist = $series->getAllValidSeries();
             $this->assign("serielist", $serielist);
             $this->display('addcartoon', 'utf-8');
         }
     }
-    
-    public function DelPrograma(){
+
+    public function DelPrograma()
+    {
         header("Content-Type:text/html; charset=utf-8");
         $this->success("删除成功");
     }
 
-    public function ShowPrograma(){
+    public function ShowPrograma()
+    {
         header("Content-Type:text/html; charset=utf-8");
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $series = new Series();
@@ -184,74 +184,237 @@ class IndexController extends Controller
         $this->assign("column", $ret);
         $this->display('showPrograma', 'utf-8');
     }
-    
-    public function editSeries(){
+
+    public function editSeries()
+    {
         header("Content-Type:text/html; charset=utf-8");
-        if (IS_GET){
+        if (IS_GET) {
             $id = isset($_POST['id']) ? $_POST['id'] : '';
             $series = new Series();
             $ret = $series->querySeriesById($id);
             $this->assign("column", $ret);
             $this->display('editPrograma1', 'utf-8');
-        }else{
+        } else {
             $this->display('editPrograma2', 'utf-8');
         }
-        
     }
-    
-    public function editPrograma(){
+
+    public function editPrograma()
+    {
         header("Content-Type:text/html; charset=utf-8");
-        
-            $id = isset($_GET['id']) ? $_GET['id'] : '';
-            $series = new Series();
-            $ret = $series->querySeriesById($id);
-            $this->assign("column", $ret);
-            $this->display('showPrograma', 'utf-8');
-        
+
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $series = new Series();
+        $ret = $series->querySeriesById($id);
+        $this->assign("column", $ret);
+        $this->display('showPrograma', 'utf-8');
     }
-    
-    public function Programa(){
+
+    public function Programa()
+    {
         header("Content-Type:text/html; charset=utf-8");
         $programa = new Programa();
         $columns = $programa->queryPrograma();
         $new_list = array();
-        foreach ($columns as $column){
+        foreach ($columns as $column) {
             $id = $column["id"];
             $ret = $programa->queryColumnBySId($id);
             $column["column"] = $ret;
             array_push($new_list, $column);
         }
         unset($columns);
-//         var_dump($new_list);
+        // var_dump($new_list);
         $this->assign("columns", $new_list);
         $this->display('programa', 'utf-8');
     }
-    public function AddPrograma(){
+
+    public function AddPrograma()
+    {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
-            $name= isset($_POST['name']) ? $_POST['name'] : '';
-            $note= isset($_POST['note']) ? $_POST['note'] : '';
-            $status= isset($_POST['status']) ? $_POST['status'] : '';
-            
-        }else{
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $note = isset($_POST['note']) ? $_POST['note'] : '';
+            $status = isset($_POST['status']) ? $_POST['status'] : '';
+            $programa = new Programa();
+            $ret = $programa->queryProgramaByName($name);
+            if ($ret) {
+                $this->error("这个栏目的名称已经存在，请更换名称！");
+            } else {
+                $programa->addPrograma($name, $status, $note);
+                $ret = $programa->queryProgramaByName($name);
+                $this->assign("programa", $ret);
+                $this->display('addPrograma2', 'utf-8');
+            }
+        } else {
             $this->display('addPrograma1', 'utf-8');
         }
     }
-    public function Version(){
+
+    public function AddPrograma2()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+
+            $uploader = new Uploader();
+            $ret = $uploader->uploaderImage();
+            if (1 == $ret['status']) {
+                $this->error($ret['msg']);
+            } else {
+                $img_path = $ret['msg'];
+                $toy = new Toys();
+                $programa = new Programa();
+                $res = $toy->getPathAndName($img_path);
+                $programa->updateSeriesBgImg($id,  $res["name"]);
+                $p_ret = $programa->queryProgramaById($id);
+                $this->assign("programa", $p_ret);
+                $this->display('addPrograma3', 'utf-8');
+            }
+        } else {
+            $this->error("请求方式错误");
+        }
+    }
+
+    public function AddPrograma3()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+
+            $uploader = new Uploader();
+            $ret = $uploader->uploaderImage();
+            if (1 == $ret['status']) {
+                $this->error($ret['msg']);
+            } else {
+                $img_path = $ret['msg'];
+                $toy = new Toys();
+                $programa = new Programa();
+                $res = $toy->getPathAndName($img_path);
+                $programa->updateSeries($id, $res["path"], $res["name"]);
+                $p_ret = $programa->queryProgramaById($id);
+                $this->success('操作完成','ShowPrograma?id='.$id, 3);
+            }
+        } else {
+            $this->error("请求方式错误");
+        }
+    }
+
+    public function ShowColumn()
+    {
+         header("Content-Type:text/html; charset=utf-8");
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $programa = new Programa();
+        $ret = $programa->queryColumnById($id);
+
+        $this->assign("column", $ret);
+        $this->display('showColumn', 'utf-8');
+    }
+
+    public function AddColumn1()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $sid = isset($_POST['sid']) ? $_POST['sid'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $status = isset($_POST['status']) ? $_POST['status'] : '';
+            $programa = new Programa();
+            $ret = $programa->queryColumnBySIdAndName($sid,$name);
+            if ($ret) {
+                $this->error("这个栏目的名称已经存在，请更换名称！");
+            } else {
+                $uploader = new Uploader();
+                $ret = $uploader->uploaderImage();
+                if (1 == $ret['status']) {
+                    $this->error($ret['msg']);
+                } else {
+                    $img_path = $ret['msg'];
+                    $toy = new Toys();
+                    $programa = new Programa();
+                    $res = $toy->getPathAndName($img_path);
+                    $programa->addColumn($sid, $name, $status,  $res["path"],  $res["name"]);
+                    $p_ret = $programa->queryColumnBySIdAndName($sid, $name);
+                    $this->assign("column", $p_ret);
+                    $this->display('addColumn2', 'utf-8');
+                }
+            }
+        } else {
+            $sid = isset($_GET['id']) ? $_GET['id'] : '';
+            $this->assign("sid", $sid);
+            $this->display('addColumn1', 'utf-8');
+        }
+    }
+
+    public function AddColumn2()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $uploader = new Uploader();
+            $ret = $uploader->uploaderImage();
+            if (1 == $ret['status']) {
+                $this->error($ret['msg']);
+            } else {
+                $img_path = $ret['msg'];
+                $toy = new Toys();
+                $programa = new Programa();
+                $res = $toy->getPathAndName($img_path);
+                $programa->updateColumnBgImg($id,  $res["name"]);
+                $p_ret = $programa->queryColumnById($id);
+                $this->success('操作完成','ShowColumn?id='.$id, 3);
+            }
+        } else {
+            $this->error("请求方式错误");
+        }
+    }
+
+    public function Shoppinglist()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $count = 0;
+        $cartoonList = [];
+        $pagenum = isset($_GET['p']) ? $_GET['p'] : 0;
+        $cartoon = new Toys();
+        $programa= new Programa();
+        if (IS_POST) {
+            $series_id = isset($_POST['series_id']) ? $_POST['series_id'] : 0;
+            $status = isset($_POST['status']) ? $_POST['status'] : - 1;
+            $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : "";
+            $count = $cartoon->getCartoonsAllCount($series_id, $status, $keywords);
+            $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $pagenum);
+        }
+
+        $serielist = $programa->getAllValidColumn();
+        $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
+        $Page->setConfig('header', '共%TOTAL_ROW%条');
+        $Page->setConfig('first', '首页');
+        $Page->setConfig('last', '共%TOTAL_PAGE%页');
+        $Page->setConfig('prev', '上一页');
+        $Page->setConfig('next', '下一页');
+        $Page->setConfig('link', 'indexpagenumb'); // pagenumb 会替换成页码
+        $Page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
+        $page = $Page->show();
+        $this->assign("page", $page);
+        $this->assign("serielist", $serielist);
+        $this->assign("cartoonList", $cartoonList);
+        $this->display('shoppinglist', 'utf-8');
+    }
+
+    public function Version()
+    {
         header("Content-Type:text/html; charset=utf-8");
         $err = '';
         $ver = new Version();
         if (IS_POST) {
-            $name= isset($_POST['name']) ? $_POST['name'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
             $note = isset($_POST['note']) ? $_POST['note'] : '';
             $type = isset($_POST['type']) ? $_POST['type'] : 0;
             $force = isset($_POST['force']) ? $_POST['force'] : 0;
             $version = isset($_POST['version']) ? $_POST['version'] : '';
             $versioncode = isset($_POST['versioncode']) ? $_POST['versioncode'] : '';
-            $ret = $ver->UploadFile($name, $note, $type, $force ,$version, $versioncode);
+            $ret = $ver->UploadFile($name, $note, $type, $force, $version, $versioncode);
         }
         $vers = $ver->queryVersionInfo();
-        $this->assign("vers",$vers);
+        $this->assign("vers", $vers);
         $this->display('updateVersion', 'utf-8');
     }
 }

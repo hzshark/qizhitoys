@@ -70,25 +70,23 @@
 			  ,btn: ['确认删除', '点错了']
 			  ,btnAlign: 'c'
 			  ,moveType: 1 //拖拽模式，0或者1
-			  ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">即将删除一级栏目：<br>'+name+'</div>'
+			  ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">即将删除二级栏目：<br>'+name+'</div>'
 			  ,success: function(layero){
 			    var btn = layero.find('.layui-layer-btn');
 			    btn.find('.layui-layer-btn0').attr({
-			      href: 'DelPrograma?id='+id
+			      href: 'DelColumn?id='+id
 			    });
 			  }
 			});
 		});
 	});
-
 </script>
-
 </head>
 <body>
 	<div class="panel admin-panel margin-top" id="add" >
 	<div class="padding border-bottom">
-			<div class="button border-yellow" id="addPrograma" />
-				<a  href="{:U('AddColumn1')}?id={$column.id}" target="programa">
+			<div class="button border-yellow" id="addPrograma" >
+				<a  href="{:U('AddColumn1')}?sid={$column.id}" target="programa">
 					<span class="icon-plus-square-o">    添加二级栏目</span>
 				</a>
 			</div>
@@ -97,7 +95,6 @@
 			<strong><span class="icon-pencil-square-o"></span> 显示栏目</strong>
 		</div>
 		<div class="body-content">
-
 			<form method="POST" class="form-x" name="#"
 				action="#" enctype="multipart/form-data" target="programa">
 		<input type="hidden" name="id" id="id" value="{$column.id}">
@@ -117,22 +114,12 @@
 						<div class="tips"></div>
 					</div>
 				</div>
-
 				<div class="form-group">
 					<div class="label">
 						<label>背景图片：</label>
 					</div>
 					<div class="field">
-					<img src="__ROOT__/{$column.filepath}/{$column.m_image}" alt="" width="100" height="50" />
-						<div class="tips"></div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="label">
-						<label>描述：</label>
-					</div>
-					<div class="field">
-					<span>{$column.note}</span>
+					<img src="__ROOT__/{$column.filepath}/{$column.bg_image}" alt="" width="100" height="50" />
 						<div class="tips"></div>
 					</div>
 				</div>
@@ -158,6 +145,6 @@
 				</div>
 			</form>
 		</div>
-	</div>
+		</div>
 </body>
 </html>
