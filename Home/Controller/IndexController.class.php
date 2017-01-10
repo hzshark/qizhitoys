@@ -9,6 +9,7 @@ use Home\Service\User;
 use Home\Service\Version;
 use Home\Service\Toys;
 use Home\Service\Uploader;
+use Home\Service\Programa;
 
 class IndexController extends Controller
 {
@@ -169,14 +170,72 @@ class IndexController extends Controller
             $this->display('addcartoon', 'utf-8');
         }
     }
+    
+    public function DelPrograma(){
+        header("Content-Type:text/html; charset=utf-8");
+        $this->success("删除成功");
+    }
 
+    public function ShowPrograma(){
+        header("Content-Type:text/html; charset=utf-8");
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $series = new Series();
+        $ret = $series->querySeriesById($id);
+        $this->assign("column", $ret);
+        $this->display('showPrograma', 'utf-8');
+    }
+    
+    public function editSeries(){
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_GET){
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $series = new Series();
+            $ret = $series->querySeriesById($id);
+            $this->assign("column", $ret);
+            $this->display('editPrograma1', 'utf-8');
+        }else{
+            $this->display('editPrograma2', 'utf-8');
+        }
+        
+    }
+    
+    public function editPrograma(){
+        header("Content-Type:text/html; charset=utf-8");
+        
+            $id = isset($_GET['id']) ? $_GET['id'] : '';
+            $series = new Series();
+            $ret = $series->querySeriesById($id);
+            $this->assign("column", $ret);
+            $this->display('showPrograma', 'utf-8');
+        
+    }
+    
     public function Programa(){
         header("Content-Type:text/html; charset=utf-8");
+        $programa = new Programa();
+        $columns = $programa->queryPrograma();
+        $new_list = array();
+        foreach ($columns as $column){
+            $id = $column["id"];
+            $ret = $programa->queryColumnBySId($id);
+            $column["column"] = $ret;
+            array_push($new_list, $column);
+        }
+        unset($columns);
+//         var_dump($new_list);
+        $this->assign("columns", $new_list);
         $this->display('programa', 'utf-8');
     }
     public function AddPrograma(){
         header("Content-Type:text/html; charset=utf-8");
-        $this->display('addPrograma', 'utf-8');
+        if (IS_POST) {
+            $name= isset($_POST['name']) ? $_POST['name'] : '';
+            $note= isset($_POST['note']) ? $_POST['note'] : '';
+            $status= isset($_POST['status']) ? $_POST['status'] : '';
+            
+        }else{
+            $this->display('addPrograma1', 'utf-8');
+        }
     }
     public function Version(){
         header("Content-Type:text/html; charset=utf-8");

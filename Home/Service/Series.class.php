@@ -31,6 +31,12 @@ class Series
         return false;
     }
 
+    public function querySeriesById($id){
+        $series = D("Series");
+        $where['id'] = $id;
+        return $series->where($where)->find();
+    }
+    
     public function getSeries(){
         $series = D("Series");
         $where["type_id"] = 1;

@@ -84,20 +84,20 @@
 		</div>
 		<div class="body-content">
 			<form method="POST" class="form-x" name="addseries"
-				action="AddPrograma" enctype="multipart/form-data" target="programa">
+				action="AddPrograma2" enctype="multipart/form-data" target="programa">
+				<input type="hidden" name="id" value="">
 				<div class="form-group">
 					<div class="label">
 						<label>栏目名称：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input w50" value="" name="name"
-							data-validate="required:请输入栏目名称" />
+						<input type="text" class="input w50" value="" name="name" data-validate="required:请输入栏目名称" />
 						<div class="tips"></div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="label">
-						<label  id="pre_title">图片：</label>
+						<label  id="pre_title">预览图片：</label>
 					</div>
 					<div class="field">
 						<div id="up_btn" class="btn">
@@ -106,27 +106,6 @@
 						</div>
 						<p>最大100KB，支持jpg，gif，png格式。</p>
 						<div id="preview"></div>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<div class="label">
-						<label>描述：</label>
-					</div>
-					<div class="field">
-						<textarea type="text" class="input" name="note"
-							style="height: 80px;" value=""></textarea>
-						<div class="tips"></div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="label">
-						<label>状态：</label>
-					</div>
-					<div class="field">
-						<input name="status" type="radio" value="0" checked="true">
-						下架</input> <input name="status" type="radio" value="1"> 展示</input>
-						<div class="tips"></div>
 					</div>
 				</div>
 				<div class="form-group">
