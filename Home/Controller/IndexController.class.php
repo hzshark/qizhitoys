@@ -240,10 +240,20 @@ class IndexController extends Controller
             if ($ret) {
                 $this->error("这个栏目的名称已经存在，请更换名称！");
             } else {
-                $programa->addPrograma($name, $status, $note);
-                $ret = $programa->queryProgramaByName($name);
-                $this->assign("programa", $ret);
-                $this->display('addPrograma2', 'utf-8');
+                $uploader = new Uploader();
+                $ret = $uploader->uploaderImage();
+                if (1 == $ret['status']) {
+                    $this->error($ret['msg']);
+                } else {
+                    $img_path = $ret['msg'];
+                    $toy = new Toys();
+                    $programa = new Programa();
+                    $res = $toy->getPathAndName($img_path);
+                    $programa->addPrograma($name, $status, $note, $res["path"], $res["name"]);
+                    $ret = $programa->queryProgramaByName($name);
+                    $this->assign("programa", $ret);
+                    $this->display('addPrograma2', 'utf-8');
+                }
             }
         } else {
             $this->display('addPrograma1', 'utf-8');
@@ -265,32 +275,7 @@ class IndexController extends Controller
                 $toy = new Toys();
                 $programa = new Programa();
                 $res = $toy->getPathAndName($img_path);
-                $programa->updateSeriesBgImg($id,  $res["name"]);
-                $p_ret = $programa->queryProgramaById($id);
-                $this->assign("programa", $p_ret);
-                $this->display('addPrograma3', 'utf-8');
-            }
-        } else {
-            $this->error("请求方式错误");
-        }
-    }
-
-    public function AddPrograma3()
-    {
-        header("Content-Type:text/html; charset=utf-8");
-        if (IS_POST) {
-            $id = isset($_POST['id']) ? $_POST['id'] : '';
-
-            $uploader = new Uploader();
-            $ret = $uploader->uploaderImage();
-            if (1 == $ret['status']) {
-                $this->error($ret['msg']);
-            } else {
-                $img_path = $ret['msg'];
-                $toy = new Toys();
-                $programa = new Programa();
-                $res = $toy->getPathAndName($img_path);
-                $programa->updateSeries($id, $res["path"], $res["name"]);
+                $programa->updateSeriesBgImg($id, $res["name"]);
                 $p_ret = $programa->queryProgramaById($id);
                 $this->success('操作完成','ShowPrograma?id='.$id, 3);
             }

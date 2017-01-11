@@ -5,7 +5,7 @@ class Programa
 {
     Public $SHOW_IMAGE = 1;
     public $SHOW_VIDEO = 2;
-    public function addPrograma($name, $status, $note){
+    public function addPrograma($name, $status, $note, $img_path, $img_name){
         $series = D("Series");
         $data['name'] = $name;
         $data['indate'] =  date('Y-m-d H:i:s',time());
@@ -14,6 +14,8 @@ class Programa
         $data['show_type_id'] = $this->SHOW_IMAGE;
         $data['note'] = $note;
         $data['type_id'] = 2;
+        $data['image_name'] = $img_name;
+        $data['filepath'] = $img_path;
         $series->add($data);
     }
 
@@ -27,15 +29,6 @@ class Programa
         $data['image_name'] = $file_name;
         $data['status'] = $status;
         $series->add($data);
-    }
-
-    public function updateSeries($id, $img_path, $img_name){
-        $series = D("Series");
-        $where['id'] = $id;
-        $data['moddate'] =  date('Y-m-d H:i:s',time());
-        $data['image_name'] = $img_name;
-        $data['filepath'] = $img_path;
-        $series->where($where)->save($data);
     }
 
     public function updateSeriesBgImg($id, $img_name){

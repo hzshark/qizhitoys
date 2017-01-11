@@ -52,7 +52,28 @@
 	}
 }
 </style>
-
+<script type="text/javascript">
+	//建立一個可存取到該file的url
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	$(function() {
+		$("#photoimg").on("change", function() {
+			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+			if (objUrl) {
+				$("#preview").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
+			}
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="panel admin-panel margin-top" id="add" >
@@ -70,6 +91,19 @@
 						<input type="text" class="input w50" value="" name="name"
 							data-validate="required:请输入栏目名称" />
 						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label  id="pre_title">预览图片：</label>
+					</div>
+					<div class="field">
+						<div id="up_btn" class="btn">
+							<span id="pre_btn">添加图片</span>
+							 <input id="photoimg" type="file" name="photoimg" />
+						</div>
+						<p>最大100KB，支持jpg，gif，png格式。</p>
+						<div id="preview"></div>
 					</div>
 				</div>
 				<div class="form-group">
