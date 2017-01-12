@@ -5,18 +5,17 @@ class Series
     Public $SHOW_IMAGE = 1;
     public $SHOW_VIDEO = 2;
 
-    private function addSeriesToDB($name, $image_name,  $m_image, $status, $filepath, $note, $filemd5){
+    private function addSeriesToDB($name, $status, $note, $uploader_list=array()){
         $series = D("Series");
         $data['name'] = $name;
-        $data['image_name'] = $image_name;
-        $data['m_image'] = $m_image;
+        $data['image_name'] = $uploader_list['home_image'];
+        $data['m_image'] = $uploader_list['in_image'];
+        $data['s_icon'] = $uploader_list['s_icon'];
         $data['indate'] =  date('Y-m-d H:i:s',time());
         $data['moddate'] =  date('Y-m-d H:i:s',time());
         $data['status'] = $status;
         $data['show_type_id'] = $this->SHOW_IMAGE;
-        $data['filepath'] = $filepath;
         $data['note'] = $note;
-        $data['filemd5'] = $filemd5;
         $data['type_id'] = 1;
         $series->add($data);
     }
@@ -50,11 +49,20 @@ class Series
         return $series ->where($where)->order('indate')->select();
     }
 
+    public function checkHasCartoonBySeriesid($id){
+        $model = D("Compages");
+        $where["series_id"] = $id;
+        return $model->where($where)->select();
+    }
+
+    public function delSeriesByid($id){
+        $model = D("Series");
+        $where["id"] = $id;
+        return $model->where($where)->delete();
+    }
+
     public function seriesUploadify($name, $status, $note='', $thumbWidth = '64' , $thumbHeight = '64')
     {
-        if ($this->check_name_exist($name)){
-            return "系列名称已存在，请更换名称或者修改原有系列信息！";
-        }
         if (! empty($_FILES)) {
             $uploadconfig = array(
                 'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
@@ -81,19 +89,71 @@ class Series
             if (! $info) { // 上传错误提示错误信息
                 return $upload->getError();
             } else { // 上传成功
-                $image = new \Think\Image();
+                $uploader_list = array();
                 foreach ($info as $file) {
-
-                    $thumb_file = C('UPLOAD_PATH') . $file['savepath'] . $file['savename'];
-                    $save_path = C('UPLOAD_PATH') . $file['savepath'] . 'mini_' . $file['savename'];
-                    $image->open($thumb_file)
-                        ->thumb($thumbWidth, $thumbHeight, \Think\Image::IMAGE_THUMB_FILLED)
-                        ->save($save_path);
-//                         $name, $m_name, $status, $filepath, $note, $filemd5
-                        $this->addSeriesToDB($name, $file['savename'], 'mini_' . $file['savename'], $status, C('UPLOAD_PATH') . $file['savepath'], $note, $file['md5']);
+                    $uploader_list[$file['key']] = C('UPLOAD_PATH') . $file['savepath'].$file['savename'];
                 }
+                var_dump($uploader_list);
+                $this->addSeriesToDB($name, $status, $note, $uploader_list);
                 return "";
             }
         }
+    }
+
+    public function updateSeriesHasFile($id, $name, $status, $note){
+            $uploadconfig = array(
+                'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
+                'rootPath' => C('UPLOAD_PATH'), // 设置附件上传根目录
+                'savePath' => '', // 设置附件上传（子）目录
+                'saveName' => array(
+                    'uniqid',
+                    ''
+                ),
+                'exts' => array(
+                    'jpg',
+                    'gif',
+                    'png',
+                    'jpeg'
+                ),
+                'autoSub' => true,
+                'subName' => array(
+                    'date',
+                    'Ymd'
+                )
+            );
+            $upload = new \Think\Upload($uploadconfig); // 实例化上传类
+            $info = $upload->upload();
+            var_dump($info);
+            if (! $info) { // 上传错误提示错误信息
+                return $upload->getError();
+            } else { // 上传成功
+                $uploader_list = array();
+                foreach ($info as $file) {
+                    if (isset($file['size']) && $file['size'] > 0){
+                        $uploader_list[$file['key']] = C('UPLOAD_PATH') . $file['savepath'].$file['savename'];
+                    }
+                }
+                $this->upSeriesToDB($id, $name, $status, $note, $uploader_list);
+                return "";
+            }
+    }
+
+    public function updateSeriesHasNotFile($id, $name, $status, $note){
+        $this->upSeriesToDB($id, $name, $status, $note, null);
+    }
+
+    private function upSeriesToDB($id, $name, $status, $note, $uploader_list=array()){
+        $series = D("Series");
+        $where["id"] = $id;
+        $data['name'] = $name;
+        if (isset($uploader_list)){
+            $data['image_name'] = $uploader_list['home_image'];
+            $data['m_image'] = $uploader_list['in_image'];
+            $data['s_icon'] = $uploader_list['s_icon'];
+        }
+        $data['moddate'] =  date('Y-m-d H:i:s',time());
+        $data['status'] = $status;
+        $data['note'] = $note;
+        $series->where($where)->save($data);
     }
 }

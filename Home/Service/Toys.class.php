@@ -7,8 +7,8 @@ class Toys
     public function getCompagesToysById($id)
     {
         $compages = D("Compages");
-        $where['series_id'] = $id;
-        return $compages->where($where)->select();
+        $where['id'] = $id;
+        return $compages->where($where)->find();
     }
 
     public function getCompagesToysDetail($toyid)
@@ -88,13 +88,9 @@ class Toys
     public function AddCartoon($series_id, $name, $show_img, $show_type, $file_path = array())
     {
         $compages = D("Compages");
-        $ret = $this->getPathAndName($show_img);
-        $show_path = $ret["path"];
-        $show_name = $ret["name"];
         $data["series_id"] = $series_id;
         $data["name"] = $name;
-        $data["image_name"] = $show_name;
-        $data["save_path"] = $show_path;
+        $data["image_name"] = $show_img;
         $data["show_type"] = $show_type;
         $data["indate"] = date('Y-m-d H:i:s', time());
         $data["moddate"] = $data["indate"];
@@ -106,12 +102,36 @@ class Toys
             $cid = $ret["id"];
             $compages_detail = D("CompagesDetail");
             foreach ($file_path as $path) {
-                $res = $this->getPathAndName($path);
                 $detail_data['p_id'] = $cid;
-                $detail_data['file_name'] = $res["name"];
+                $detail_data['file_name'] = $path;
                 $compages_detail->add($detail_data);
             }
         }
+    }
+
+        public function updateCartoon($id, $name, $show_type, $show_img, $file_path = array())
+        {
+            $compages = D("Compages");
+            $where['id'] = $id;
+            $data["name"] = $name;
+            if ($show_img){
+                $data["image_name"] = $show_img;
+            }
+            $data["show_type"] = $show_type;
+            $data["moddate"] = date('Y-m-d H:i:s', time());
+            $data["status"] = 0;
+            $compages->where($where)->save($data);
+//             $ret = $this-> queryCartoonByNameAndSeriesId($name, $series_id);
+//             //var_dump($ret);
+//             if ($ret) {
+//                 $cid = $ret["id"];
+//                 $compages_detail = D("CompagesDetail");
+//                 foreach ($file_path as $path) {
+//                     $detail_data['p_id'] = $cid;
+//                     $detail_data['file_name'] = $path;
+//                     $compages_detail->add($detail_data);
+//                 }
+//             }
     }
 
     public function getCartoonDetailList($cartoon_id)
@@ -145,7 +165,6 @@ class Toys
             'compages_toys.id' => 'cartoon_id',
             'compages_toys.name',
             'compages_toys.image_name',
-            'compages_toys.save_path',
             'compages_toys.show_type',
             'compages_toys.moddate',
             'compages_toys.status',

@@ -73,6 +73,67 @@ class IndexController extends Controller
                 // 错误页面的默认跳转页面是返回前一页，通常不需要设置
                 $this->error($result);
             }
+        }else{
+            $this->display('Index/addSeries', 'utf-8');
+        }
+    }
+
+    public function editSeries()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $series = new Series();
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $note = isset($_POST['note']) ? $_POST['note'] : '';
+            $status = isset($_POST['status']) ? $_POST['status'] : 0;
+
+            $home_image = isset($_POST['home_image']) ? $_POST['home_image'] : '';
+            $in_image = isset($_POST['in_image']) ? $_POST['in_image'] : '' ;
+            $s_icon = isset($_POST['s_icon']) ? $_POST['s_icon'] : '';
+            $result = "";
+            if (empty($home_image) && empty($in_image) && empty($s_icon)){
+                $series->updateSeriesHasNotFile($id, $name, $status, $note);
+            }else {
+                $result = $series->updateSeriesHasFile($id, $name, $status, $note);
+            }
+            if (empty($result)) {
+                // 设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
+                $this->success('登入成功,页面调转中......', U("Index/seriesmanage"), 3);
+            } else {
+                // 错误页面的默认跳转页面是返回前一页，通常不需要设置
+                $this->error($result);
+            }
+        }else{
+            $id = isset($_GET['id']) ? $_GET['id'] : '';
+            $series_info = $series->querySeriesById($id);
+            $this->assign("series_info", $series_info);
+            $this->display('Index/editSeries', 'utf-8');
+        }
+    }
+
+    public function delSeries()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $series = new Series();
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $donghuas = $series->checkHasCartoonBySeriesid($id);
+            if (count($donghuas) > 0){
+                $data['status'] = 0;
+                $data['msg'] = '该系列还存在动画没有删除，请先删除动画！';
+                $this->ajaxReturn($data);
+            }else{
+                $series->delSeriesByid($id);
+                $data['status'] = 1;
+                $data['msg'] = '删除系列成功！';
+                $this->ajaxReturn($data);
+            }
+
+
+            $data['status'] = 0;
+            $data['msg'] = '删除错误！';
+            $this->ajaxReturn($data);
         }
     }
 
@@ -152,13 +213,10 @@ class IndexController extends Controller
                         $showImg = $ret['msg'][0];
                     }
                     $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
-                    $cartoon = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
-                    if ($cartoon) {
-                        $this->error("本系列已经存在相同的动画名称，请更换名称！");
-                    } else {
+
                         $toy->AddCartoon($seriesid, $cartoonname, $showImg, $showtype, $dImg);
-                    }
-                    $this->success("添加动画成功！");
+
+                    $this->success("添加动画成功!","Cartoonlist" , 3);
                 }
             }
         } else {
@@ -166,6 +224,47 @@ class IndexController extends Controller
             $serielist = $series->getAllValidSeries();
             $this->assign("serielist", $serielist);
             $this->display('addcartoon', 'utf-8');
+        }
+    }
+
+    public function EditCartoon()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $seriesid = isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
+            $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
+            $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
+            $uploader = new Uploader();
+            $toy = new Toys();
+            $showImg = "";
+            $cartoon1 = $toy->getCompagesToysById($id);
+            $cartoon2 = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
+            if ($cartoon2 && $cartoon1["name"] != $cartoonname) {
+                $this->error("本系列已经存在相同的动画名称，请更换名称！");
+            } else {
+                if ("video" == $showtype) {} elseif ("pic" == $showtype) {
+                    $showImg = "";
+                    $ret = $uploader->UploadShowImage();
+                    if (1 == $ret['status']) {
+                        $this->error($ret['msg']);
+                    } else {
+                        $showImg = $ret['msg'][0];
+                    }
+                    $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
+
+                        $toy->updateCartoon($id, $cartoonname, $showtype, $showImg, $dImg);
+
+                    $this->success("修改动画成功!","Cartoonlist" , 3);
+                }
+            }
+        } else {
+            $toys = new Toys();
+            $id = isset($_GET['id']) ? $_GET['id'] : -1;
+            $toy = $toys->getCompagesToysById($id);
+//             var_dump($toy);
+            $this->assign("toy", $toy);
+            $this->display('editCartoon', 'utf-8');
         }
     }
 
@@ -185,7 +284,7 @@ class IndexController extends Controller
         $this->display('showPrograma', 'utf-8');
     }
 
-    public function editSeries()
+    public function editPrograma()
     {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_GET) {
@@ -197,17 +296,6 @@ class IndexController extends Controller
         } else {
             $this->display('editPrograma2', 'utf-8');
         }
-    }
-
-    public function editPrograma()
-    {
-        header("Content-Type:text/html; charset=utf-8");
-
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $series = new Series();
-        $ret = $series->querySeriesById($id);
-        $this->assign("column", $ret);
-        $this->display('showPrograma', 'utf-8');
     }
 
     public function Programa()
@@ -240,20 +328,10 @@ class IndexController extends Controller
             if ($ret) {
                 $this->error("这个栏目的名称已经存在，请更换名称！");
             } else {
-                $uploader = new Uploader();
-                $ret = $uploader->uploaderImage();
-                if (1 == $ret['status']) {
-                    $this->error($ret['msg']);
-                } else {
-                    $img_path = $ret['msg'];
-                    $toy = new Toys();
-                    $programa = new Programa();
-                    $res = $toy->getPathAndName($img_path);
-                    $programa->addPrograma($name, $status, $note, $res["path"], $res["name"]);
-                    $ret = $programa->queryProgramaByName($name);
-                    $this->assign("programa", $ret);
-                    $this->display('addPrograma2', 'utf-8');
-                }
+                $programa->addPrograma($name, $status, $note);
+                $ret = $programa->queryProgramaByName($name);
+                $this->assign("programa", $ret);
+                $this->display('addPrograma2', 'utf-8');
             }
         } else {
             $this->display('addPrograma1', 'utf-8');
@@ -275,7 +353,32 @@ class IndexController extends Controller
                 $toy = new Toys();
                 $programa = new Programa();
                 $res = $toy->getPathAndName($img_path);
-                $programa->updateSeriesBgImg($id, $res["name"]);
+                $programa->updateSeriesBgImg($id,  $res["name"]);
+                $p_ret = $programa->queryProgramaById($id);
+                $this->assign("programa", $p_ret);
+                $this->display('addPrograma3', 'utf-8');
+            }
+        } else {
+            $this->error("请求方式错误");
+        }
+    }
+
+    public function AddPrograma3()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+
+            $uploader = new Uploader();
+            $ret = $uploader->uploaderImage();
+            if (1 == $ret['status']) {
+                $this->error($ret['msg']);
+            } else {
+                $img_path = $ret['msg'];
+                $toy = new Toys();
+                $programa = new Programa();
+                $res = $toy->getPathAndName($img_path);
+                $programa->updateSeries($id, $res["path"], $res["name"]);
                 $p_ret = $programa->queryProgramaById($id);
                 $this->success('操作完成','ShowPrograma?id='.$id, 3);
             }

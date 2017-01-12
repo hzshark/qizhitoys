@@ -11,11 +11,33 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
+<script src="__PUBLIC__/js/layer.js"></script>
 <script type="text/javascript">
-	$(function() {
+	function del(id, name){
+			layer.confirm('确认删除系列【'+name+'】？', function(index){
+				$.ajax({
+	                cache: true,
+	                type: "POST",
+	                url:"{:U('Index/delSeries')}",
+	                data:{ "id": id },
+	                error: function(request) {
+	                	layer.msg(request.msg, {icon: 6});
+	                },
+	                success: function(data) {
+	                	layer.msg(data.msg, {
+	                		  icon: 1
+	                		}, function(){
+	                		if (data.status == 1){
+	                			window.location.href="{:U('Index/Seriesmanage')}";
+	                		}
+	                		});
 
-	});
+	                }
+	            });
 
+				  layer.close(index);
+			});
+	}
 </script>
 
 </head>
@@ -71,9 +93,9 @@
 					<td>{$vo.moddate}</td>
 					<td>{$vo.status}</td>
 					<td><div class="button-group">
-							<a class="button border-main" href="add.html"><span
+							<a class="button border-main" href="{:U('EditCartoon')}?id={$vo.cartoon_id}" target="right"><span
 								class="icon-edit"></span> 修改</a> <a class="button border-red"
-								href="javascript:void(0)" onclick="return del(1,1,1)"><span
+								href="javascript:void(0)" onclick="return del('{$vo.cartoon_id}','{$vo.name}');"><span
 								class="icon-trash-o"></span> 删除</a>
 						</div></td>
 				</tr>
