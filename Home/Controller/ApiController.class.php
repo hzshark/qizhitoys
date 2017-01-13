@@ -97,10 +97,12 @@ class ApiController extends Controller
                 $content[] = array(
                     "id" => $info["id"],
                     "name" => $info["name"],
-                    "sicon" => __ROOT__ . $info["m_image"],
+                    "sicon" => __ROOT__ . $info["s_icon"],
+                    "unsicon"=>__ROOT__ . $info["unsicon"],
+                    "inner_img"=>__ROOT__ . $info["m_image"],
                     "url" => __ROOT__ . $info["image_name"],
                     "type" => $info["type_id"],
-                    "show_type" => $info["show_type_id"]
+                    "show_type" => $info["show_type"]
                 );
             }
             $ret["status"] = $this->SUCCESS;

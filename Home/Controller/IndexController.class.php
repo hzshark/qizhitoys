@@ -87,7 +87,7 @@ class IndexController extends Controller
             $name = isset($_POST['name']) ? $_POST['name'] : '';
             $note = isset($_POST['note']) ? $_POST['note'] : '';
             $status = isset($_POST['status']) ? $_POST['status'] : 0;
-            
+
             $home_image = isset($_POST['home_image']) ? $_POST['home_image'] : '';
             $in_image = isset($_POST['in_image']) ? $_POST['in_image'] : '';
             $s_icon = isset($_POST['s_icon']) ? $_POST['s_icon'] : '';
@@ -129,7 +129,7 @@ class IndexController extends Controller
                 $data['msg'] = '删除系列成功！';
                 $this->ajaxReturn($data);
             }
-            
+
             $data['status'] = 0;
             $data['msg'] = '删除错误！';
             $this->ajaxReturn($data);
@@ -165,13 +165,13 @@ class IndexController extends Controller
         $pagenum = isset($_GET['p']) ? $_GET['p'] : 0;
         $cartoon = new Toys();
         $series = new Series();
-        
+
         $series_id = isset($_POST['series_id']) ? $_POST['series_id'] : 0;
         $status = isset($_POST['status']) ? $_POST['status'] : - 1;
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
         $count = $cartoon->getCartoonsAllCount($series_id, $status, $keywords);
         $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $pagenum);
-        
+
         $serielist = $series->getAllValidSeries();
         $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
         $Page->setConfig('header', '共%TOTAL_ROW%条');
@@ -210,9 +210,9 @@ class IndexController extends Controller
                     $showImg = $ret['msg'][0];
                 }
                 $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
-                
+
                 $toy->AddCartoon($seriesid, $cartoonname, $showImg, $showtype, $dImg);
-                
+
                 $this->success("添加动画成功!", "Cartoonlist", 3);
             }
         } else {
@@ -248,9 +248,9 @@ class IndexController extends Controller
                         $showImg = $ret['msg'][0];
                     }
                     $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
-                    
+
                     $toy->updateCartoon($id, $cartoonname, $showtype, $showImg, $dImg);
-                    
+
                     $this->success("修改动画成功!", "Cartoonlist", 3);
                 }
             }
@@ -261,6 +261,30 @@ class IndexController extends Controller
             // var_dump($toy);
             $this->assign("toy", $toy);
             $this->display('editCartoon', 'utf-8');
+        }
+    }
+
+    public function delCartoon()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $series = new Series();
+        if (IS_POST) {
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $donghuas = $series->checkHasCartoonBySeriesid($id);
+            if (count($donghuas) > 0) {
+                $data['status'] = 0;
+                $data['msg'] = '该系列还存在动画没有删除，请先删除动画！';
+                $this->ajaxReturn($data);
+            } else {
+                $series->delSeriesByid($id);
+                $data['status'] = 1;
+                $data['msg'] = '删除系列成功！';
+                $this->ajaxReturn($data);
+            }
+
+            $data['status'] = 0;
+            $data['msg'] = '删除错误！';
+            $this->ajaxReturn($data);
         }
     }
 
@@ -339,7 +363,7 @@ class IndexController extends Controller
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : '';
-            
+
             $uploader = new Uploader();
             $ret = $uploader->uploaderImage();
             if (1 == $ret['status']) {
@@ -364,7 +388,7 @@ class IndexController extends Controller
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : '';
-            
+
             $uploader = new Uploader();
             $ret = $uploader->uploaderImage();
             if (1 == $ret['status']) {
@@ -389,7 +413,7 @@ class IndexController extends Controller
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $programa = new Programa();
         $ret = $programa->queryColumnById($id);
-        
+
         $this->assign("column", $ret);
         $this->display('showColumn', 'utf-8');
     }
@@ -459,13 +483,13 @@ class IndexController extends Controller
         $pagenum = isset($_GET['p']) ? $_GET['p'] : 0;
         $cartoon = new Toys();
         $programa = new Programa();
-        
+
         $series_id = isset($_POST['series_id']) ? $_POST['series_id'] : 0;
         $status = isset($_POST['status']) ? $_POST['status'] : - 1;
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
         $count = $cartoon->getCartoonsAllCount($series_id, $status, $keywords);
         $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $pagenum);
-        
+
         $serielist = $programa->getAllValidColumn();
         $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
         $Page->setConfig('header', '共%TOTAL_ROW%条');
