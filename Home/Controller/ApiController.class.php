@@ -97,8 +97,8 @@ class ApiController extends Controller
                 $content[] = array(
                     "id" => $info["id"],
                     "name" => $info["name"],
-                    "sicon" => __ROOT__ . $info["filepath"] . $info["m_image"],
-                    "url" => __ROOT__ . $info["filepath"] . $info["image_name"],
+                    "sicon" => __ROOT__ . $info["m_image"],
+                    "url" => __ROOT__ . $info["image_name"],
                     "type" => $info["type_id"],
                     "show_type" => $info["show_type_id"]
                 );
@@ -202,7 +202,7 @@ class ApiController extends Controller
         }
         $this->ajaxReturn($ret);
     }
-    
+
     public function GetShoppingList()
     {
         $ret = array(
@@ -210,7 +210,7 @@ class ApiController extends Controller
             'msg' => '查询失败!',
             "content" => array()
         );
-    
+
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
@@ -225,7 +225,7 @@ class ApiController extends Controller
                     "preview" => __ROOT__ . $info["filepath"] . $info["image_name"]
                 );
             }
-    
+
             $ret["status"] = $this->SUCCESS;
             $ret["msg"] = "查询成功！";
             $ret["content"] = $content;
