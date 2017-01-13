@@ -125,7 +125,7 @@ class Series
             );
             $upload = new \Think\Upload($uploadconfig); // 实例化上传类
             $info = $upload->upload();
-            var_dump($info);
+//             var_dump($info);
             if (! $info) { // 上传错误提示错误信息
                 return $upload->getError();
             } else { // 上传成功
@@ -149,12 +149,19 @@ class Series
         $where["id"] = $id;
         $data['name'] = $name;
         if (isset($uploader_list)){
-            $data['image_name'] = $uploader_list['home_image'];
-            $data['m_image'] = $uploader_list['in_image'];
-            $data['s_icon'] = $uploader_list['s_icon'];
-            $data['unsicon'] = $uploader_list['unsicon'];
+            if (isset($uploader_list['home_image'])){
+                $data['image_name'] =$uploader_list['home_image'];
+            }
+            if (isset($uploader_list['in_image'])){
+                $data['m_image'] =$uploader_list['in_image'];
+            }
+            if (isset($uploader_list['s_icon'])){
+                $data['s_icon'] =$uploader_list['s_icon'];
+            }
+            if (isset($uploader_list['unsicon'])){
+                $data['unsicon'] =$uploader_list['unsicon'];
+            }
         }
-        var_dump($uploader_list);
         $data['moddate'] =  date('Y-m-d H:i:s',time());
         $data['status'] = $status;
         $data['note'] = $note;

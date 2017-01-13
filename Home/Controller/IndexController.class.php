@@ -88,16 +88,14 @@ class IndexController extends Controller
             $note = isset($_POST['note']) ? $_POST['note'] : '';
             $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
-            $home_image = isset($_POST['home_image']) ? $_POST['home_image'] : '';
-            $in_image = isset($_POST['in_image']) ? $_POST['in_image'] : '';
-            $s_icon = isset($_POST['s_icon']) ? $_POST['s_icon'] : '';
-            $unsicon = isset($_POST['unsicon']) ? $_POST['unsicon'] : '';
+            $home_image = $_FILES['home_image']['size'];
+            $in_image = $_FILES['in_image']['size'];
+            $s_icon = $_FILES['s_icon']['size'];
+            $unsicon = $_FILES['unsicon']['size'];
             $result = "";
-            var_dump($unsicon);
             if (empty($home_image) && empty($in_image) && empty($s_icon)&&empty($unsicon)) {
                 $series->updateSeriesHasNotFile($id, $name, $status, $note);
             } else {
-                var_dump("111");
                 $result = $series->updateSeriesHasFile($id, $name, $status, $note);
             }
             if (empty($result)) {

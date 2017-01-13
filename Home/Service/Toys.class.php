@@ -11,6 +11,13 @@ class Toys
         return $compages->where($where)->find();
     }
 
+    public function getCompagesToysBySId($id)
+    {
+        $compages = D("Compages");
+        $where['series_id'] = $id;
+        return $compages->where($where)->find();
+    }
+
     public function getCompagesToysDetail($toyid)
     {
         $compages = D("CompagesDetail");
@@ -66,7 +73,7 @@ class Toys
             ->where($where)
             ->count();
     }
-    
+
     public function getPathAndName($file_path)
     {
         $path = mb_strrchr($file_path, "/", TRUE);

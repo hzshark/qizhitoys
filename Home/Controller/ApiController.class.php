@@ -124,13 +124,13 @@ class ApiController extends Controller
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $toys = new Toys();
-            $infos = $toys->getCompagesToysById($id);
+            $infos = $toys->getCompagesToysBySId($id);
             foreach ($infos as $info) {
                 $toyid = $info["id"];
                 $details = $toys->getCompagesToysDetail($toyid);
                 $showurl = array();
                 foreach ($details as $detail) {
-                    $showurl[] = __ROOT__ . $info["save_path"] . $detail["file_name"];
+                    $showurl[] = __ROOT__ .  $detail["file_name"];
                 }
                 $content[] = array(
                     "id" => $toyid,
