@@ -116,17 +116,17 @@ class Toys
         }
     }
 
-        public function updateCartoon($id, $name, $show_type, $show_img, $file_path = array())
+        public function updateCartoon($id, $name, $show_type, $status,$show_img, $file_path = array())
         {
             $compages = D("Compages");
             $where['id'] = $id;
             $data["name"] = $name;
+            $data['status'] = $status;
             if ($show_img){
                 $data["image_name"] = $show_img;
             }
             $data["show_type"] = $show_type;
             $data["moddate"] = date('Y-m-d H:i:s', time());
-            $data["status"] = 0;
             $compages->where($where)->save($data);
 //             $ret = $this-> queryCartoonByNameAndSeriesId($name, $series_id);
 //             //var_dump($ret);

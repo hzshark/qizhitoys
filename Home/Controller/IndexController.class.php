@@ -232,6 +232,7 @@ class IndexController extends Controller
             $seriesid = isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
             $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
             $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
+            $status = isset($_POST['status']) ? $_POST['status'] : 0;
             $uploader = new Uploader();
             $toy = new Toys();
             $showImg = "";
@@ -240,27 +241,25 @@ class IndexController extends Controller
             if ($cartoon2 && $cartoon1["name"] != $cartoonname) {
                 $this->error("本系列已经存在相同的动画名称，请更换名称！");
             } else {
-                if ("video" == $showtype) {} elseif ("pic" == $showtype) {
-                    $showImg = "";
+                $showImg = "";
+                if ($_FILES['pre_img']['size'] >0){
                     $ret = $uploader->UploadShowImage();
                     if (1 == $ret['status']) {
                         $this->error($ret['msg']);
                     } else {
                         $showImg = $ret['msg'][0];
                     }
-                    $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
-
-                    $toy->updateCartoon($id, $cartoonname, $showtype, $showImg, $dImg);
-
-                    $this->success("修改动画成功!", "Cartoonlist", 3);
                 }
+                $toy->updateCartoon($id, $cartoonname, $showtype, $status,$showImg);
+                $this->success("修改动画成功!", "Cartoonlist", 3);
             }
         } else {
             $toys = new Toys();
             $id = isset($_GET['id']) ? $_GET['id'] : - 1;
             $toy = $toys->getCompagesToysById($id);
-            // var_dump($toy);
+            $showimg = $toys->getCompagesToysDetail($id);
             $this->assign("toy", $toy);
+            $this->assign("showimg", $showimg);
             $this->display('editCartoon', 'utf-8');
         }
     }
