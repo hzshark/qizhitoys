@@ -2,8 +2,8 @@
 namespace Home\Service;
 class Series
 {
-    Public $SHOW_IMAGE = 1;
-    public $SHOW_VIDEO = 2;
+    Public $SHOW_IMAGE = 'pic';
+    public $SHOW_VIDEO = "video";
 
     private function addSeriesToDB($name, $status, $note, $uploader_list=array()){
         $series = D("Series");
@@ -11,10 +11,11 @@ class Series
         $data['image_name'] = $uploader_list['home_image'];
         $data['m_image'] = $uploader_list['in_image'];
         $data['s_icon'] = $uploader_list['s_icon'];
+        $data['unsicon'] = $uploader_list['unsicon'];
         $data['indate'] =  date('Y-m-d H:i:s',time());
         $data['moddate'] =  date('Y-m-d H:i:s',time());
         $data['status'] = $status;
-        $data['show_type_id'] = $this->SHOW_IMAGE;
+        $data['show_type'] = $this->SHOW_VIDEO;
         $data['note'] = $note;
         $data['type_id'] = 1;
         $series->add($data);
@@ -94,6 +95,7 @@ class Series
                     $uploader_list[$file['key']] = C('UPLOAD_PATH') . $file['savepath'].$file['savename'];
                 }
                 var_dump($uploader_list);
+
                 $this->addSeriesToDB($name, $status, $note, $uploader_list);
                 return "";
             }
@@ -150,7 +152,9 @@ class Series
             $data['image_name'] = $uploader_list['home_image'];
             $data['m_image'] = $uploader_list['in_image'];
             $data['s_icon'] = $uploader_list['s_icon'];
+            $data['unsicon'] = $uploader_list['unsicon'];
         }
+        var_dump($uploader_list);
         $data['moddate'] =  date('Y-m-d H:i:s',time());
         $data['status'] = $status;
         $data['note'] = $note;

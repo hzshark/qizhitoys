@@ -54,9 +54,9 @@ return array(
     //    'TMPL_EXCEPTION_FILE'=>'./App/Tpl/Public/error.html', // 定义公共错误模板
 
     /* 网站设置 */
-    'SITE_TITLE' => 'QZToys', //网站title
+    'SITE_TITLE' => 'QZWJ', //网站title
 'UPLOAD_PATH' => './Uploads/',
-    'UPLOAD_MAX_SIZE' => '3145728',
+    'UPLOAD_MAX_SIZE' => '31457280',
     /* 网站日志设置 */
     'WEB_LOG_RECORD' => false, // 默认不记录日志
     'LOG_FILE_SIZE' => 2097152, // 日志文件大小限制

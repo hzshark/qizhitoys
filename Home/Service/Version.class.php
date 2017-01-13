@@ -3,19 +3,21 @@ namespace Home\Service;
 
 class Version
 {
+
     public function queryInfoByType($type)
     {
         $ver = D("Version");
         $where['type'] = $type;
-        return  $ver->where($where)->find();
+        return $ver->where($where)->find();
     }
+
     public function queryVersionInfo()
     {
         $ver = D("Version");
-        return  $ver->select();
+        return $ver->select();
     }
 
-    private function updateVersionInfoByType($filepath, $name, $note, $type, $force,$version, $versioncode)
+    private function updateVersionInfoByType($filepath, $name, $note, $type, $force, $version, $versioncode)
     {
         $ret = $this->UploadFile($name);
         $ver = D("Version");
@@ -25,17 +27,16 @@ class Version
         $data['isforce'] = $force;
         $data['filepath'] = $filepath;
         $data['verinfo'] = $note;
-        if ($ver->where($where)->count("type") > 0){
+        if ($ver->where($where)->count("type") > 0) {
             $ver->where($where)->save($data);
-        }else{
+        } else {
             $data['type'] = $type;
             $ver->add($data);
         }
     }
 
-    public function UploadFile($name, $note, $type, $force,$version, $versioncode)
+    public function UploadFile($name, $note, $type, $force, $version, $versioncode)
     {
-
         if (! empty($_FILES)) {
             $uploadconfig = array(
                 'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
@@ -56,16 +57,25 @@ class Version
             $upload = new \Think\Upload($uploadconfig); // 实例化上传类
             $info = $upload->upload();
             if (! $info) { // 上传错误提示错误信息
-                return $upload->getError();
-            }else{
-                foreach ($info as $file) {
-                    $save_path = C('UPLOAD_PATH') . $file['savepath'] .  $file['savename'];
-                    $this->updateVersionInfoByType($save_path,  $name, $note, $type, $force,$version, $versioncode);
-                }
-                return "上传文件成功";
+                return array(
+                    'status' => 0,
+                    'msg' => $upload->getError()
+                );
+            } else {
+                $file = $info['packagefile'];
+                $save_path = C('UPLOAD_PATH') . $file['savepath'] . $file['savename'];
+                $this->updateVersionInfoByType($save_path, $name, $note, $type, $force, $version, $versioncode);
+
+                return array(
+                    'status' => 1,
+                    'msg' => "上传文件成功"
+                );
             }
-            }else{
-                return "上传文件空";
-            }
+        } else {
+            return array(
+                'status' => 0,
+                'msg' => "上传文件空"
+            );
+        }
     }
 }

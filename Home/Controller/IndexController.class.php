@@ -91,10 +91,13 @@ class IndexController extends Controller
             $home_image = isset($_POST['home_image']) ? $_POST['home_image'] : '';
             $in_image = isset($_POST['in_image']) ? $_POST['in_image'] : '';
             $s_icon = isset($_POST['s_icon']) ? $_POST['s_icon'] : '';
+            $unsicon = isset($_POST['unsicon']) ? $_POST['unsicon'] : '';
             $result = "";
-            if (empty($home_image) && empty($in_image) && empty($s_icon)) {
+            var_dump($unsicon);
+            if (empty($home_image) && empty($in_image) && empty($s_icon)&&empty($unsicon)) {
                 $series->updateSeriesHasNotFile($id, $name, $status, $note);
             } else {
+                var_dump("111");
                 $result = $series->updateSeriesHasFile($id, $name, $status, $note);
             }
             if (empty($result)) {
@@ -511,6 +514,7 @@ class IndexController extends Controller
         header("Content-Type:text/html; charset=utf-8");
         $err = '';
         $ver = new Version();
+        $ret = '';
         if (IS_POST) {
             $name = isset($_POST['name']) ? $_POST['name'] : '';
             $note = isset($_POST['note']) ? $_POST['note'] : '';
@@ -519,9 +523,16 @@ class IndexController extends Controller
             $version = isset($_POST['version']) ? $_POST['version'] : '';
             $versioncode = isset($_POST['versioncode']) ? $_POST['versioncode'] : '';
             $ret = $ver->UploadFile($name, $note, $type, $force, $version, $versioncode);
-        }
+            if ($ret['status'] == 1){
+                $this->success($ret['msg'],'Version', 3);
+            }else {
+                $this->error($ret['msg'],'Version', 3);
+            }
+
+        }else{
         $vers = $ver->queryVersionInfo();
         $this->assign("vers", $vers);
         $this->display('updateVersion', 'utf-8');
+        }
     }
 }
