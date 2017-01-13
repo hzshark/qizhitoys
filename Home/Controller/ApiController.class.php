@@ -135,7 +135,7 @@ class ApiController extends Controller
                 $content[] = array(
                     "id" => $toyid,
                     "name" => $info["name"],
-                    "preview" => __ROOT__ . $info["save_path"] . $info["image_name"],
+                    "preview" => __ROOT__ . $info["image_name"],
                     "url" => $showurl,
                     "type" => $info["show_type"]
                 );

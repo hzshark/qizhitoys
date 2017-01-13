@@ -15,7 +15,7 @@ class Toys
     {
         $compages = D("Compages");
         $where['series_id'] = $id;
-        return $compages->where($where)->find();
+        return $compages->where($where)->select();
     }
 
     public function getCompagesToysDetail($toyid)
