@@ -51,6 +51,76 @@ class Toys
             ->select();
     }
 
+    public function getShoppingCount($series_id, $status, $keywords)
+    {
+        $shopping= D("Shopping");
+        $where= array();
+        if ($status > -1){
+            $where["shoppings.status"] = $status;
+        }
+        if ($series_id > 0){
+            $where["shoppings.status"] = $status;
+        }
+        if (isset($keywords)&&! empty($keywords)) {
+            $where['shoppings.name'] = array(
+                "like",
+                "%" . $keywords . "%"
+            );
+        }
+        $join1 = "LEFT JOIN shopping_column on shopping_column.id = shoppings.p_id";
+        $join2 = "LEFT JOIN series on series.id = shopping_column.series_id";
+        if (count($where) > 0){
+            return $shopping->join($join1)->join($join2) ->where($where)->count();
+        }else{
+            return $shopping->join($join1)->join($join2) ->count();
+        }
+    }
+
+    public function getShoppings ($series_id, $status, $keywords, $p)
+    {
+        $shopping= D("Shopping");
+        $where= array();
+        if ($status > -1){
+            $where["shoppings.status"] = $status;
+        }
+        if ($series_id > 0){
+            $where["shoppings.status"] = $status;
+        }
+        if (isset($keywords)&&! empty($keywords)) {
+            $where['shoppings.name'] = array(
+                "like",
+                "%" . $keywords . "%"
+            );
+        }
+        $join1 = "LEFT JOIN shopping_column on shopping_column.id = shoppings.p_id";
+        $join2 = "LEFT JOIN series on series.id = shopping_column.series_id";
+
+        $field = array(
+            'shoppings.id' => 'id',
+            'shoppings.name',
+            'shoppings.image_name',
+            'shoppings.tburl',
+            'shoppings.moddate',
+            'shoppings.status',
+            'series.name' => 'series_name'
+        );
+
+        if (count($where) > 0){
+            return $shopping->join($join1)->join($join2)
+            ->where($where)
+            ->field($field)
+            ->limit($p * C("DEFAULT_PAGESIZE"), C("DEFAULT_PAGESIZE"))
+            ->select();
+        }else{
+            return $shopping
+            ->join($join1)
+            ->join($join2)
+            ->field($field)
+            ->limit($p * C("DEFAULT_PAGESIZE"), C("DEFAULT_PAGESIZE"))
+            ->select();
+        }
+    }
+
     public function getCartoonsAllCount($series_id, $status, $cartoon_name)
     {
         $column = D("Series");
@@ -179,7 +249,7 @@ class Toys
         );
         return $column->join($join)
             ->where($where)
-            ->limit($p, C("DEFAULT_PAGESIZE"))
+            ->limit($p * C("DEFAULT_PAGESIZE"), C("DEFAULT_PAGESIZE"))
             ->field($field)
             ->select();
     }

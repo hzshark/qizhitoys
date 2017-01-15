@@ -20,16 +20,17 @@
 
 </head>
 <body>
-	<form method="post" action="Cartoonlist" id="searchform">
+
 		<div class="panel admin-panel">
 			<div class="panel-head">
 				<strong class="icon-reorder"> 普通商品列表</strong> <a href=""
 					style="float: right; display: none;">添加商品</a>
 			</div>
+			<form method="post" action="Cartoonlist" id="searchform">
 			<div class="padding border-bottom">
 				<ul class="search" style="padding-left: 10px;">
 					<li><a class="button border-main icon-plus-square-o"
-						href="{:U('Index/Addcartoon')}"> 添加商品</a></li>
+						href="{:U('Index/AddShopping')}"> 添加商品</a></li>
 					<li>搜索：</li>
 					<li>一级栏目名称 <select name="series_id" class="input"
 						style="width: auto; line-height: 17px; display: inline-block">
@@ -38,13 +39,15 @@
 							<option value="{$vo.id}">{$vo.name}</option>
 							</foreach>
 					</select> &nbsp;&nbsp;
+					<!--
 					二级栏目名称 <select name="series_id" class="input"
 						style="width: auto; line-height: 17px; display: inline-block">
 							<option value="0">选择</option>
 							<foreach name="serielist" item="vo" >
 							<option value="{$vo.id}">{$vo.name}</option>
 							</foreach>
-					</select> &nbsp;&nbsp;
+					</select>  -->
+					&nbsp;&nbsp;
 					状态 <select name="status" class="input"
 						style="width: 80px; line-height: 17px; display: inline-block">
 							<option value="-1">选择</option>
@@ -58,6 +61,8 @@
 							<input type="submit" name="搜索" class="button border-main icon-search" /></li>
 				</ul>
 			</div>
+
+			</form>
 			<table class="table table-hover text-center">
 				<tr>
 					<th width="50" style="text-align: left; padding-left: 20px;">ID</th>
@@ -91,6 +96,5 @@
 				</tr>
 			</table>
 		</div>
-	</form>
 </body>
 </html>

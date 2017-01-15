@@ -5,7 +5,7 @@ class Series
     Public $SHOW_IMAGE = 'pic';
     public $SHOW_VIDEO = "video";
 
-    private function addSeriesToDB($name, $status, $note, $uploader_list=array()){
+    private function addSeriesToDB($name, $status, $note, $uploader_list=array(), $type_id= 1){
         $series = D("Series");
         $data['name'] = $name;
         $data['image_name'] = $uploader_list['home_image'];
@@ -17,7 +17,7 @@ class Series
         $data['status'] = $status;
         $data['show_type'] = $this->SHOW_VIDEO;
         $data['note'] = $note;
-        $data['type_id'] = 1;
+        $data['type_id'] = $type_id;
         $series->add($data);
     }
 
@@ -62,6 +62,44 @@ class Series
         return $model->where($where)->delete();
     }
 
+    public function AddPrograma($name, $status, $note='', $thumbWidth = '64' , $thumbHeight = '64')
+    {
+        if (! empty($_FILES)) {
+            $uploadconfig = array(
+                'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
+                'rootPath' => C('UPLOAD_PATH'), // 设置附件上传根目录
+                'savePath' => '', // 设置附件上传（子）目录
+                'saveName' => array(
+                    'uniqid',
+                    ''
+                ),
+                'exts' => array(
+                    'jpg',
+                    'gif',
+                    'png',
+                    'jpeg'
+                ),
+                'autoSub' => true,
+                'subName' => array(
+                    'date',
+                    'Ymd'
+                )
+            );
+            $upload = new \Think\Upload($uploadconfig); // 实例化上传类
+            $info = $upload->upload();
+            if (! $info) { // 上传错误提示错误信息
+                return $upload->getError();
+            } else { // 上传成功
+                $uploader_list = array();
+                foreach ($info as $file) {
+                    $uploader_list[$file['key']] = C('UPLOAD_PATH') . $file['savepath'].$file['savename'];
+                }
+                $this->addSeriesToDB($name, $status, $note, $uploader_list, 2);
+                return "";
+            }
+        }
+    }
+
     public function seriesUploadify($name, $status, $note='', $thumbWidth = '64' , $thumbHeight = '64')
     {
         if (! empty($_FILES)) {
@@ -94,8 +132,6 @@ class Series
                 foreach ($info as $file) {
                     $uploader_list[$file['key']] = C('UPLOAD_PATH') . $file['savepath'].$file['savename'];
                 }
-                var_dump($uploader_list);
-
                 $this->addSeriesToDB($name, $status, $note, $uploader_list);
                 return "";
             }
