@@ -50,6 +50,12 @@ class Series
         return $series ->where($where)->order('indate')->select();
     }
 
+    public function getValidSeries(){
+        $series = D("Series");
+        $where["status"] = 1;
+        return $series ->where($where)->order('indate')->select();
+    }
+
     public function checkHasCartoonBySeriesid($id){
         $model = D("Compages");
         $where["series_id"] = $id;

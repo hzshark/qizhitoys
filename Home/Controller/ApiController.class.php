@@ -92,7 +92,7 @@ class ApiController extends Controller
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
             $series = new Series();
-            $infos = $series->getAllValidSeries();
+            $infos = $series->getValidSeries();
             foreach ($infos as $info) {
                 $content[] = array(
                     "id" => $info["id"],
