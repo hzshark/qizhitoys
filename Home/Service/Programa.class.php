@@ -98,4 +98,10 @@ class Programa
         return $molde->where($where)->select();
     }
 
+    public function delByProgramaId($id){
+        $molde = D("Series");
+        $where["id"] = $id;
+        return $molde->where($where)->delete();
+    }
+
 }

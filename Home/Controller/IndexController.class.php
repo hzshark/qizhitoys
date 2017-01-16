@@ -291,7 +291,10 @@ class IndexController extends Controller
     public function DelPrograma()
     {
         header("Content-Type:text/html; charset=utf-8");
-        $this->success("删除成功");
+        $programa = new Programa();
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $programa->delByProgramaId($id);
+        $this->success("删除成功",  "Programa", 3);
     }
 
     public function ShowPrograma()
@@ -331,7 +334,7 @@ class IndexController extends Controller
             }
             if (empty($result)) {
                 // 设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
-                $this->success('登入成功,页面调转中......', 'ShowPrograma?id=' .$id, 3);
+                $this->success('编辑成功,页面调转中......', 'ShowPrograma?id=' .$id, 3);
             } else {
                 // 错误页面的默认跳转页面是返回前一页，通常不需要设置
                 $this->error($result);
@@ -370,7 +373,7 @@ class IndexController extends Controller
             $result = $series->AddPrograma($name, $status, $note);
             if (empty($result)) {
                 // 设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
-                $this->success('登入成功,页面调转中......', U("Index/Programa"), 5);
+                $this->success('栏目添加成功,页面调转中......', U("Index/Programa"), 5);
             } else {
                 // 错误页面的默认跳转页面是返回前一页，通常不需要设置
                 $this->error($result);
