@@ -219,12 +219,13 @@ class ApiController extends Controller
             $subid = isset($_POST['subid']) ? $_POST['subid'] : 0;
             $toys = new Toys();
             $infos = $toys->getShoppingsBySeriesId($id);
+            $content = array();
             foreach ($infos as $info) {
                 $content[] = array(
                     "id" => $info["id"],
                     "name" => $info["name"],
                     "tburl" => $info["tburl"],
-                    "preview" => __ROOT__ . $info["filepath"] . $info["image_name"]
+                    "preview" => __ROOT__  . $info["image_name"]
                 );
             }
 
