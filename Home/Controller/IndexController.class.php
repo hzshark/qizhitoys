@@ -418,7 +418,7 @@ class IndexController extends Controller
                     $programa->addColumn($sid, $name, $status, $res["path"], $res["name"]);
                     $p_ret = $programa->queryColumnBySIdAndName($sid, $name);
                     $this->assign("column", $p_ret);
-                    $this->success('二级栏目添加成功', 'utf-8');
+                    $this->success('二级栏目添加成功', "Programa", 5);
                 }
             }
         } else {
