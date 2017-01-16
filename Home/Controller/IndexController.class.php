@@ -440,8 +440,8 @@ class IndexController extends Controller
         $status = isset($_POST['status']) ? $_POST['status'] : - 1;
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
         $count = $toy->getShoppingCount($series_id, $status, $keywords);
-        $cartoonList = $toy->getShoppings($series_id, $status, $keywords, $pagenum);
-        $serielist = $programa->queryValidPrograma();
+        $shoppingList = $toy->getShoppings($series_id, $status, $keywords, $pagenum);
+        $programalist = $programa->getAllValidColumn();
         $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
         $Page->setConfig('header', '共%TOTAL_ROW%条');
         $Page->setConfig('first', '首页');
@@ -452,8 +452,8 @@ class IndexController extends Controller
         $Page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
         $page = $Page->show();
         $this->assign("page", $page);
-        $this->assign("serielist", $serielist);
-        $this->assign("cartoonList", $cartoonList);
+        $this->assign("programalist", $programalist);
+        $this->assign("shoppingList", $shoppingList);
         $this->display('shoppinglist', 'utf-8');
     }
 
@@ -517,4 +517,57 @@ class IndexController extends Controller
         $this->display('updateVersion', 'utf-8');
         }
     }
+
+    public function DelShopping()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $toy = new Toys();
+        $id = isset($_POST['id']) ? $_POST['id'] : '';
+        $toy->delShoppingById($id);
+        $data['status'] = 1;
+        $data['msg'] = '删除商品成功！';
+        $this->ajaxReturn($data);
+    }
+
+    public function EditShopping(){
+        header("Content-Type:text/html; charset=utf-8");
+        $toy = new Toys();
+        if (IS_POST){
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $programa_id = isset($_POST['programa_id']) ? $_POST['programa_id'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $status = isset($_POST['status']) ? $_POST['status'] : 0;
+            $url = isset($_POST['url']) ? $_POST['url'] : '';
+            $uploader = new Uploader();
+            $toy = new Toys();
+            $showImg = "";
+            $shopping  = $toy->queryShoppingById($id);
+            $shoppings = $toy->queryCartoonByNameAndProgramaId($name, $programa_id);
+            if ($shoppings && $shopping['name'] != $name) {
+                $this->error("本栏目已经存在相同的商品名称，请更换名称！");
+            } else {
+                $showImg = null;
+                if ($_FILES['uploader_files']['size']){
+                    $ret = $uploader->UploadShowImage();
+                    if (1 == $ret['status']) {
+                        $this->error($ret['msg']);
+                    } else {
+                        $showImg = $ret['msg'][0];
+                    }
+                }
+                $toy->updateShopping($id, $programa_id, $name, $url, $showImg, $status);
+
+                $this->success("修改商品成功!", "Shoppinglist", 3);
+            }
+        }else{
+            $id = isset($_GET['id']) ? $_GET['id'] : '';
+            $shopping  = $toy->queryShoppingById($id);
+            $programa = new Programa();
+            $programalist = $programa->getAllValidColumn();
+            $this->assign("programa", $programalist);
+            $this->assign("shopping", $shopping);
+            $this->display('editShopping', 'utf-8');
+        }
+    }
+
 }

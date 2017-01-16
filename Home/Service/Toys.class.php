@@ -173,8 +173,35 @@ class Toys
         $data["moddate"] = $data["indate"];
         $data["status"] = $status;
         $compages->add($data);
-
     }
+
+    public function updateShopping($id, $p_id,$name, $tburl, $show_img, $status)
+    {
+        $compages = D("Shopping");
+        $where['id'] = $id;
+        $data["p_id"] = $p_id;
+        $data["name"] = $name;
+        if (isset($show_img)){
+            $data["image_name"] = $show_img;
+        }
+        $data["tburl"] = $tburl;
+        $data["moddate"] = date('Y-m-d H:i:s', time());
+        $data["status"] = $status;
+        $compages->where($where)->save($data);
+    }
+
+    public function delShoppingById($id)
+    {
+        $compages = D("Shopping");
+        $where["id"] = $id;
+        $compages->where($where)->delete();
+    }
+    public function queryShoppingById($id){
+        $compages = D("Shopping");
+        $where["id"] = $id;
+        return $compages->where($where)->find();
+    }
+
 
     public function queryCartoonByNameAndSeriesId($name, $sid)
     {

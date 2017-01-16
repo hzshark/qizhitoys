@@ -11,11 +11,33 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
+<script src="__PUBLIC__/js/layer.js"></script>
 <script type="text/javascript">
-	$(function() {
+	function del(id, name){
+			layer.confirm('确认删除系列【'+name+'】？', function(index){
+				$.ajax({
+	                cache: true,
+	                type: "POST",
+	                url:"{:U('Index/DelShopping')}",
+	                data:{ "id": id },
+	                error: function(request) {
+	                	layer.msg(request.msg, {icon: 6});
+	                },
+	                success: function(data) {
+	                	layer.msg(data.msg, {
+	                		  icon: 1
+	                		}, function(){
+	                		if (data.status == 1){
+	                			window.location.href="{:U('Index/Shoppinglist')}";
+	                		}
+	                		});
 
-	});
+	                }
+	            });
 
+				  layer.close(index);
+			});
+	}
 </script>
 
 </head>
@@ -35,8 +57,8 @@
 					<li>一级栏目名称 <select name="series_id" class="input"
 						style="width: auto; line-height: 17px; display: inline-block">
 							<option value="0">选择</option>
-							<foreach name="serielist" item="vo" >
-							<option value="{$vo.id}">{$vo.name}</option>
+							<foreach name="programalist" item="vo" >
+							<option value="{$vo.id}">{$vo.series_name}-{$vo.name}</option>
 							</foreach>
 					</select> &nbsp;&nbsp;
 					<!--
@@ -69,24 +91,24 @@
 					<th>系列名称</th>
 					<th>动画名称</th>
 					<th>预览图片</th>
-					<th>显示类型</th>
+					<th>淘宝链接</th>
 					<th width="10%">更新时间</th>
 					<th>状态</th>
 					<th width="310">操作</th>
 				</tr>
-				<foreach name="cartoonList" item="vo" >
+				<foreach name="shoppingList" item="vo" >
 				<tr>
-					<td style="text-align: left; padding-left: 20px;"> {$vo.cartoon_id}</td>
+					<td style="text-align: left; padding-left: 20px;"> {$vo.id}</td>
 					<td>{$vo.series_name}</td>
 					<td>{$vo.name}</td>
 					<td><img src="__ROOT__/{$vo.save_path}{$vo.image_name}" alt="" width="50" height="50" /></td>
-					<td>{$vo.show_type}</td>
+					<td>{$vo.tburl}</td>
 					<td>{$vo.moddate}</td>
 					<td>{$vo.status}</td>
 					<td><div class="button-group">
-							<a class="button border-main" href="add.html"><span
+							<a class="button border-main" href="{:U('EditShopping')}?id={$vo.id}" target="right"><span
 								class="icon-edit"></span> 修改</a> <a class="button border-red"
-								href="javascript:void(0)" onclick="return del(1,1,1)"><span
+								href="javascript:void(0)" onclick="return del('{$vo.id}','{$vo.name}');"><span
 								class="icon-trash-o"></span> 删除</a>
 						</div></td>
 				</tr>
