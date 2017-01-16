@@ -154,6 +154,28 @@ class Toys
         );
     }
 
+    public function queryCartoonByNameAndProgramaId($name, $sid)
+    {
+        $compages = D("Shoppings");
+        $where["name"] = $name;
+        $where["p_id"] = $sid;
+        return $compages->where($where)->select();
+    }
+
+    public function AddShopping($id, $name, $tburl, $show_img, $status)
+    {
+        $compages = D("Shopping");
+        $data["p_id"] = $id;
+        $data["name"] = $name;
+        $data["image_name"] = $show_img;
+        $data["tburl"] = $tburl;
+        $data["indate"] = date('Y-m-d H:i:s', time());
+        $data["moddate"] = $data["indate"];
+        $data["status"] = $status;
+        $compages->add($data);
+
+    }
+
     public function queryCartoonByNameAndSeriesId($name, $sid)
     {
         $compages = D("Compages");

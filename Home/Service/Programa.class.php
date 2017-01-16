@@ -47,12 +47,26 @@ class Programa
         $molde->where($where)->save($data);
     }
 
-    public function getAllValidColumn(){
-        $series = D("Series");
+    public function queryValidPrograma(){
+        $molde = D("Series");
         $where['status'] = 1;
         $where['type_id'] = 2;
-        return $series->where($where)->select();
+        return $molde->where($where)->select();
     }
+
+    public function getAllValidColumn(){
+        $series = D("Series");
+        $where['series.status'] = 1;
+        $where['series.type_id'] = 2;
+        $join = "RIGHT JOIN shopping_column sc on sc.series_id = series.id";
+        $field = array(
+            'sc.id' => 'id',
+            'sc.name'=>'name',
+            'series.name' => 'series_name'
+        );
+        return $series->join($join)->where($where)->field($field)->select();
+    }
+
     public function queryProgramaByName($name){
         $series = D("Series");
         $where['name'] = $name;

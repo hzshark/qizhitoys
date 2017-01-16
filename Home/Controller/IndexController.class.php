@@ -441,8 +441,7 @@ class IndexController extends Controller
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
         $count = $toy->getShoppingCount($series_id, $status, $keywords);
         $cartoonList = $toy->getShoppings($series_id, $status, $keywords, $pagenum);
-
-        $serielist = $programa->getAllValidColumn();
+        $serielist = $programa->queryValidPrograma();
         $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
         $Page->setConfig('header', '共%TOTAL_ROW%条');
         $Page->setConfig('first', '首页');
@@ -462,15 +461,16 @@ class IndexController extends Controller
     {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
-            $seriesid = isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
-            $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
-            $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
+            $programa_id = isset($_POST['programa_id']) ? $_POST['programa_id'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $status = isset($_POST['status']) ? $_POST['status'] : 0;
+            $url = isset($_POST['url']) ? $_POST['url'] : '';
             $uploader = new Uploader();
             $toy = new Toys();
             $showImg = "";
-            $cartoon = $toy->queryCartoonByNameAndSeriesId($cartoonname, $seriesid);
+            $cartoon = $toy->queryCartoonByNameAndProgramaId($name, $programa_id);
             if ($cartoon) {
-                $this->error("本系列已经存在相同的动画名称，请更换名称！");
+                $this->error("本栏目已经存在相同的商品名称，请更换名称！");
             } else {
                 $showImg = "";
                 $ret = $uploader->UploadShowImage();
@@ -479,16 +479,14 @@ class IndexController extends Controller
                 } else {
                     $showImg = $ret['msg'][0];
                 }
-                $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
+                $toy->AddShopping($programa_id, $name, $url, $showImg, $status);
 
-                $toy->AddCartoon($seriesid, $cartoonname, $showImg, $showtype, $dImg);
-
-                $this->success("添加动画成功!", "Cartoonlist", 3);
+                $this->success("添加商品成功!", "Shoppinglist", 3);
             }
         } else {
-            $series = new Series();
-            $serielist = $series->getAllValidSeries();
-            $this->assign("serielist", $serielist);
+            $programa = new Programa();
+            $programalist = $programa->getAllValidColumn();
+            $this->assign("programa", $programalist);
             $this->display('addShopping', 'utf-8');
         }
     }

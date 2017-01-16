@@ -69,7 +69,7 @@
 		return url;
 	}
 	$(function() {
-		$("#pre_img").on("change",function() {
+		$("#uploader_files").on("change",function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
 			if (objUrl) {
 				$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
@@ -84,16 +84,16 @@
 			<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
 		</div>
 		<div class="body-content">
-			<form method="post" class="form-x" name="addcartoon" action="Addcartoon" enctype="multipart/form-data"  target="right" >
+			<form method="post" class="form-x" name="AddShopping" action="AddShopping" enctype="multipart/form-data"  target="right" >
 				<div class="form-group">
 					<div class="label">
 						<label>所属系列：</label>
 					</div>
 					<div class="field">
-						<select name="Seriesname" class="input w50">serielist
+						<select name="programa_id" class="input w50">
 							<option value="">请选择分类</option>
-							<foreach name="serielist" item="vo">
-							<option value="{$vo.id}">{$vo.name}</option>
+							<foreach name="programa" item="vo">
+							<option value="{$vo.id}">{$vo.series_name}-{$vo.name}</option>
 							</foreach>
 						</select>
 						<div class="tips"></div>
@@ -124,7 +124,7 @@
 							<img src="__PUBLIC__/images/loader.gif" alt="uploading" />
 						</div>
 						<div id="up_btn" class="btn">
-							<span>添加预览图片</span> <input id="pre_img" type="file" name="pre_img" />
+							<span>添加预览图片</span> <input id="uploader_files" type="file" name="uploader_files" />
 						</div>
 						<p>最大100KB，支持jpg，gif，png格式。</p>
 						<div id="preview_img"></div>
