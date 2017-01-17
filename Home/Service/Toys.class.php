@@ -210,6 +210,24 @@ class Toys
         $where["series_id"] = $sid;
         return $compages->where($where)->find();
     }
+    
+    
+    public function delCartoon($id){
+        $this->delCartoonDetail($id);
+        
+        $compages = D("Compages");
+        $where['id'] = $id;
+        $compages->where($where)->delete(); 
+    }
+    
+    public function delCartoonDetail($id){
+        $compages = D("CompagesDetail");
+        $where['id'] = $id;
+        $compages->where($where)->delete();
+        
+    }
+    
+    
 
     public function AddCartoon($series_id, $name, $show_img, $show_type, $file_path = array())
     {

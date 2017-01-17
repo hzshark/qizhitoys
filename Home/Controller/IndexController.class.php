@@ -267,23 +267,13 @@ class IndexController extends Controller
     public function delCartoon()
     {
         header("Content-Type:text/html; charset=utf-8");
-        $series = new Series();
+        $toy = new Toys();
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : '';
-            $donghuas = $series->checkHasCartoonBySeriesid($id);
-            if (count($donghuas) > 0) {
-                $data['status'] = 0;
-                $data['msg'] = '该系列还存在动画没有删除，请先删除动画！';
-                $this->ajaxReturn($data);
-            } else {
-                $series->delSeriesByid($id);
-                $data['status'] = 1;
-                $data['msg'] = '删除系列成功！';
-                $this->ajaxReturn($data);
-            }
+            $toy->delCartoon($id);
 
-            $data['status'] = 0;
-            $data['msg'] = '删除错误！';
+            $data['status'] = 1;
+            $data['msg'] = '删除成功！';
             $this->ajaxReturn($data);
         }
     }
