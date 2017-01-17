@@ -18,7 +18,7 @@
 				$.ajax({
 	                cache: true,
 	                type: "POST",
-	                url:"{:U('Index/delSeries')}",
+	                url:"{:U('Index/delCartoon')}",
 	                data:{ "id": id },
 	                error: function(request) {
 	                	layer.msg(request.msg, {icon: 6});
@@ -28,7 +28,7 @@
 	                		  icon: 1
 	                		}, function(){
 	                		if (data.status == 1){
-	                			window.location.href="{:U('Index/Seriesmanage')}";
+	                			window.location.href="{:U('Index/cartoonlist')}";
 	                		}
 	                		});
 
