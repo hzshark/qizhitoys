@@ -93,7 +93,7 @@ class IndexController extends Controller
             $s_icon = $_FILES['s_icon']['size'];
             $unsicon = $_FILES['unsicon']['size'];
             $result = "";
-            if (empty($home_image) && empty($in_image) && empty($s_icon)&&empty($unsicon)) {
+            if (empty($home_image) && empty($in_image) && empty($s_icon) && empty($unsicon)) {
                 $series->updateSeriesHasNotFile($id, $name, $status, $note);
             } else {
                 $result = $series->updateSeriesHasFile($id, $name, $status, $note);
@@ -242,7 +242,7 @@ class IndexController extends Controller
                 $this->error("本系列已经存在相同的动画名称，请更换名称！");
             } else {
                 $showImg = "";
-                if ($_FILES['pre_img']['size'] >0){
+                if ($_FILES['pre_img']['size'] > 0) {
                     $ret = $uploader->UploadShowImage();
                     if (1 == $ret['status']) {
                         $this->error($ret['msg']);
@@ -250,7 +250,7 @@ class IndexController extends Controller
                         $showImg = $ret['msg'][0];
                     }
                 }
-                $toy->updateCartoon($id, $cartoonname, $showtype, $status,$showImg);
+                $toy->updateCartoon($id, $cartoonname, $showtype, $status, $showImg);
                 $this->success("修改动画成功!", "Cartoonlist", 3);
             }
         } else {
@@ -283,8 +283,12 @@ class IndexController extends Controller
         header("Content-Type:text/html; charset=utf-8");
         $programa = new Programa();
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $programa->delByProgramaId($id);
-        $this->success("删除成功",  "Programa", 3);
+        $ret = $programa->delByProgramaId($id);
+        if ($ret["status"] == 1) {
+            $this->success("删除成功", "Programa", 3);
+        } else {
+            $this->error($ret["msg"]);
+        }
     }
 
     public function ShowPrograma()
@@ -317,14 +321,14 @@ class IndexController extends Controller
             $s_icon = $_FILES['s_icon']['size'];
             $unsicon = $_FILES['unsicon']['size'];
             $result = "";
-            if (empty($home_image) && empty($in_image) && empty($s_icon)&&empty($unsicon)) {
+            if (empty($home_image) && empty($in_image) && empty($s_icon) && empty($unsicon)) {
                 $series->updateSeriesHasNotFile($id, $name, $status, $note);
             } else {
                 $result = $series->updateSeriesHasFile($id, $name, $status, $note);
             }
             if (empty($result)) {
                 // 设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
-                $this->success('编辑成功,页面调转中......', 'ShowPrograma?id=' .$id, 3);
+                $this->success('编辑成功,页面调转中......', 'ShowPrograma?id=' . $id, 3);
             } else {
                 // 错误页面的默认跳转页面是返回前一页，通常不需要设置
                 $this->error($result);
@@ -347,7 +351,6 @@ class IndexController extends Controller
             array_push($new_list, $column);
         }
         unset($columns);
-        // var_dump($new_list);
         $this->assign("columns", $new_list);
         $this->display('programa', 'utf-8');
     }
@@ -356,7 +359,7 @@ class IndexController extends Controller
     {
         header("Content-Type:text/html; charset=utf-8");
         if (IS_POST) {
-         $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
             $note = isset($_POST['note']) ? $_POST['note'] : '';
             $status = isset($_POST['status']) ? $_POST['status'] : 0;
             $series = new Series();
@@ -379,7 +382,6 @@ class IndexController extends Controller
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         $programa = new Programa();
         $ret = $programa->queryColumnById($id);
-
         $this->assign("column", $ret);
         $this->display('showColumn', 'utf-8');
     }
@@ -404,17 +406,72 @@ class IndexController extends Controller
                     $img_path = $ret['msg'];
                     $toy = new Toys();
                     $programa = new Programa();
-                    $res = $toy->getPathAndName($img_path);
-                    $programa->addColumn($sid, $name, $status, $res["path"], $res["name"]);
+                    $programa->addColumn($sid, $name, $status, $img_path);
                     $p_ret = $programa->queryColumnBySIdAndName($sid, $name);
                     $this->assign("column", $p_ret);
-                    $this->success('二级栏目添加成功', "Programa", 5);
+                    $this->assign("sid", $sid);
+                    $this->success('二级栏目添加成功', "Programa", 3);
                 }
             }
         } else {
-            $sid = isset($_GET['id']) ? $_GET['id'] : '';
+            $sid = isset($_GET['id']) ? $_GET['id'] : $_GET['sid'];
             $this->assign("sid", $sid);
             $this->display('addColumn', 'utf-8');
+        }
+    }
+
+    public function DelColumn()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $programa = new Programa();
+        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $ret = $programa->delColumnById($id);
+        if ($ret["status"] == 1) {
+            $this->success("删除成功", "Programa", 3);
+        } else {
+            $this->error($ret["msg"]);
+        }
+    }
+
+    public function EditColumn()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $programa = new Programa();
+        if (IS_GET) {
+            $id = isset($_GET['id']) ? $_GET['id'] : '';
+            $column = $programa->queryColumnById($id);
+            $this->assign("column", $column);
+            $this->display('editColumn', 'utf-8');
+        } else {
+            $sid = isset($_POST['sid']) ? $_POST['sid'] : '';
+            $id = isset($_POST['id']) ? $_POST['id'] : '';
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $status = isset($_POST['status']) ? $_POST['status'] : '';
+            $programa = new Programa();
+            $c_ret = $programa->queryColumnById($id);
+            $ret = $programa->queryColumnBySIdAndName($sid, $name);
+            if ($ret && $c_ret['name'] != $name) {
+                $this->error("这个栏目的名称已经存在，请更换名称！");
+            } else {
+                $upload_image = $_FILES['photoimg']['size'];
+                if (empty($upload_image)) {
+                    $programa->updateColumn($id, $name, $status, null);
+                } else {
+                    $img_path = '';
+                    $uploader = new Uploader();
+                    $ret = $uploader->uploaderImage();
+                    if (1 == $ret['status']) {
+                        $this->error($ret['msg']);
+                    } else {
+                        $img_path = $ret['msg'];
+                        $programa->updateColumn($id, $name, $status, $img_path);
+                    }
+                }
+                $p_ret = $programa->queryColumnById($id);
+                $this->assign("column", $p_ret);
+                $this->assign("sid", $sid);
+                $this->success('二级栏目修改成功', "Programa", 3);
+            }
         }
     }
 

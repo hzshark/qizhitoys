@@ -75,7 +75,7 @@
 				</td>
 				<td>{$vo.name}</td>
 				<td>{$vo.note}</td>
-				<td>{$vo.status}</td>
+				<td><if condition="$vo.status == 0 ">下架<else />展示 </if></td>
 				<td><div class="button-group">
 						<a class="button border-main"  href="{:U('editSeries')}?id={$vo.id}" target="right"><span
 							class="icon-edit"></span> 修改</a> <a class="button border-red"

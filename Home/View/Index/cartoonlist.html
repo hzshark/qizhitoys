@@ -91,7 +91,7 @@
 					<td><img src="__ROOT__/{$vo.save_path}{$vo.image_name}" alt="" width="50" height="50" /></td>
 					<td>{$vo.show_type}</td>
 					<td>{$vo.moddate}</td>
-					<td>{$vo.status}</td>
+					<td><if condition="$vo.status == 0 ">下架<else />展示 </if></td>
 					<td><div class="button-group">
 							<a class="button border-main" href="{:U('EditCartoon')}?id={$vo.cartoon_id}" target="right"><span
 								class="icon-edit"></span> 修改</a> <a class="button border-red"

@@ -19,16 +19,28 @@ class Programa
         $series->add($data);
     }
 
-    public function addColumn($sid, $name, $status, $file_path, $file_name){
+    public function addColumn($sid, $name, $status, $file_name){
         $series = D("Column");
         $data['series_id'] = $sid;
         $data['name'] = $name;
         $data['indate'] =  date('Y-m-d H:i:s',time());
         $data['moddate'] =  date('Y-m-d H:i:s',time());
-        $data['filepath'] = $file_path;
         $data['image_name'] = $file_name;
         $data['status'] = $status;
         $series->add($data);
+    }
+
+    public function updateColumn($id, $name, $status, $file_name){
+        $series = D("Column");
+        $where['id'] = $id;
+        $data['name'] = $name;
+        $data['indate'] =  date('Y-m-d H:i:s',time());
+        $data['moddate'] =  date('Y-m-d H:i:s',time());
+        if (isset($file_name)){
+            $data['image_name'] = $file_name;
+        }
+        $data['status'] = $status;
+        $series->where($where)->save($data);
     }
 
     public function updateSeriesBgImg($id, $img_name){
@@ -113,9 +125,31 @@ class Programa
     }
 
     public function delByProgramaId($id){
-        $molde = D("Series");
-        $where["id"] = $id;
-        return $molde->where($where)->delete();
+        $column = D("Column");
+        $c_where['series_id'] = $id;
+        $s_count = $column->where($c_where)->count();
+        if ($s_count == 0){
+            $molde = D("Series");
+            $where["id"] = $id;
+            $molde->where($where)->delete();
+            return array("status"=>1, "msg"=>"删除成功！");
+        }else{
+            return array("status"=>0, "msg"=>"该栏目下还有次级栏目未删除，请先删除栏目下的次级栏目");
+        }
+    }
+
+    public function delColumnById($id){
+        $shop = D("Shopping");
+        $where["p_id"] = $id;
+        $s_count = $shop->where($where)->count();
+        if ($s_count == 0){
+            $column = D("Column");
+            $c_where['id'] = $id;
+            $column->where($c_where)->delete();
+            return array("status"=>1, "msg"=>"删除成功！");
+        }else{
+            return array("status"=>0, "msg"=>"该栏目下还有商品未删除，请先删除栏目下商品");
+            }
     }
 
 }
