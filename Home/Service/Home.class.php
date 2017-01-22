@@ -23,8 +23,18 @@ class Home
 
     public function getHomePage(){
         $home = D("Home");
-//         ->where('status=1')
-        return $home->find();
+        return $home->where('status=1')->find();
+    }
+    
+    public function updateStartPage($id, $name, $filepath){
+        $home = M("Home");
+        $where['id'] = $id;
+        $home->where($where)->setField("status",0);
+        $data['name'] = $name;
+        $data['status'] = 1;
+        $data['filepath'] = $filepath;
+        $data['indate'] = date('Y-m-d H:i:s',time());;
+        $home->add($data);                
     }
 
     public function getAllValidSeries(){

@@ -10,6 +10,7 @@ use Home\Service\Version;
 use Home\Service\Toys;
 use Home\Service\Uploader;
 use Home\Service\Programa;
+use Home\Service\Home;
 
 class IndexController extends Controller
 {
@@ -615,6 +616,32 @@ class IndexController extends Controller
             $this->assign("shopping", $shopping);
             $this->display('editShopping', 'utf-8');
         }
+    }
+    
+    public function StartPage(){
+        header("Content-Type:text/html; charset=utf-8");
+        $home = new Home();
+        if (IS_POST){
+            $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $showImg = null;
+            if ($_FILES['photoimg']['size']){
+                $uploader = new Uploader();
+                $ret = $uploader->UploadShowImage();
+                if (1 == $ret['status']) {
+                    $this->error($ret['msg']);
+                } else {
+                    $showImg = $ret['msg'][0];
+                }
+            }
+            $home->updateStartPage($name, $showImg);
+            
+            $this->success("更新启动页成功!", "StartPage", 3);
+        }else {
+            $splash = $home->getHomePage();
+            $this->assign("splash", $splash); 
+        }
+        $this->display('startPage', 'utf-8');
+        
     }
 
 }
