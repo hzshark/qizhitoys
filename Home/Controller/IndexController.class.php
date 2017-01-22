@@ -617,12 +617,13 @@ class IndexController extends Controller
             $this->display('editShopping', 'utf-8');
         }
     }
-    
+
     public function StartPage(){
         header("Content-Type:text/html; charset=utf-8");
         $home = new Home();
         if (IS_POST){
             $name = isset($_POST['name']) ? $_POST['name'] : '';
+            $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $showImg = null;
             if ($_FILES['photoimg']['size']){
                 $uploader = new Uploader();
@@ -633,15 +634,15 @@ class IndexController extends Controller
                     $showImg = $ret['msg'][0];
                 }
             }
-            $home->updateStartPage($name, $showImg);
-            
+            $home->updateStartPage($id, $name, $showImg);
+
             $this->success("更新启动页成功!", "StartPage", 3);
         }else {
             $splash = $home->getHomePage();
-            $this->assign("splash", $splash); 
+            $this->assign("splash", $splash);
+            $this->display('startPage', 'utf-8');
         }
-        $this->display('startPage', 'utf-8');
-        
+
     }
 
 }

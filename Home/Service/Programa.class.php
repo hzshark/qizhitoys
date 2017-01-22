@@ -3,8 +3,8 @@ namespace Home\Service;
 
 class Programa
 {
-    Public $SHOW_IMAGE = 1;
-    public $SHOW_VIDEO = 2;
+    Public $SHOW_IMAGE = 'pic';
+    public $SHOW_VIDEO = 'video';
     public function addPrograma($name, $status, $note, $img_path, $img_name){
         $series = D("Series");
         $data['name'] = $name;

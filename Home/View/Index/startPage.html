@@ -85,12 +85,13 @@
 		<div class="body-content">
 			<form method="POST" class="form-x" name="StartPage"
 				action="StartPage" enctype="multipart/form-data" target="right">
+				<input type="hidden" name="id" value="{$splash.id}">
 				<div class="form-group">
 					<div class="label">
 						<label>安装包名称：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input w50" value="奇趣玩具" name="name"
+						<input type="text" class="input w50" value="{$splash.name}" name="name"
 							data-validate="required:请输入启动页名称" />
 						<div class="tips"></div>
 					</div>

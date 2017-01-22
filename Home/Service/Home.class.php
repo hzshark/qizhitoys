@@ -25,7 +25,7 @@ class Home
         $home = D("Home");
         return $home->where('status=1')->find();
     }
-    
+
     public function updateStartPage($id, $name, $filepath){
         $home = M("Home");
         $where['id'] = $id;
@@ -34,7 +34,7 @@ class Home
         $data['status'] = 1;
         $data['filepath'] = $filepath;
         $data['indate'] = date('Y-m-d H:i:s',time());;
-        $home->add($data);                
+        $home->add($data);
     }
 
     public function getAllValidSeries(){
