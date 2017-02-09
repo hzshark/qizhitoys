@@ -204,6 +204,19 @@ class ApiController extends Controller
         }
         $this->ajaxReturn($ret);
     }
+    
+    public function Help()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $ret = array(
+            'status' => $this->ERROR,
+            'msg' => '查询失败!',
+            "content" => array()
+        );
+        if (IS_POST) {
+            
+        }
+    }
 
     public function GetShoppingList()
     {
