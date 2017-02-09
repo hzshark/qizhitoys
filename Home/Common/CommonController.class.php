@@ -13,8 +13,8 @@ class CommonController extends controller
 
     public function login_check()
     {   
-        if (session('?uid')) {
-            $this->user = session('uid');
+        if (session('?userid')) {
+            $this->user = session('username');
         } else {
             $this->redirect('Login/index');
         }

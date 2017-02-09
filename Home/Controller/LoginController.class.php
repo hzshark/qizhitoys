@@ -47,12 +47,17 @@ class LoginController extends Controller
         if (IS_POST) {
             $username = isset($_POST['username']) ? $_POST['username'] : '';
             $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $code = isset($_POST['code']) ? $_POST['code'] : '';
+//             $code = 123456;
+            if (!$this->check_verify($code)){
+                $this->error("验证码错误，请重新输入！");
+            }
             $IPaddress = $this->getIPaddress();
             $login = new Login();
             $result = $login->login($username, $password, $IPaddress);
             if ($result) {
                 // 设置成功后跳转页面的地址，默认的返回页面是$_SERVER['HTTP_REFERER']
-                $this->success('登入成功,页面调转中......', U("/Home/Index"),1);
+                $this->success('登入成功,页面调转中......', "/Home/Index",2);
             } else {
                 // 错误页面的默认跳转页面是返回前一页，通常不需要设置
                 $this->error('登入失败');
@@ -61,6 +66,14 @@ class LoginController extends Controller
 //             $this->show("login");
             $this->display('Login/index', 'utf-8');
         }
+    }
+    
+    public function unlogin(){
+        header("Content-Type:text/html; charset=utf-8");
+        if (session('?userid')) {
+                session(null); // 清空当前的session;
+        }
+        $this->success('安全退出成功,页面调转中......', '/Home/Login/index',3);
     }
     
     // 检测输入的验证码是否正确，$code为用户输入的验证码字符串
@@ -85,7 +98,7 @@ class LoginController extends Controller
         // $Verify->useImgBg = true;
         
         // // 设置验证码字符为纯数字
-        // $Verify->codeSet = '0123456789';
+        $Verify->codeSet = '0123456789';
         
         // $Verify->useZh = true;
         // // 设置验证码字符

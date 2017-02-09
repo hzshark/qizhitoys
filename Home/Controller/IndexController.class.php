@@ -12,7 +12,7 @@ use Home\Service\Uploader;
 use Home\Service\Programa;
 use Home\Service\Home;
 
-class IndexController extends Controller
+class IndexController extends CommonController
 {
 
     public function Index()
