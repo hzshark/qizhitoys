@@ -71,7 +71,7 @@ class ApiController extends Controller
                 "version" => $info['version'],
                 "isforce" => $info['isforce'] === 1 ? true : false,
                 "versioncode" => $info['versioncode'],
-                "filepath" => __ROOT__."/".$info['filepath'],
+                "filepath" => __ROOT__.$info['filepath'],
                 "verinfo" => $info['verinfo']
             );
             $ret["status"] = $this->SUCCESS;
