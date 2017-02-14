@@ -76,7 +76,7 @@
 		$("#pre_img").on("change",function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
 			if (objUrl) {
-				$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100"  border="1"/>'); //将图片路径存入src中，显示出图片
+				$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
 			}
 		});
 

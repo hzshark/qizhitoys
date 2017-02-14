@@ -69,28 +69,28 @@
 		$("#home_image").on("change", function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
 			if (objUrl) {
-				$("#preview_home").html('<img src="'+objUrl+'" height="100" width="100" border="1" />'); //将图片路径存入src中，显示出图片
+				$("#preview_home").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
 			}
 		});
 
 		$("#in_image").on("change", function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
 			if (objUrl) {
-				$("#preview_in").html('<img src="'+objUrl+'" height="100" width="100"  border="1" />'); //将图片路径存入src中，显示出图片
+				$("#preview_in").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
 			}
 		});
 
 		$("#s_icon").on("change", function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
 			if (objUrl) {
-				$("#preview_icon").html('<img src="'+objUrl+'" height="100" width="100"  border="1" />'); //将图片路径存入src中，显示出图片
+				$("#preview_icon").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
 			}
 		});
 
 		$("#unsicon").on("change", function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
 			if (objUrl) {
-				$("#preview_unsicon").html('<img src="'+objUrl+'" height="100" width="100"  border="1" />'); //将图片路径存入src中，显示出图片
+				$("#preview_unsicon").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
 			}
 		});
 	});
