@@ -10,7 +10,16 @@
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
+<script type="text/javascript">
+    var filebrowserUploadUrl ='HelpUpload';
+</script>
 <script type="text/JavaScript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+function ckeditorUpload(file){
+   $("#cke_122_textInput").val(file);
+   $("#cke_203_label").click();
+}
+</script>
 </head>
 <body>
 <div class="panel admin-panel">

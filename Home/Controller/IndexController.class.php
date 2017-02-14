@@ -47,6 +47,22 @@ class IndexController extends CommonController
         $this->assign("info", $infos['info']);
         $this->display('help', 'utf-8');
     }
+    
+    public function HelpUpload()
+    {
+        header("Content-Type:text/html; charset=utf-8");
+        $help = new Help();
+        if (IS_POST) {
+            $uploader = new Uploader();
+            $up = $uploader->uploaderImage();
+            if ($up['status'] == 1){
+                echo '<script>alert("'.$up['msg'].'");</script>';
+            }else{
+                echo '<script>parent.ckeditorUpload("'.__ROOT__.$up['msg'].'");</script>';
+            }
+        }
+//         echo '<script>alert("-----");</script>';
+    }
 
     public function Seriesmanage()
     {

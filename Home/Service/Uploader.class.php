@@ -137,7 +137,7 @@ class Uploader
             }
         } else {
             return array(
-                "status" => 0,
+                "status" => 1,
                 "msg" => "上传文件空"
             );
         }
