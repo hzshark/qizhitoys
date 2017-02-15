@@ -97,7 +97,7 @@
 <body>
 	<div class="panel admin-panel">
 		<div class="panel-head" id="add">
-			<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
+			<strong><span class="icon-pencil-square-o"></span>修改动画</strong>
 		</div>
 		<div class="body-content">
 			<form method="post" class="form-x" action="EditCartoon"
@@ -174,8 +174,8 @@
 					</div>
 					<div class="field">
 						<div>
-						<foreach name="showimg" item="vo" >
-							<img src="__ROOT__{$vo.file_name}" height="100" width="100" />
+						<foreach name="showimg" item="img" >
+							<img src="__ROOT__{$img.file_name}" height="100" width="100" />
 						</foreach>
 						</div>
 					</div>
