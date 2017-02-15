@@ -58,7 +58,11 @@ class IndexController extends CommonController
             if ($up['status'] == 1){
                 echo '<script>alert("'.$up['msg'].'");</script>';
             }else{
-                echo '<script>parent.ckeditorUpload("'.__ROOT__.$up['msg'].'");</script>';
+                //echo '<script>parent.ckeditorUpload("'.__ROOT__.$up['msg'].'");</script>';
+                $callback =$_REQUEST("CKEditorFuncNum");
+                echo ("<script type=\"text/javascript\">");
+                echo ("window.parent.CKEDITOR.tools.callFunction(". $callback . ",'" .__ROOT__.$up['msg']. "','')"); 
+                echo("</script>");
             }
         }
 //         echo '<script>alert("-----");</script>';
