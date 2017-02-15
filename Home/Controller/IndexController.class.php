@@ -59,7 +59,7 @@ class IndexController extends CommonController
                 echo '<script>alert("'.$up['msg'].'");</script>';
             }else{
                 //echo '<script>parent.ckeditorUpload("'.__ROOT__.$up['msg'].'");</script>';
-                $callback =$_POST("CKEditorFuncNum");
+                $callback =$_POST["CKEditorFuncNum"];
                 echo "<script type=\"text/javascript\">";
                 echo "window.parent.CKEDITOR.tools.callFunction(". $callback . ",'" .__ROOT__.$up['msg']. "','')"; 
                 echo"</script>";
