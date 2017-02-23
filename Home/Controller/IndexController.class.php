@@ -410,11 +410,12 @@ class IndexController extends CommonController
     public function AddColumn()
     {
         header("Content-Type:text/html; charset=utf-8");
+        $programa = new Programa();
         if (IS_POST) {
             $sid = isset($_POST['sid']) ? $_POST['sid'] : '';
             $name = isset($_POST['name']) ? $_POST['name'] : '';
             $status = isset($_POST['status']) ? $_POST['status'] : '';
-            $programa = new Programa();
+            
             $ret = $programa->queryColumnBySIdAndName($sid, $name);
             if ($ret) {
                 $this->error("这个栏目的名称已经存在，请更换名称！");
@@ -436,7 +437,10 @@ class IndexController extends CommonController
             }
         } else {
             $sid = isset($_GET['id']) ? $_GET['id'] : $_GET['sid'];
+            $ret = $programa->queryProgramaById($sid);
             $this->assign("sid", $sid);
+//             var_dump($ret);
+            $this->assign("column_name", $ret['name']);
             $this->display('addColumn', 'utf-8');
         }
     }

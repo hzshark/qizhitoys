@@ -68,6 +68,14 @@
 		}
 		return url;
 	}
+	
+	function checkurl() {
+		url = document.getElementById("url").value;
+		url = url.substr(0,7).toLowerCase()=="http://"?url:"http://"+url;;
+		document.getElementById("url").value = url;
+		document.getElementById("url1").value = url.substr(7).split("/")[0];
+		}
+	
 	$(function() {
 		$("#uploader_files").on("change",function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
@@ -91,7 +99,7 @@
 						<label>所属系列：</label>
 					</div>
 					<div class="field">
-						<select name="programa_id" class="input w50">
+						<select name="programa_id" class="input w50" data-validate="required:请选择分类">
 							<option value="">请选择分类</option>
 							<foreach name="programa" item="vo">
 							<option value="{$vo.id}" <if condition="$shopping.p_id == $vo.id ">selected = "selected" </if>>{$vo.series_name}-{$vo.name}</option>
@@ -105,7 +113,7 @@
 						<label>商品名称：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" name="name" value="{$shopping.name}" />
+						<input type="text" class="input" name="name" value="{$shopping.name}"  data-validate="required:请输入商品名称" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -113,7 +121,7 @@
 						<label>淘宝链接：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" name="url" value="{$shopping.tburl}" />
+						<input type="text" class="input" id="url" name="url" value="{$shopping.tburl}"  data-validate="required:请输入淘宝链接" />
 					</div>
 				</div>
 				<div class="form-group">

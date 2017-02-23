@@ -105,7 +105,7 @@
 						<label>所属系列：</label>
 					</div>
 					<div class="field">
-						<select name="Seriesname" class="input w50">serielist
+						<select name="Seriesname" class="input w50"  data-validate="required:请选择分类">serielist
 							<option value="">请选择分类</option>
 							<foreach name="serielist" item="vo">
 							<option value="{$vo.id}">{$vo.name}</option>
@@ -129,7 +129,7 @@
 						<label>动画名称：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" name="cartoonname" value="" />
+						<input type="text" class="input" name="cartoonname" value="" data-validate="required:请输入动画名称"/>
 					</div>
 				</div>
 				<div class="form-group">
