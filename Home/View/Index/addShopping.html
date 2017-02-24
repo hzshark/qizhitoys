@@ -69,10 +69,12 @@
 		return url;
 	}
 	function checkurl() {
-		url = document.getElementById("url").value;
-		url = url.substr(0,7).toLowerCase()=="http://"?url:"http://"+url;;
-		document.getElementById("url").value = url;
-		document.getElementById("url1").value = url.substr(7).split("/")[0];
+		var url = $("#tburl").val();
+		if (url.substr(0,7).toLowerCase()=="http://"|| url.substr(0,8).toLowerCase()=="https://"){
+			$("#AddShopping").submit();
+		}else{
+			alert("淘宝链接必须以http://或者https://开头");
+		}
 		}
 	
 	$(function() {
@@ -91,7 +93,7 @@
 			<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
 		</div>
 		<div class="body-content">
-			<form method="post" class="form-x" name="AddShopping" action="AddShopping" enctype="multipart/form-data"  target="right" >
+			<form method="post" class="form-x" id="AddShopping" name="AddShopping" action="AddShopping" enctype="multipart/form-data"  target="right" >
 				<div class="form-group">
 					<div class="label">
 						<label>所属系列：</label>
@@ -119,7 +121,7 @@
 						<label>淘宝链接：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" name="url" value="" data-validate="required:请输入淘宝链接" />
+						<input type="text" class="input" id="tburl" name="url" value="" data-validate="required:请输入淘宝链接" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -152,7 +154,7 @@
 						<label></label>
 					</div>
 					<div class="field">
-						<button class="button bg-main icon-check-square-o uploadBtn" type="submit">提交</button>
+						<button class="button bg-main icon-check-square-o uploadBtn" onclick="checkurl();" type="button">提交</button>
 					</div>
 				</div>
 			</form>
