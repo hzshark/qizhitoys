@@ -72,7 +72,7 @@
 	function checkurl() {
 		var url = $("#tburl").val();
 		if (url.substr(0,7).toLowerCase()=="http://"|| url.substr(0,8).toLowerCase()=="https://"){
-			$("#AddShopping").submit();
+			$("#editShopping").submit();
 		}else{
 			alert("淘宝链接必须以http://或者https://开头");
 		}
@@ -93,7 +93,7 @@
 			<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
 		</div>
 		<div class="body-content">
-			<form method="post" class="form-x" name="EditShopping" action="EditShopping" enctype="multipart/form-data"  target="right" >
+			<form method="post" class="form-x" id="editShopping" name="EditShopping" action="EditShopping" enctype="multipart/form-data"  target="right" >
 				<input type="hidden" name="id" value="{$shopping.id}">
 				<div class="form-group">
 					<div class="label">
