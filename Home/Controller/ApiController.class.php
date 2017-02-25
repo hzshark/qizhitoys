@@ -124,7 +124,7 @@ class ApiController extends Controller
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $toys = new Toys();
-            $infos = $toys->getCompagesToysBySId($id);
+            $infos = $toys->getEffectiveCompagesToysBySId($id);
             foreach ($infos as $info) {
                 $toyid = $info["id"];
                 $details = $toys->getCompagesToysDetail($toyid);
@@ -204,7 +204,7 @@ class ApiController extends Controller
         }
         $this->ajaxReturn($ret);
     }
-    
+
     public function Help()
     {
         header("Content-Type:text/html; charset=utf-8");
@@ -214,7 +214,7 @@ class ApiController extends Controller
             "content" => array()
         );
         if (IS_POST) {
-            
+
         }
     }
 
@@ -231,7 +231,7 @@ class ApiController extends Controller
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $subid = isset($_POST['subid']) ? $_POST['subid'] : 0;
             $toys = new Toys();
-            $infos = $toys->getShoppingsBySeriesId($id);
+            $infos = $toys->getEffectiveShoppingsBySeriesId($id);
             $content = array();
             foreach ($infos as $info) {
                 $content[] = array(

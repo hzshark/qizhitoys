@@ -18,6 +18,14 @@ class Toys
         return $compages->where($where)->select();
     }
 
+    public function getEffectiveCompagesToysBySId($id)
+    {
+        $compages = D("Compages");
+        $where['series_id'] = $id;
+        $where['status'] = 1;
+        return $compages->where($where)->select();
+    }
+
     public function getCompagesToysDetail($toyid)
     {
         $compages = D("CompagesDetail");
@@ -49,6 +57,19 @@ class Toys
             ->where($where)
             ->field($field)
             ->select();
+    }
+
+    public function getEffectiveShoppingsBySeriesId($series_id)
+    {
+        $column = D("Column");
+        $where['series_id'] = $series_id;
+        $where['shoppings.status'] = 1;
+        $join = "LEFT JOIN shoppings on shoppings.p_id = shopping_column.id";
+        $field = "shoppings.id, shoppings.tburl, shoppings.image_name";
+        return $column->join($join)
+        ->where($where)
+        ->field($field)
+        ->select();
     }
 
     public function getShoppingCount($series_id, $status, $keywords)
@@ -210,24 +231,24 @@ class Toys
         $where["series_id"] = $sid;
         return $compages->where($where)->find();
     }
-    
-    
+
+
     public function delCartoon($id){
         $this->delCartoonDetail($id);
-        
+
         $compages = D("Compages");
         $where['id'] = $id;
-        $compages->where($where)->delete(); 
+        $compages->where($where)->delete();
     }
-    
+
     public function delCartoonDetail($id){
         $compages = D("CompagesDetail");
         $where['id'] = $id;
         $compages->where($where)->delete();
-        
+
     }
-    
-    
+
+
 
     public function AddCartoon($series_id, $name, $show_img, $show_type, $file_path = array())
     {
