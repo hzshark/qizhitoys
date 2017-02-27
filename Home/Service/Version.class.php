@@ -47,6 +47,7 @@ class Version
                     'apk',
                     'txt'
                 ),
+                'replace' => true,
                 'autoSub' => true,
                 'subName' => C('PACKAGE_SUB_DIR'),
             );
