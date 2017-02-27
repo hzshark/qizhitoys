@@ -43,7 +43,7 @@
 			<tr>
 				<th width="10%">安装包路径</th>
 				<th width="10%">当前版本</th>
-				<th width="20%">	安卓版本标识</th>
+				<th width="20%">安卓版本标识</th>
 				<th width="10%">是否强更</th>
 				<th width="10%">类型</th>
 				<th width="10%">上传日期</th>
@@ -52,7 +52,7 @@
 
 		<foreach name="vers" item="vo" >
 		    <tr>
-				<td>{$vo.filepath}</td>
+				<td>__ROOT__{$vo.filepath}</td>
 		        <td>{$vo.version}</td>
 				<td>{$vo.versioncode}</td>
 				<td>{$vo.isforce}</td>
