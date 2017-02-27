@@ -41,7 +41,9 @@ return array(
     'COOKIE_DOMAIN' => '', // Cookie有效域名
     'COOKIE_PATH' => '/', // Cookie路径
     'COOKIE_PREFIX' => '', // Cookie前缀 避免冲突
-
+    
+    'PACKAGE_NAME'=>'qizhi',//安裝包名稱
+    'PACKAGE_SUB_DIR'=>'package',//安裝包名稱
     /* 静态缓存设置 */
     'HTML_CACHE_ON' => false, //默认关闭静态缓存
     'HTML_CACHE_TIME' => 60, //静态缓存有效期
@@ -55,7 +57,7 @@ return array(
 
     /* 网站设置 */
     'SITE_TITLE' => 'QZWJ', //网站title
-'UPLOAD_PATH' => './Uploads/',
+    'UPLOAD_PATH' => './Uploads/',
     'UPLOAD_MAX_SIZE' => '31457280',
     /* 网站日志设置 */
     'WEB_LOG_RECORD' => false, // 默认不记录日志
