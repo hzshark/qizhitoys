@@ -124,7 +124,7 @@ class ApiController extends Controller
         if (IS_POST) {
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $toys = new Toys();
-            $infos = $toys->getCompagesToysBySId($id);
+            $infos = $toys->getEffectiveCompagesToysBySId($id);
             foreach ($infos as $info) {
                 $toyid = $info["id"];
                 $details = $toys->getCompagesToysDetail($toyid);

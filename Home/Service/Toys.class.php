@@ -17,6 +17,14 @@ class Toys
         $where['series_id'] = $id;
         return $compages->where($where)->select();
     }
+    
+    public function getEffectiveCompagesToysBySId($id)
+    {
+        $compages = D("Compages");
+        $where['series_id'] = $id;
+        $where['status'] = 1;
+        return $compages->where($where)->select();
+    }
 
     public function getCompagesToysDetail($toyid)
     {
