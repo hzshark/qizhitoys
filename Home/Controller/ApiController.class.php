@@ -231,7 +231,7 @@ class ApiController extends Controller
             $id = isset($_POST['id']) ? $_POST['id'] : 0;
             $subid = isset($_POST['subid']) ? $_POST['subid'] : 0;
             $toys = new Toys();
-            $infos = $toys->getShoppingsBySeriesId($id);
+            $infos = $toys->getEffectiveShoppingsBySeriesId($id);
             $content = array();
             foreach ($infos as $info) {
                 $content[] = array(
