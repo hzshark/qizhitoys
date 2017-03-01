@@ -20,7 +20,7 @@ class IndexController extends CommonController
         header("Content-Type:text/html; charset=utf-8");
         $this->display('index', 'utf-8');
     }
-
+    
     public function Webuploader()
     {
         $uploader = new Uploader();
