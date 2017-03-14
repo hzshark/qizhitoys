@@ -70,13 +70,13 @@
 	}
 	function checkurl() {
 		var url = $("#tburl").val();
-		if (url.substr(0,7).toLowerCase()=="http://"|| url.substr(0,8).toLowerCase()=="https://"){
+		if (url.substr(0,1).toLowerCase()=="#"|| url.substr(0,7).toLowerCase()=="http://"|| url.substr(0,8).toLowerCase()=="https://"){
 			$("#AddShopping").submit();
 		}else{
 			alert("淘宝链接必须以http://或者https://开头");
 		}
 		}
-	
+
 	$(function() {
 		$("#uploader_files").on("change",function() {
 			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径

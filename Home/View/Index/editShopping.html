@@ -68,10 +68,10 @@
 		}
 		return url;
 	}
-	
+
 	function checkurl() {
 		var url = $("#tburl").val();
-		if (url.substr(0,7).toLowerCase()=="http://"|| url.substr(0,8).toLowerCase()=="https://"){
+		if (url.substr(0,7).toLowerCase()=="http://"|| url.substr(0,8).toLowerCase()=="https://" || url.substr(0,1).toLowerCase()=="#"){
 			$("#editShopping").submit();
 		}else{
 			alert("淘宝链接必须以http://或者https://开头");
