@@ -17,14 +17,6 @@ class Toys
         $where['series_id'] = $id;
         return $compages->where($where)->select();
     }
-    
-    public function getEffectiveCompagesToysBySId($id)
-    {
-        $compages = D("Compages");
-        $where['series_id'] = $id;
-        $where['status'] = 1;
-        return $compages->where($where)->select();
-    }
 
     public function getEffectiveCompagesToysBySId($id)
     {
@@ -66,7 +58,7 @@ class Toys
             ->field($field)
             ->select();
     }
-    
+
     public function getEffectiveShoppingsBySeriesId($series_id)
     {
         $column = D("Column");
@@ -74,19 +66,6 @@ class Toys
         $where['shoppings.status'] = 1;
         $join = "LEFT JOIN shoppings on shoppings.p_id = shopping_column.id";
         $field = "shoppings.id, shoppings.tburl,shoppings.name, shoppings.image_name";
-        return $column->join($join)
-        ->where($where)
-        ->field($field)
-        ->select();
-    }
-
-    public function getEffectiveShoppingsBySeriesId($series_id)
-    {
-        $column = D("Column");
-        $where['series_id'] = $series_id;
-        $where['shoppings.status'] = 1;
-        $join = "LEFT JOIN shoppings on shoppings.p_id = shopping_column.id";
-        $field = "shoppings.id, shoppings.tburl, shoppings.image_name";
         return $column->join($join)
         ->where($where)
         ->field($field)
