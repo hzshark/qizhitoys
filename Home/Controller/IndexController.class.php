@@ -20,7 +20,7 @@ class IndexController extends CommonController
         header("Content-Type:text/html; charset=utf-8");
         $this->display('index', 'utf-8');
     }
-
+    
     public function Webuploader()
     {
         $uploader = new Uploader();
@@ -570,13 +570,12 @@ class IndexController extends CommonController
         $ver = new Version();
         $ret = '';
         if (IS_POST) {
-            $name = isset($_POST['name']) ? $_POST['name'] : '';
             $note = isset($_POST['note']) ? $_POST['note'] : '';
             $type = isset($_POST['type']) ? $_POST['type'] : 0;
             $force = isset($_POST['force']) ? $_POST['force'] : 0;
             $version = isset($_POST['version']) ? $_POST['version'] : '';
             $versioncode = isset($_POST['versioncode']) ? $_POST['versioncode'] : '';
-            $ret = $ver->UploadFile($name, $note, $type, $force, $version, $versioncode);
+            $ret = $ver->UploadPackageFile($note, $type, $force, $version, $versioncode);
             if ($ret['status'] == 1){
                 $this->success($ret['msg'],'Version', 3);
             }else {

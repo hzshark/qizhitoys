@@ -19,7 +19,6 @@ class Version
 
     private function updateVersionInfoByType($filepath, $name, $note, $type, $force, $version, $versioncode)
     {
-        $ret = $this->UploadFile($name);
         $ver = D("Version");
         $where['type'] = $type;
         $data['version'] = $version;
@@ -32,6 +31,49 @@ class Version
         } else {
             $data['type'] = $type;
             $ver->add($data);
+        }
+    }
+    
+    public function UploadPackageFile($note, $type, $force, $version, $versioncode)
+    {
+        if (! empty($_FILES)) {
+            $uploadconfig = array(
+                'maxSize' => C('UPLOAD_MAX_SIZE'), // 设置附件上传大小
+                'rootPath' => C('UPLOAD_PATH'), // 设置附件上传根目录
+                'savePath' => '', // 设置附件上传（子）目录
+                'saveName' => C('PACKAGE_NAME'),
+                'exts' => array(
+                    'dem',
+                    'apk',
+                    'txt'
+                ),
+                'replace' => true,
+                'autoSub' => true,
+                'subName' => C('PACKAGE_SUB_DIR'),
+            );
+            $upload = new \Think\Upload($uploadconfig); // 实例化上传类
+            $info = $upload->upload();
+            if (! $info) { // 上传错误提示错误信息
+                return array(
+                    'status' => 0,
+                    'msg' => $upload->getError()
+                );
+            } else {
+                $file = $info['packagefile'];
+                $save_path = C('UPLOAD_PATH') . $file['savepath'] . $file['savename'];
+                
+                $this->updateVersionInfoByType($save_path, C('PACKAGE_NAME'), $note, $type, $force, $version, $versioncode);
+    
+                return array(
+                    'status' => 1,
+                    'msg' => "上传文件成功"
+                );
+            }
+        } else {
+            return array(
+                'status' => 0,
+                'msg' => "上传文件空"
+            );
         }
     }
 
