@@ -13,6 +13,13 @@
 <script src="__PUBLIC__/js/pintuer.js"></script>
 <script src="__PUBLIC__/js/layer.js"></script>
 <script type="text/javascript">
+    function js_method(url){
+    	if (url.substr(0,1).toLowerCase()=="#"){
+			return true;
+    	}else{
+    		window.open(url);
+    	}
+    }
 	function del(id, name){
 			layer.confirm('确认删除系列【'+name+'】？', function(index){
 				$.ajax({
@@ -103,7 +110,7 @@
 					<td>{$vo.name}</td>
 					<td><img src="__ROOT__/{$vo.save_path}{$vo.image_name}" alt="" width="50" height="50" /></td>
 					<td>
-					<a class="button border-main" href="{$vo.tburl}" target="_blank">淘宝链接</a>
+					<a class="button border-main" href="javascript:void(0);"  onclick="js_method({$vo.tburl});" >淘宝链接</a>
 					 </td>
 					<td>{$vo.moddate}</td>
 					<td><if condition="$vo.status == 0 ">下架<else />展示 </if></td>
