@@ -20,7 +20,7 @@ class IndexController extends CommonController
         header("Content-Type:text/html; charset=utf-8");
         $this->display('index', 'utf-8');
     }
-    
+
     public function Webuploader()
     {
         $uploader = new Uploader();
@@ -47,7 +47,7 @@ class IndexController extends CommonController
         $this->assign("info", $infos['info']);
         $this->display('help', 'utf-8');
     }
-    
+
     public function HelpUpload()
     {
         header("Content-Type:text/html; charset=utf-8");
@@ -61,7 +61,7 @@ class IndexController extends CommonController
                 //echo '<script>parent.ckeditorUpload("'.__ROOT__.$up['msg'].'");</script>';
                 $callback =$_REQUEST["CKEditorFuncNum"];
                 echo "<script type=\"text/javascript\">";
-                echo "parent.CKEDITOR.tools.callFunction(". $callback . ",'" .__ROOT__.$up['msg']. "','')"; 
+                echo "parent.CKEDITOR.tools.callFunction(". $callback . ",'" .__ROOT__.$up['msg']. "','')";
                 echo"</script>";
             }
         }
@@ -192,9 +192,7 @@ class IndexController extends CommonController
         $status = isset($_POST['status']) ? $_POST['status'] : - 1;
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
         $count = $cartoon->getCartoonsAllCount($series_id, $status, $keywords);
-        $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $pagenum);
 
-        $serielist = $series->getAllValidSeries();
         $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
         $Page->setConfig('header', '共%TOTAL_ROW%条');
         $Page->setConfig('first', '首页');
@@ -204,6 +202,13 @@ class IndexController extends CommonController
         $Page->setConfig('link', 'indexpagenumb'); // pagenumb 会替换成页码
         $Page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
         $page = $Page->show();
+
+
+        $cartoonList = $cartoon->getCartoonList($series_id, $status, $keywords, $Page);
+//         var_dump($cartoonList);
+//         var_dump($pagenum);
+        $serielist = $series->getAllValidSeries();
+
         $this->assign("page", $page);
         $this->assign("serielist", $serielist);
         $this->assign("cartoonList", $cartoonList);
@@ -415,7 +420,7 @@ class IndexController extends CommonController
             $sid = isset($_POST['sid']) ? $_POST['sid'] : '';
             $name = isset($_POST['name']) ? $_POST['name'] : '';
             $status = isset($_POST['status']) ? $_POST['status'] : '';
-            
+
             $ret = $programa->queryColumnBySIdAndName($sid, $name);
             if ($ret) {
                 $this->error("这个栏目的名称已经存在，请更换名称！");

@@ -306,7 +306,7 @@ class Toys
         $molde->where($where)->select();
     }
 
-    public function getCartoonList($series_id, $status, $cartoon_name, $p)
+    public function getCartoonList($series_id, $status, $cartoon_name, $Page)
     {
         $column = D("Series");
         $where["series.status"] = 1;
@@ -337,7 +337,7 @@ class Toys
         );
         return $column->join($join)
             ->where($where)
-            ->limit($p * C("DEFAULT_PAGESIZE"), C("DEFAULT_PAGESIZE"))
+            ->limit($Page->firstRow.','.$Page->listRows)
             ->field($field)
             ->select();
     }
