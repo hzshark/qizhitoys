@@ -284,6 +284,9 @@ class IndexController extends CommonController
             $id = isset($_GET['id']) ? $_GET['id'] : - 1;
             $toy = $toys->getCompagesToysById($id);
             $showimg = $toys->getCompagesToysDetail($id);
+            $series = new Series();
+            $serielist = $series->getAllValidSeries();
+            $this->assign("serielist", $serielist);
             $this->assign("toy", $toy);
             $this->assign("showimg", $showimg);
             $this->display('editCartoon', 'utf-8');
@@ -517,8 +520,7 @@ class IndexController extends CommonController
         $status = isset($_POST['status']) ? $_POST['status'] : - 1;
         $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
         $count = $toy->getShoppingCount($series_id, $status, $keywords);
-        $shoppingList = $toy->getShoppings($series_id, $status, $keywords, $pagenum);
-        $programalist = $programa->getAllValidColumn();
+
         $Page = new \Think\Page($count, C("DEFAULT_PAGESIZE")); // 实例化分页类 传入总记录数和每页显示的记录数
         $Page->setConfig('header', '共%TOTAL_ROW%条');
         $Page->setConfig('first', '首页');
@@ -528,6 +530,10 @@ class IndexController extends CommonController
         $Page->setConfig('link', 'indexpagenumb'); // pagenumb 会替换成页码
         $Page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
         $page = $Page->show();
+
+        $shoppingList = $toy->getShoppings($series_id, $status, $keywords, $Page);
+        $programalist = $programa->getAllValidColumn();
+
         $this->assign("page", $page);
         $this->assign("programalist", $programalist);
         $this->assign("shoppingList", $shoppingList);

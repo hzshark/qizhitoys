@@ -137,7 +137,7 @@ class Toys
             ->join($join1)
             ->join($join2)
             ->field($field)
-            ->limit($p * C("DEFAULT_PAGESIZE"), C("DEFAULT_PAGESIZE"))
+            ->limit($p->firstRow.','.$p->listRows)
             ->select();
         }
     }
