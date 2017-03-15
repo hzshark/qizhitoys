@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/css/pintuer.css">
+<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+<link rel="stylesheet"
+	href="__PUBLIC__/webuploader-0.1.5/webuploader.css">
+<link rel="stylesheet" href="__PUBLIC__/css/webuploader.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/pintuer.js"></script>
+<script src="__PUBLIC__/js/html5media.min.js"></script>
+<script src="__PUBLIC__/webuploader-0.1.5/webuploader.js"></script>
+<script src="__PUBLIC__/js/webuploader.js"></script>
+<style type="text/css">
+.btn {
+	position: relative;
+	overflow: hidden;
+	margin-right: 4px;
+	display: inline-block;
+	*display: inline;
+	padding: 4px 10px 4px;
+	font-size: 14px;
+	line-height: 18px;
+	*line-height: 20px;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #5bb75b;
+	border: 1px solid #cccccc;
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-bottom-color: #b3b3b3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.btn input {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	border: solid transparent;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	cursor: pointer;
+}
+
+@media screen and (max-width: 360px) {
+	.demo {
+		width: 340px
+	}
+}
+</style>
+<script src="__PUBLIC__/js/layer.js"></script>
+<script type="text/javascript">
+	//建立一個可存取到該file的url
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+	$(function() {
+		$("#pre_img").on("change",function() {
+			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+			if (objUrl) {
+				$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
+			}
+		});
+
+		$(":radio").click(function() {
+			var showtype = $('input[name="showtype"]:checked').val();
+			if ("video" == showtype) {
+				$("#pre_title").html("演示视频");
+				$("#pre_btn").html("添加演示视频")
+			} else {
+				$("#pre_title").html("演示图片")
+				$("#pre_btn").html("添加演示图片")
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="panel admin-panel">
+		<div class="panel-head" id="add">
+			<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
+		</div>
+		<div class="body-content">
+			<form method="post" class="form-x" name="EditCartoon" action="EditCartoon" enctype="multipart/form-data"  target="right" >
+			<input type="hidden" name="id" value="{$toy.id}">
+				<div class="form-group">
+					<div class="label">
+						<label>所属系列：</label>
+					</div>
+					<div class="field">
+						<select name="Seriesname" class="input w50"  data-validate="required:请选择分类">
+							<option value="">请选择分类</option>
+							<foreach name="serielist" item="vo">
+							<option value="{$vo.id}" <eq name="vo.id" value="$toy.series_id">selected = "selected"</eq>>{$vo.name}</option>
+							</foreach>
+						</select>
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>演示类型：</label>
+					</div>
+					<div class="field">
+						<input id="showtype" name="showtype" type="radio" value="video" <eq name="toy.show_type" value="pic">checked="true"</eq> />动画
+						<input id="showtype" name="showtype" type="radio" value="pic" <eq name="toy.show_type" value="video">checked="true"</eq> /> 图片
+						<div class="tips"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>动画名称：</label>
+					</div>
+					<div class="field">
+						<input type="text" class="input" name="cartoonname" value="toy.name" data-validate="required:请输入动画名称"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label>预览图片：</label>
+					</div>
+					<div class="field">
+						<div id="up_status" style="display: none">
+							<img src="__PUBLIC__/images/loader.gif" alt="uploading" />
+						</div>
+						<div id="up_btn" class="btn">
+							<span>添加预览图片</span> <input id="pre_img" type="file" name="pre_img" />
+						</div>
+						<p>最大100KB，支持jpg，gif，png格式。</p>
+						<div id="preview_img"><img src="__ROOT__{$toy.image_name}" height="100" width="100" /></div>
+					</div>
+				</div>
+				<!--  -->
+				<div class="form-group">
+					<div class="label">
+						<label id="pre_title">演示图片：</label>
+					</div>
+					<div id="uploader_input"></div>
+					<div class="field" id="uploader">
+						<div class="queueList">
+							<div id="dndArea" class="placeholder">
+								<div id="filePicker" class="webuploader-container">
+									<div class="webuploader-pick">点击选择图片</div>
+									<div id="rt_rt_1b5scflnccqdfdps091amo1ngg1"
+										style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;">
+										<input type="file" name="file"
+											class="webuploader-element-invisible" multiple="multiple"
+											accept="image/*"><label
+											style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+									</div>
+								</div>
+								<p>或将图片或动画拖到这里，单次最多可选10张</p>
+							</div>
+							<ul class="filelist" style="display: none;"></ul>
+						</div>
+						<div class="statusBar element-invisible" style="">
+							<div class="progress" style="display: none;">
+								<span class="text">0%</span> <span class="percentage"
+									style="width: 0%;"></span>
+							</div>
+							<div class="info">共0张（0B），已上传0张</div>
+							<div class="btns">
+								<div id="filePicker2" class="webuploader-container">
+									<div class="webuploader-pick">继续添加</div>
+									<div id="rt_rt_1b5scflnj66v1dq3ngf1dms6mm6"
+										style="position: absolute; top: 0px; left: 10px; width: 94px; height: 42px; overflow: hidden; bottom: auto; right: auto;">
+										<input type="file" name="file"
+											class="webuploader-element-invisible" multiple="multiple"
+											accept="image/*"> <label
+											style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);">
+										</label>
+									</div>
+								</div>
+								<div class="uploadBtn state-pedding">开始上传</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
+						<label></label>
+					</div>
+					<div class="field">
+						<button class="button bg-main icon-check-square-o uploadBtn" type="submit">提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
