@@ -153,7 +153,7 @@ class Toys
         if ($status > - 1) {
             $where['compages_toys.status'] = $status;
         }
-        if (! empty($cartoon_name)) {
+        if (isset($cartoon_name)) {
             $where['compages_toys.name'] = array(
                 "like",
                 "%" . $cartoon_name . "%"
@@ -317,7 +317,7 @@ class Toys
         if ($status > - 1) {
             $where['compages_toys.status'] = $status;
         }
-        if (! empty($cartoon_name)) {
+        if (isset($cartoon_name)) {
             $where['compages_toys.name'] = array(
                 "like",
                 "%" . $cartoon_name . "%"
