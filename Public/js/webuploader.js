@@ -209,19 +209,22 @@ jQuery(function() {
                 $wrap.css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((file.rotation/90)%4 + 4)%4) +')');
                 // use jquery animate to rotation
                 // $({
-                //     rotation: rotation
+                // rotation: rotation
                 // }).animate({
-                //     rotation: file.rotation
+                // rotation: file.rotation
                 // }, {
-                //     easing: 'linear',
-                //     step: function( now ) {
-                //         now = now * Math.PI / 180;
+                // easing: 'linear',
+                // step: function( now ) {
+                // now = now * Math.PI / 180;
 
-                //         var cos = Math.cos( now ),
-                //             sin = Math.sin( now );
+                // var cos = Math.cos( now ),
+                // sin = Math.sin( now );
 
-                //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
-                //     }
+                // $wrap.css( 'filter',
+				// "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos +
+				// ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos +
+				// ",SizingMethod='auto expand')");
+                // }
                 // });
             }
 
@@ -434,11 +437,24 @@ jQuery(function() {
     updateTotalProgress();
  // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadAccept', function(object , response ) {
-    	//alert(response);
+    	// alert(response);
     	input_html = "<input type=\"hidden\" name=\"uploader_files[]\" value="+response[0]+">";
     	$("#uploader_input").append(input_html);
         //
-        //console.log(response);
-        //alert(input_html);
+        // console.log(response);
+        // alert(input_html);
+    });
+    var toyimg = $("#toyimg").attr("tag_value");
+    uploader.on('ready', function() {
+    	window.uploader = uploader;
+    	// alert(WebUploader.Base.version);
+//    	 alert(WebUploader.File.name);
+    	$("#toyimg").each(function(){
+    		if($(this).attr("value")!="") {
+    			console.log($(this))
+    			addFile($(this));
+    		}
+    		});
+
     });
 });
