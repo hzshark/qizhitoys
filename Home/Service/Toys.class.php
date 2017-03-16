@@ -250,7 +250,7 @@ class Toys
 
 
 
-    public function AddCartoon($series_id, $name, $show_img, $show_type, $file_path = array())
+    public function AddCartoon($series_id, $name, $show_img, $show_type,$status, $file_path = array())
     {
         $compages = D("Compages");
         $data["series_id"] = $series_id;
@@ -259,7 +259,7 @@ class Toys
         $data["show_type"] = $show_type;
         $data["indate"] = date('Y-m-d H:i:s', time());
         $data["moddate"] = $data["indate"];
-        $data["status"] = 0;
+        $data["status"] = $status;
         $compages->add($data);
         $ret = $this-> queryCartoonByNameAndSeriesId($name, $series_id);
         //var_dump($ret);

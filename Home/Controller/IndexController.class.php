@@ -222,6 +222,7 @@ class IndexController extends CommonController
             $seriesid = isset($_POST['Seriesname']) ? $_POST['Seriesname'] : '';
             $showtype = isset($_POST['showtype']) ? $_POST['showtype'] : '';
             $cartoonname = isset($_POST['cartoonname']) ? $_POST['cartoonname'] : 0;
+            $status = I('post.status', 0);
             $uploader = new Uploader();
             $toy = new Toys();
             $showImg = "";
@@ -238,7 +239,7 @@ class IndexController extends CommonController
                 }
                 $dImg = isset($_POST['uploader_files']) ? $_POST['uploader_files'] : [];
 
-                $toy->AddCartoon($seriesid, $cartoonname, $showImg, $showtype, $dImg);
+                $toy->AddCartoon($seriesid, $cartoonname, $showImg, $showtype, $status, $dImg);
 
                 $this->success("添加动画成功!", "Cartoonlist", 3);
             }
