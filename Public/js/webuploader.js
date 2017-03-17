@@ -444,17 +444,6 @@ jQuery(function() {
         // console.log(response);
         // alert(input_html);
     });
-    var toyimg = $("#toyimg").attr("tag_value");
-    uploader.on('ready', function() {
-    	window.uploader = uploader;
-    	// alert(WebUploader.Base.version);
-//    	 alert(WebUploader.File.name);
-    	$("#toyimg").each(function(){
-    		if($(this).attr("value")!="") {
-    			console.log($(this))
-    			addFile($(this));
-    		}
-    		});
-
-    });
+   
+   
 });

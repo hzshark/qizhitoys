@@ -9,13 +9,9 @@
 <title></title>
 <link rel="stylesheet" href="__PUBLIC__/css/pintuer.css">
 <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
-<link rel="stylesheet"
-	href="__PUBLIC__/webuploader-0.1.5/webuploader.css">
-<link rel="stylesheet" href="__PUBLIC__/css/webuploader.css">
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
 <script src="__PUBLIC__/js/html5media.min.js"></script>
-<script src="__PUBLIC__/webuploader-0.1.5/webuploader.js"></script>
 <style type="text/css">
 .btn {
 	position: relative;
@@ -56,21 +52,25 @@
 		width: 340px
 	}
 }
+
+.imgBox {
+	display: inline-block;
+	position: relative;
+}
+
+.imgBox span {
+	top: 0;
+	right: 0;
+	position: absolute;
+	cursor: pointer;
+	display: none;
+}
+
+.imgBox:hover span {
+	display: block;
+}
 </style>
 <script type="text/javascript">
-//js获取项目根路径，如： http://localhost:8083/uimcardprj
-function getRootPath(){
-    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
-    var curWwwPath=window.document.location.href;
-    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
-    var pathName=window.document.location.pathname;
-    var pos=curWwwPath.indexOf(pathName);
-    //获取主机地址，如： http://localhost:8083
-    var localhostPaht=curWwwPath.substring(0,pos);
-    //获取带"/"的项目名，如：/uimcardprj
-    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
-    return(localhostPaht+projectName);
-}
 	//建立一個可存取到該file的url
 	function getObjectURL(file) {
 		var url = null;
@@ -85,11 +85,11 @@ function getRootPath(){
 	}
 	$(function() {
 		$("#pre_img").on("change",function() {
-			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
-			if (objUrl) {
-				$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
-			}
-		});
+							var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+							if (objUrl) {
+								$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
+							}
+						});
 
 		$(":radio").click(function() {
 			var showtype = $('input[name="showtype"]:checked').val();
@@ -101,6 +101,12 @@ function getRootPath(){
 				$("#pre_btn").html("添加演示图片")
 			}
 		});
+		
+		
+        $(document).on('click','.delete',function(){
+            $(this).parents(".imgBox").remove();
+            //ajax
+        })
 	});
 </script>
 </head>
@@ -110,17 +116,20 @@ function getRootPath(){
 			<strong><span class="icon-pencil-square-o"></span>修改内容</strong>
 		</div>
 		<div class="body-content">
-			<form method="post" class="form-x" name="EditCartoon" action="EditCartoon" enctype="multipart/form-data"  target="right" >
-			<input type="hidden" id="id" name="id" value="{$toy.id}">
+			<form method="post" class="form-x" name="EditCartoon"
+				action="EditCartoon" enctype="multipart/form-data" target="right">
+				<input type="hidden" id="id" name="id" value="{$toy.id}">
 				<div class="form-group">
 					<div class="label">
 						<label>所属系列：</label>
 					</div>
 					<div class="field">
-						<select name="Seriesname" class="input w50"  data-validate="required:请选择分类">
+						<select name="Seriesname" class="input w50" data-validate="required:请选择分类">
 							<option value="">请选择分类</option>
 							<foreach name="serielist" item="vo">
-							<option value="{$vo.id}" <eq name="vo.id" value="$toy.series_id">selected = "selected"</eq>>{$vo.name}</option>
+							<option value="{$vo.id}"<eq name="vo.id"
+									value="$toy.series_id">selected = "selected"</eq>>{$vo.name}
+							</option>
 							</foreach>
 						</select>
 						<div class="tips"></div>
@@ -131,8 +140,11 @@ function getRootPath(){
 						<label>演示类型：</label>
 					</div>
 					<div class="field">
-						<input id="showtype" name="showtype" type="radio" value="video" <eq name="toy.show_type" value="video">checked="true"</eq> />动画
-						<input id="showtype" name="showtype" type="radio" value="pic" <eq name="toy.show_type" value="pic">checked="true"</eq> /> 图片
+						<input id="showtype" name="showtype" type="radio" value="video"
+						<eq name="toy.show_type" value="video">checked="true"</eq>
+						/>动画 <input id="showtype" name="showtype" type="radio" value="pic"
+						<eq name="toy.show_type" value="pic">checked="true"</eq>
+						/> 图片
 						<div class="tips"></div>
 					</div>
 				</div>
@@ -141,7 +153,8 @@ function getRootPath(){
 						<label>动画名称：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" name="cartoonname" value="{$toy.name}" data-validate="required:请输入动画名称"/>
+						<input type="text" class="input" name="cartoonname"
+							value="{$toy.name}" data-validate="required:请输入动画名称" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -153,10 +166,13 @@ function getRootPath(){
 							<img src="__PUBLIC__/images/loader.gif" alt="uploading" />
 						</div>
 						<div id="up_btn" class="btn">
-							<span>添加预览图片</span> <input id="pre_img" type="file" name="pre_img" />
+							<span>添加预览图片</span> <input id="pre_img" type="file"
+								name="pre_img" />
 						</div>
 						<p>最大100KB，支持jpg，gif，png格式。</p>
-						<div id="preview_img"><img src="__ROOT__{$toy.image_name}" height="100" width="100" /></div>
+						<div id="preview_img">
+							<img src="__ROOT__{$toy.image_name}" height="100" width="100" />
+						</div>
 					</div>
 				</div>
 				<!--  -->
@@ -164,60 +180,33 @@ function getRootPath(){
 					<div class="label">
 						<label id="pre_title">演示图片：</label>
 					</div>
-					<div id="uploader_input"></div>
-					<div class="field" id="uploader">
-						<div class="queueList">
-							<div id="dndArea" class="placeholder">
-								<div id="filePicker" class="webuploader-container">
-									<div class="webuploader-pick">点击选择图片</div>
-									<div id="rt_rt_1b5scflnccqdfdps091amo1ngg1"
-										style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;">
-										<input type="file" name="file"
-											class="webuploader-element-invisible" multiple="multiple"
-											accept="image/*"><label
-											style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
-									</div>
-								</div>
-								<p>或将图片或动画拖到这里，单次最多可选10张</p>
-							</div>
-							<ul class="filelist" style="display: none;"></ul>
-							<ul class="filelist1" style="display: none;">
-<foreach name="showimg" item="to">
-<input type="file" name="toyimg" id="toyimg"  value="__ROOT__{$to.file_name}" />
-</foreach>
-							</ul>
+					<div class="field">
+						<div id="up_status" style="display: none">
+							<img src="__PUBLIC__/images/loader.gif" alt="uploading" />
 						</div>
-						<div class="statusBar element-invisible" style="">
-							<div class="progress" style="display: none;">
-								<span class="text">0%</span> <span class="percentage"
-									style="width: 0%;"></span>
-							</div>
-							<div class="info">共0张（0B），已上传0张</div>
-							<div class="btns">
-								<div id="filePicker2" class="webuploader-container">
-									<div class="webuploader-pick">继续添加</div>
-									<div id="rt_rt_1b5scflnj66v1dq3ngf1dms6mm6"
-										style="position: absolute; top: 0px; left: 10px; width: 94px; height: 42px; overflow: hidden; bottom: auto; right: auto;">
-										<input type="file" name="file"
-											class="webuploader-element-invisible" multiple="multiple"
-											accept="image/*"> <label
-											style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);">
-										</label>
-									</div>
-								</div>
-								<div class="uploadBtn state-pedding">开始上传</div>
-							</div>
+						<div id="up_btn" class="btn">
+							<span>添加预览图片</span> <input id="pre_img" type="file"
+								name="pre_img" />
+						</div>
+						<p>最大100KB，支持jpg，gif，png格式。</p>
+						<div id="preview_img">
+						<foreach name="showimg" item="img">
+							<div class='imgBox'><span class='delete'>X</span><img id="{$img.id}" src="__ROOT__{img.file_name}" /></div>
+							</foreach>
 						</div>
 					</div>
+					
 				</div>
 				<div class="form-group">
 					<div class="label">
 						<label>状态：</label>
 					</div>
 					<div class="field">
-						<input name="status" type="radio" value="0" <if condition="$toy.status == 0 ">checked="true" </if>>
-						下架</input>
-						<input name="status" type="radio" value="1" <if condition="$toy.status == 1 ">checked="true" </if>> 展示</input>
+						<input name="status" type="radio" value="0"
+						<if condition="$toy.status == 0 ">checked="true" </if>
+						> 下架</input> <input name="status" type="radio" value="1"
+						<if condition="$toy.status == 1 ">checked="true" </if>
+						> 展示</input>
 						<div class="tips"></div>
 					</div>
 				</div>
@@ -226,7 +215,8 @@ function getRootPath(){
 						<label></label>
 					</div>
 					<div class="field">
-						<button class="button bg-main icon-check-square-o uploadBtn" type="submit">提交</button>
+						<button class="button bg-main icon-check-square-o uploadBtn"
+							type="submit">提交</button>
 					</div>
 				</div>
 			</form>
