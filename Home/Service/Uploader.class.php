@@ -90,7 +90,7 @@ class Uploader
             }
             return array(
                 "status" => 0,
-                "msg" => json_encode($pathArr)
+                "msg" => $pathArr
             );
         }
     }

@@ -273,6 +273,18 @@ class Toys
             }
         }
     }
+    public function delToyDetailImage($id){
+        $compages_detail = D("CompagesDetail");
+        $where['id'] = $id;
+        return $compages_detail->where($where)->delete();
+    }
+
+    public function addToyDetailImage($pid, $file_name){
+        $compages_detail = D("CompagesDetail");
+        $detail_data['p_id'] = $pid;
+        $detail_data['file_name'] = $file_name;
+        return $compages_detail->add($detail_data);
+    }
 
         public function updateCartoon($id, $name, $show_type, $status,$show_img, $file_path = array())
         {

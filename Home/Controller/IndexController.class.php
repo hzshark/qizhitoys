@@ -12,7 +12,8 @@ use Home\Service\Uploader;
 use Home\Service\Programa;
 use Home\Service\Home;
 
-class IndexController extends CommonController
+// class IndexController extends CommonController
+class IndexController extends Controller
 {
 
     public function Index()
@@ -21,16 +22,38 @@ class IndexController extends CommonController
         $this->display('index', 'utf-8');
     }
 
+    public function removeToyDetailImg(){
+        header("Content-Type:text/html; charset=utf-8");
+        $id = I('post.id');
+        $toy = new Toys();
+        $ret = $toy->delToyDetailImage($id);
+        $this->show("id=>"+$id);
+    }
+
     public function Webuploader()
     {
         $uploader = new Uploader();
         // 上传文件
         $info = $uploader->Webuploader();
         if (1 == $info["status"]) {
-            $this->error($info["msg"]);
+            $this->error(json_encode($info["msg"]));
         } else {
-            echo $info["msg"];
+            $this->ajaxReturn( $info["msg"]);
         }
+    }
+
+    public function uploadToyImg()
+    {
+        $id = I('post.id');
+        $ret = array('imgid'=>0);
+        $uploader = new Uploader();
+        $info = $uploader->Webuploader();
+        if (0 == $info["status"]) {
+            $toy = new Toys();
+            $ret['imgid'] = $toy->addToyDetailImage($id, $info['msg'][0]);
+        }
+        $ret = array_merge($info, $ret);
+        $this->ajaxReturn($ret);
     }
 
     public function Help()

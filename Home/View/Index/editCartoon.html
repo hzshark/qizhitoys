@@ -12,6 +12,8 @@
 <script src="__PUBLIC__/js/jquery.js"></script>
 <script src="__PUBLIC__/js/pintuer.js"></script>
 <script src="__PUBLIC__/js/html5media.min.js"></script>
+<script src="__PUBLIC__/js/ajaxfileupload.js"></script>
+<script src="__PUBLIC__/js/layer.js"></script>
 <style type="text/css">
 .btn {
 	position: relative;
@@ -56,6 +58,8 @@
 .imgBox {
 	display: inline-block;
 	position: relative;
+	height:100px;
+	width:100px;
 }
 
 .imgBox span {
@@ -66,7 +70,19 @@
 	display: none;
 }
 
+.imgBox div {
+	right: 0;
+	position: absolute;
+	cursor: pointer;
+	display: none;
+    bottom: 0px;
+}
+
 .imgBox:hover span {
+	display: block;
+}
+
+.imgBox:hover div {
 	display: block;
 }
 </style>
@@ -83,6 +99,7 @@
 		}
 		return url;
 	}
+
 	$(function() {
 		$("#pre_img").on("change",function() {
 							var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
@@ -90,6 +107,51 @@
 								$("#preview_img").html('<img src="'+objUrl+'" height="100" width="100" />'); //将图片路径存入src中，显示出图片
 							}
 						});
+
+		$("#show_img").on("change",function() {
+			var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+			if (objUrl) {
+				var imgPath = $("#show_img").val();
+				//判断上传文件的后缀名
+	            var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1).toLowerCase();
+	            if (strExtension != 'jpg' && strExtension != 'gif'
+	            && strExtension != 'png' && strExtension != 'bmp') {
+	                alert("请选择图片文件");
+	                return;
+	            }
+
+	            $("#show_status").show(); //显示上传进度条
+	    		var toy_id = $("#id").val();
+	    		$.ajaxFileUpload({
+	    		    type: "POST",
+	    		    url: "uploadToyImg",
+	    		    data:{id:toy_id},//要传到后台的参数，没有可以不写
+	    		    secureuri : false,//是否启用安全提交，默认为false
+	    		    fileElementId:"show_img",//文件选择框的id属性
+	    		    dataType: 'json',//服务器返回的格式
+	    		    async : false,
+	    		    success: function(data){
+	    		        if(data.status=='0'){
+	    		        	$("#view_1").append('<div class="imgBox">'+
+	    		        			'<span class="delete">X</span>'+
+	    		        			'<img height="100" width="100" id="'+data.imgid+'" src="'+objUrl+'" /></div>');
+	    		        }else{
+	    		        	alert(data.msg);
+	    		        }
+	    		    },
+	    		    error: function (data, status, e){
+	    		        alert("上传失败,"+data.msg);
+	    		    }
+	    		});
+	    		$("#show_status").hide(); //隐藏上传进度条
+
+
+//	            $("#view_1").append('<div class="imgBox">'+
+//	            		'<span class="delete">X</span><div class="btn" id="upload_btn">上传图片</div>'+
+//	            		'<img height="100" width="100" id="{$img.id}" src="'+objUrl+'" /></div>'); //将图片路径存入src中，显示出图片
+			}
+			return ;
+		});
 
 		$(":radio").click(function() {
 			var showtype = $('input[name="showtype"]:checked').val();
@@ -101,12 +163,57 @@
 				$("#pre_btn").html("添加演示图片")
 			}
 		});
-		
-		
+
         $(document).on('click','.delete',function(){
-            $(this).parents(".imgBox").remove();
-            //ajax
-        })
+        	var imgbox = $(this).parents(".imgBox");
+        	var id = imgbox.find('img').attr("id");
+        	if (id == null){
+        		return false;
+        	}
+        	layer.confirm('确认删除？',{offset: 't'}, function(index){
+            $.ajax({
+                type: "POST",
+                url: "removeToyDetailImg",
+                data: { id: id },
+                cache: false,
+                success: function(data) {
+                    alert("删除成功");
+                    imgbox.remove();
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("删除失败，请检查网络后重试");
+                }
+            });
+            layer.close(index);
+        	});
+        });
+
+        $(document).on('click','#upload_btn',function(){
+    		$("#show_status").show(); //显示上传进度条
+    		var toy_id = $("#id").val();
+    		$.ajaxFileUpload({
+    		    type: "POST",
+    		    url: "uploadToyImg",
+    		    data:{id:toy_id},//要传到后台的参数，没有可以不写
+    		    secureuri : false,//是否启用安全提交，默认为false
+    		    fileElementId:"show_img",//文件选择框的id属性
+    		    dataType: 'json',//服务器返回的格式
+    		    async : false,
+    		    success: function(data){
+    		        if(data.result=='success'){
+    		            //coding
+    		        }else{
+    		            //coding
+    		        }
+    		    },
+    		    error: function (data, status, e){
+    		        alert("上传失败,"+data.msg);
+
+    		    }
+    		});
+    		$("#show_status").hide(); //隐藏上传进度条
+    	});
+
 	});
 </script>
 </head>
@@ -181,21 +288,21 @@
 						<label id="pre_title">演示图片：</label>
 					</div>
 					<div class="field">
-						<div id="up_status" style="display: none">
+						<div id="show_btn" class="btn">
+							<span>添加演示图片</span>
+							<input id="show_img" type="file" name="show_img" />
+						</div>
+						<div id="show_status" style="display: none">
 							<img src="__PUBLIC__/images/loader.gif" alt="uploading" />
 						</div>
-						<div id="up_btn" class="btn">
-							<span>添加预览图片</span> <input id="pre_img" type="file"
-								name="pre_img" />
-						</div>
 						<p>最大100KB，支持jpg，gif，png格式。</p>
-						<div id="preview_img">
+						<div id="view_1">
 						<foreach name="showimg" item="img">
-							<div class='imgBox'><span class='delete'>X</span><img id="{$img.id}" src="__ROOT__{img.file_name}" /></div>
+							<div class='imgBox'><span class='delete'>X</span><img height="100" width="100"  id="{$img.id}" src="__ROOT__{$img.file_name}" /></div>
 							</foreach>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="form-group">
 					<div class="label">
@@ -223,6 +330,4 @@
 		</div>
 	</div>
 </body>
-
 </html>
-<script src="__PUBLIC__/js/webuploader.js"></script>
