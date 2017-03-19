@@ -12,8 +12,8 @@ use Home\Service\Uploader;
 use Home\Service\Programa;
 use Home\Service\Home;
 
-// class IndexController extends CommonController
-class IndexController extends Controller
+class IndexController extends CommonController
+// class IndexController extends Controller
 {
 
     public function Index()
